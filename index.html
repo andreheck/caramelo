@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/reasoning.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
@@ -213,6 +214,33 @@
           </div>
           <div class="bars reflection-bars" id="wheelBars"></div>
           <div class="actions"><button class="btn" type="button" id="wheelToJourney">Voltar para a jornada</button></div>
+        </article>
+      </section>
+
+      <section id="reasoning" class="view" aria-labelledby="reasoning-title">
+        <div class="reflection-layout">
+          <aside class="panel quiz-side">
+            <span class="eyebrow">dia 4</span>
+            <h2 id="reasoning-title">Como sua cabeça resolve?</h2>
+            <p id="reasoningProgressText" class="progress-text" aria-live="polite"></p>
+            <div class="meter" aria-hidden="true"><span id="reasoningMeter"></span></div>
+            <p class="microcopy">Desafios curtos de padrão, atenção, priorização e aplicação prática. O resultado descreve esta rodada e não mede inteligência global.</p>
+          </aside>
+          <article class="panel pad question-panel" id="reasoningHost" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="reasoning-result" class="view" aria-labelledby="reasoning-result-title">
+        <article class="panel pad reflection-result">
+          <span class="eyebrow">dia 4 concluído</span>
+          <h2 id="reasoning-result-title">Seu jeito de resolver nesta rodada</h2>
+          <div class="score-layout">
+            <div class="score-disc reasoning-score"><strong id="reasoningScore">0</strong><span>/100</span></div>
+            <div><small>Desempenho observado</small><h3 id="reasoningLevel"></h3><p><strong>Dimensão com melhor desempenho:</strong> <span id="reasoningStrongest"></span></p><p>Use este resultado como pista sobre estratégias que apareceram bem hoje, não como rótulo fixo de capacidade.</p></div>
+          </div>
+          <div class="bars reflection-bars" id="reasoningBars"></div>
+          <div class="notice"><strong>O que entra no mapa final</strong><p>O CARAMELO registra padrões, atenção, priorização e aplicação prática como sinais complementares. Esses dados não substituem avaliação cognitiva profissional.</p></div>
+          <div class="actions"><button class="btn" type="button" id="reasoningToJourney">Voltar para a jornada</button></div>
         </article>
       </section>
     </main>
