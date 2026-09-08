@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Caramelo — Orientação Vocacional</title>
-  <meta name="description" content="Jornada de orientação vocacional com cenários ilustrados, escolha forçada e ranking.">
+  <meta name="description" content="Jornada brasileira de orientação vocacional em 7 dias, com exploração de interesses, contexto, raciocínio e plano de ação.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -21,6 +21,7 @@
       </a>
       <nav class="nav" aria-label="Navegação principal">
         <button type="button" data-view-button="landing">Início</button>
+        <button type="button" data-view-button="journey">Jornada</button>
         <button type="button" data-view-button="methodology">Metodologia</button>
         <button type="button" data-view-button="onboarding">Começar</button>
       </nav>
@@ -32,16 +33,17 @@
           <article class="panel pad hero-copy">
             <span class="eyebrow"><svg aria-hidden="true"><use href="assets/icons.svg#icon-route"></use></svg> orientação vocacional</span>
             <h1 id="landing-title">Descubra caminhos profissionais que combinam com sua forma de pensar, aprender e escolher.</h1>
-            <p class="lead">Uma jornada rápida e personalizada para ajudar você a entender seus interesses, motivações, ambientes favoráveis e possibilidades de futuro.</p>
+            <p class="lead">Uma jornada brasileira de 7 dias para transformar curiosidade em hipóteses de carreira, experiências e próximos passos concretos.</p>
             <div class="actions">
               <button class="btn" type="button" data-go="onboarding">Começar minha jornada</button>
+              <button class="btn secondary" type="button" data-go="journey">Ver os 7 dias</button>
               <button class="btn secondary" type="button" id="demoResultBtn">Ver exemplo de resultado</button>
             </div>
             <div class="stats" aria-label="Resumo da experiência">
-              <div class="stat"><strong>12</strong><span>itens no protótipo atual</span></div>
-              <div class="stat"><strong>5</strong><span>capítulos da jornada</span></div>
+              <div class="stat"><strong>7</strong><span>dias de exploração</span></div>
+              <div class="stat"><strong>50</strong><span>posições na matriz V4</span></div>
               <div class="stat"><strong>10</strong><span>eixos de orientação</span></div>
-              <div class="stat"><strong>7</strong><span>perfis derivados</span></div>
+              <div class="stat"><strong>720</strong><span>XP na jornada-base</span></div>
             </div>
           </article>
 
@@ -62,8 +64,31 @@
         <div class="section-grid three">
           <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-theater"></use></svg><h3>1. Viva pequenas situações</h3><p>Cenários ilustrados aproximam a resposta de comportamentos concretos.</p></article>
           <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-balance"></use></svg><h3>2. Faça escolhas difíceis</h3><p>Pares positivos ajudam a revelar prioridade quando tudo parece importante.</p></article>
-          <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-map"></use></svg><h3>3. Receba um mapa</h3><p>Perfis, eixos, áreas para investigar e próximos passos práticos.</p></article>
+          <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-map"></use></svg><h3>3. Construa um mapa</h3><p>O resultado vira ponto de partida para uma trilha de reflexão e experimentação.</p></article>
         </div>
+      </section>
+
+      <section id="journey" class="view" aria-labelledby="journey-title">
+        <article class="panel pad journey-hero">
+          <div>
+            <span class="eyebrow"><svg aria-hidden="true"><use href="assets/icons.svg#icon-route"></use></svg> sua jornada</span>
+            <h2 id="journey-title">Sete dias para tirar a escolha do campo da ansiedade e colocar no campo da exploração.</h2>
+            <p class="lead">Cada etapa acrescenta uma peça ao seu mapa. O primeiro ciclo não termina em uma profissão: termina em hipóteses melhores e ações possíveis.</p>
+          </div>
+          <div class="xp-panel" aria-label="Progressão da jornada">
+            <small>Seu nível</small>
+            <strong id="journeyLevel">Zé Orelha</strong>
+            <span id="journeyXp">0 XP</span>
+            <div class="meter"><span id="journeyProgress"></span></div>
+            <small id="journeyProgressText">0 de 7 dias concluídos</small>
+            <small id="journeyNextLevel">80 XP para Juvenil</small>
+          </div>
+        </article>
+        <div class="journey-grid" id="journeyGrid"></div>
+        <div class="actions journey-actions">
+          <button class="btn secondary" type="button" id="resetJourneyBtn">Reiniciar progresso complementar</button>
+        </div>
+        <button hidden id="journeyResultBridge" type="button" data-go="results">Abrir resultado</button>
       </section>
 
       <section id="methodology" class="view" aria-labelledby="methodology-title">
@@ -80,7 +105,7 @@
             <strong>Limite importante</strong>
             <p>O Caramelo está em fase de protótipo. Não é diagnóstico psicológico, não é teste aprovado pelo SATEPSI e não possui normas populacionais. O resultado deve ser usado como hipótese para exploração vocacional.</p>
           </div>
-          <p>Documentação completa: <a href="docs/metodologia.md">metodologia</a> e <a href="docs/documentacao-tecnica-v3.md">lógica técnica</a>.</p>
+          <p>Documentação completa: <a href="docs/metodologia.md">metodologia</a>, <a href="docs/documentacao-tecnica-v3.md">lógica técnica</a> e <a href="docs/jornada-7-dias.md">jornada de 7 dias</a>.</p>
         </article>
       </section>
 
@@ -101,7 +126,7 @@
       <section id="quiz" class="view" aria-labelledby="quiz-title">
         <div class="quiz-layout">
           <aside class="panel quiz-side">
-            <span class="eyebrow">sua jornada</span>
+            <span class="eyebrow">dia 1</span>
             <h2 id="quiz-title">Mapa em construção</h2>
             <p id="quizProgressText" class="progress-text" aria-live="polite"></p>
             <div class="meter" aria-hidden="true"><span id="quizMeter"></span></div>
@@ -114,7 +139,7 @@
       <section id="results" class="view" aria-labelledby="results-title">
         <div class="results-grid">
           <article class="panel pad result-main">
-            <span class="eyebrow">seu mapa está pronto</span>
+            <span class="eyebrow">dia 1 concluído</span>
             <h2 id="results-title">Seu Mapa Vocacional Caramelo</h2>
             <div class="profile-card">
               <small>Perfil principal</small>
@@ -131,10 +156,64 @@
             <ol class="plan" id="actionPlan"></ol>
             <div class="actions">
               <button class="btn secondary" type="button" id="copyResultBtn">Copiar resumo</button>
-              <button class="btn" type="button" id="restartBtn">Refazer jornada</button>
+              <button class="btn secondary" type="button" data-go="journey">Ir para o Dia 2</button>
+              <button class="btn" type="button" id="restartBtn">Refazer mapa</button>
             </div>
           </article>
         </div>
+      </section>
+
+      <section id="emotion" class="view" aria-labelledby="emotion-title">
+        <div class="reflection-layout">
+          <aside class="panel quiz-side">
+            <span class="eyebrow">dia 2</span>
+            <h2 id="emotion-title">Como você tá por dentro?</h2>
+            <p id="emotionProgressText" class="progress-text" aria-live="polite"></p>
+            <div class="meter" aria-hidden="true"><span id="emotionMeter"></span></div>
+            <p class="microcopy">Este módulo é uma experiência de autorreflexão. Não é diagnóstico nem substitui avaliação profissional.</p>
+          </aside>
+          <article class="panel pad question-panel" id="emotionHost" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="emotion-result" class="view" aria-labelledby="emotion-result-title">
+        <article class="panel pad reflection-result">
+          <span class="eyebrow">termômetro do momento</span>
+          <h2 id="emotion-result-title">Uma fotografia do seu momento atual</h2>
+          <div class="score-layout">
+            <div class="score-disc"><strong id="emotionScore">0</strong><span>/100</span></div>
+            <div><small>Leitura geral</small><h3 id="emotionLevel"></h3><p>Quanto maior o número, mais leve aparece o momento nas respostas desta experiência.</p><p><strong>Onde mais pegou:</strong> <span id="emotionDominant"></span></p></div>
+          </div>
+          <div class="bars reflection-bars" id="emotionBars"></div>
+          <div class="notice"><strong>Como usar esta leitura</strong><p>Considere o resultado como contexto para suas decisões, não como rótulo. Um momento difícil pode alterar energia e perspectiva sem definir sua vocação.</p></div>
+          <div class="actions"><button class="btn" type="button" id="emotionToJourney">Voltar para a jornada</button></div>
+        </article>
+      </section>
+
+      <section id="life-wheel" class="view" aria-labelledby="wheel-title">
+        <div class="reflection-layout">
+          <aside class="panel quiz-side">
+            <span class="eyebrow">dia 3</span>
+            <h2 id="wheel-title">Sua vida tá no eixo?</h2>
+            <p id="wheelProgressText" class="progress-text" aria-live="polite"></p>
+            <div class="meter" aria-hidden="true"><span id="wheelMeter"></span></div>
+            <p class="microcopy">A roda é uma ferramenta reflexiva própria do CARAMELO e não uma medida psicológica normativa.</p>
+          </aside>
+          <article class="panel pad question-panel" id="wheelHost" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="life-wheel-result" class="view" aria-labelledby="wheel-result-title">
+        <article class="panel pad reflection-result">
+          <span class="eyebrow">roda da vida</span>
+          <h2 id="wheel-result-title">Onde sua energia está sendo mais cobrada?</h2>
+          <div class="score-layout">
+            <div class="score-disc"><strong id="wheelScore">0</strong><span>/100</span></div>
+            <div><small>Equilíbrio percebido</small><h3>Seu maior gargalo hoje: <span id="wheelWorst"></span></h3><p>A prioridade não é resolver tudo ao mesmo tempo. É escolher uma pequena ação que diminua o peso da área que mais está cobrando energia.</p></div>
+          </div>
+          <div class="bars reflection-bars" id="wheelBars"></div>
+          <div class="actions"><button class="btn" type="button" id="wheelToJourney">Voltar para a jornada</button></div>
+        </article>
       </section>
     </main>
   </div>
@@ -143,5 +222,6 @@
 
   <script src="assets/data.js"></script>
   <script src="assets/app.js"></script>
+  <script src="assets/journey.js"></script>
 </body>
 </html>
