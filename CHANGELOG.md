@@ -1,5 +1,22 @@
 # Changelog
 
+## V4 — matriz de itens — 8 de setembro de 2026
+
+### Estrutura do instrumento
+- criada matriz versionada com 50 posições de itens;
+- preservados os 12 itens implementados na V3;
+- adicionadas 38 posições planejadas para expansão;
+- distribuição-alvo definida em 30 cenários ilustrados (A), 15 escolhas forçadas (C) e 5 rankings (D);
+- 10 itens previstos para cada um dos 5 capítulos;
+- cada item passa a registrar foco, eixos, regra de peso, desejabilidade, SVG e status de revisão.
+
+### Governança
+- criada fonte tabular em `data/matriz-itens.csv`;
+- criada documentação de revisão em `docs/matriz-itens.md`;
+- formalizados gates de conteúdo, forced-choice, acessibilidade visual e pontuação;
+- definidos estados de revisão para itens planejados e implementados;
+- reforçada a separação entre especificação de item, pontuação e interpretação editorial.
+
 ## V3 — 8 de setembro de 2026
 
 ### Interface
