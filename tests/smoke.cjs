@@ -40,16 +40,31 @@ const html = fs.readFileSync('index.html', 'utf8');
 for (const id of [
   'journey','journeyGrid','journeyXp','journeyLevel','journeyProgress',
   'emotion','emotionHost','emotion-result','emotionScore','emotionBars',
-  'life-wheel','wheelHost','life-wheel-result','wheelScore','wheelBars'
+  'life-wheel','wheelHost','life-wheel-result','wheelScore','wheelBars',
+  'reasoning','reasoningHost','reasoning-result','reasoningScore','reasoningBars'
 ]) {
   assert(html.includes(`id="${id}"`), `index.html deve conter #${id}`);
 }
 
 assert(html.includes('assets/journey.js'), 'index.html deve carregar assets/journey.js');
+assert(html.includes('assets/reasoning.css'), 'index.html deve carregar assets/reasoning.css');
 
 const journey = fs.readFileSync('assets/journey.js', 'utf8');
-for (const marker of ['DAY_XP','LEVELS','EMOTION_QUESTIONS','WHEEL_AREAS','completeDay']) {
+for (const marker of [
+  'DAY_XP','LEVELS','EMOTION_QUESTIONS','WHEEL_AREAS','completeDay',
+  'REASONING_QUESTIONS','REASONING_DIMENSIONS','calculateReasoning','reasoningResult'
+]) {
   assert(journey.includes(marker), `journey.js deve conter ${marker}`);
 }
 
-console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e telas-base da jornada validados.`);
+for (let i = 1; i <= 8; i++) {
+  assert(journey.includes(`id:"r${i}"`), `Dia 4 deve conter o desafio r${i}`);
+}
+
+for (const dimension of ['padroes','atencao','priorizacao','aplicacao']) {
+  assert(journey.includes(`${dimension}:`), `Dia 4 deve declarar a dimensão ${dimension}`);
+}
+
+assert(journey.includes('{day:4,title:"Como sua cabeça resolve?",subtitle:"Raciocínio e solução de problemas",icon:"brain",implemented:true}'), 'Dia 4 deve estar habilitado');
+
+console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e Dias 1–4 da jornada validados estruturalmente.`);
