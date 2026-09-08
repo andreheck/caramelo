@@ -10,7 +10,7 @@
 - [x] reduzir peso excessivo do ranking;
 - [x] criar matriz de especificação com 50 posições de itens;
 - [x] especificar a jornada principal de 7 dias;
-- [ ] criar bateria de testes automatizados;
+- [x] adicionar bateria mínima de testes automatizados e CI;
 - [ ] revisar todos os ícones em sistema visual único;
 
 ## Fase 1 — Instrumento ampliado
@@ -24,16 +24,16 @@
 
 ## Fase 2 — Jornada de 7 dias
 
-- [ ] Dia 1 — integrar mapa vocacional inicial à jornada;
-- [ ] Dia 2 — implementar Termômetro do Momento com devolutiva não diagnóstica;
-- [ ] Dia 3 — consolidar Roda da Vida com Energia, Foco, Estudo, Grana, Apoio, Autoestima e Direção;
+- [x] Dia 1 — integrar mapa vocacional inicial à jornada;
+- [x] Dia 2 — implementar Termômetro do Momento com devolutiva não diagnóstica;
+- [x] Dia 3 — consolidar Roda da Vida com Energia, Foco, Estudo, Grana, Apoio, Autoestima e Direção;
 - [ ] Dia 4 — criar módulo de raciocínio e solução de problemas;
 - [ ] Dia 5 — criar interpretação e leitura de contexto brasileiro;
 - [ ] Dia 6 — criar situações de entrevista e prontidão profissional;
 - [ ] Dia 7 — consolidar Teu Mapa do Corre e plano de ação 7/30/90 dias;
-- [ ] implementar desbloqueio sequencial, XP e níveis;
-- [ ] garantir XP idempotente ao refazer módulos;
-- [ ] testar retomada de progresso salvo.
+- [x] implementar desbloqueio sequencial, XP e níveis;
+- [x] garantir XP idempotente ao refazer módulos;
+- [ ] testar retomada de progresso salvo em navegador;
 
 Especificação: [`jornada-7-dias.md`](jornada-7-dias.md).
 
