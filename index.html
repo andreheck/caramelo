@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Caramelo — Orientação Vocacional</title>
+  <meta name="description" content="Jornada de orientação vocacional com cenários ilustrados, escolha forçada e ranking.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
+
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#" data-go="landing" aria-label="Caramelo — início">
+        <span class="mark" aria-hidden="true"><svg><use href="assets/icons.svg#icon-compass"></use></svg></span>
+        <span class="brand-title"><strong>CARAMELO</strong><small>carreira com alma brasileira</small></span>
+      </a>
+      <nav class="nav" aria-label="Navegação principal">
+        <button type="button" data-view-button="landing">Início</button>
+        <button type="button" data-view-button="methodology">Metodologia</button>
+        <button type="button" data-view-button="onboarding">Começar</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="landing" class="view active" aria-labelledby="landing-title">
+        <div class="hero">
+          <article class="panel pad hero-copy">
+            <span class="eyebrow"><svg aria-hidden="true"><use href="assets/icons.svg#icon-route"></use></svg> orientação vocacional</span>
+            <h1 id="landing-title">Descubra caminhos profissionais que combinam com sua forma de pensar, aprender e escolher.</h1>
+            <p class="lead">Uma jornada rápida e personalizada para ajudar você a entender seus interesses, motivações, ambientes favoráveis e possibilidades de futuro.</p>
+            <div class="actions">
+              <button class="btn" type="button" data-go="onboarding">Começar minha jornada</button>
+              <button class="btn secondary" type="button" id="demoResultBtn">Ver exemplo de resultado</button>
+            </div>
+            <div class="stats" aria-label="Resumo da experiência">
+              <div class="stat"><strong>12</strong><span>itens no protótipo atual</span></div>
+              <div class="stat"><strong>5</strong><span>capítulos da jornada</span></div>
+              <div class="stat"><strong>10</strong><span>eixos de orientação</span></div>
+              <div class="stat"><strong>7</strong><span>perfis derivados</span></div>
+            </div>
+          </article>
+
+          <aside class="panel visual-panel" aria-label="Prévia visual do Caramelo">
+            <div class="visual-scene">
+              <div class="scene-icon"><svg aria-hidden="true"><use href="assets/icons.svg#icon-compass"></use></svg></div>
+              <strong>Não é sobre achar uma profissão perfeita.</strong>
+              <p>É sobre enxergar possibilidades com mais clareza e testar hipóteses no mundo real.</p>
+            </div>
+            <div class="mini-cards">
+              <div><svg aria-hidden="true"><use href="assets/icons.svg#icon-lightbulb"></use></svg><span>Interesses</span></div>
+              <div><svg aria-hidden="true"><use href="assets/icons.svg#icon-handshake"></use></svg><span>Ambiente</span></div>
+              <div><svg aria-hidden="true"><use href="assets/icons.svg#icon-brain"></use></svg><span>Decisão</span></div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="section-grid three">
+          <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-theater"></use></svg><h3>1. Viva pequenas situações</h3><p>Cenários ilustrados aproximam a resposta de comportamentos concretos.</p></article>
+          <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-balance"></use></svg><h3>2. Faça escolhas difíceis</h3><p>Pares positivos ajudam a revelar prioridade quando tudo parece importante.</p></article>
+          <article class="feature-card"><svg aria-hidden="true"><use href="assets/icons.svg#icon-map"></use></svg><h3>3. Receba um mapa</h3><p>Perfis, eixos, áreas para investigar e próximos passos práticos.</p></article>
+        </div>
+      </section>
+
+      <section id="methodology" class="view" aria-labelledby="methodology-title">
+        <article class="panel pad prose">
+          <span class="eyebrow">como funciona</span>
+          <h2 id="methodology-title">Nossa metodologia</h2>
+          <p class="lead">O Caramelo combina cenários ilustrados, escolhas forçadas e ranking para organizar hipóteses sobre interesses, motivadores, ambientes e estilos de decisão.</p>
+          <div class="method-grid">
+            <div><span class="model-badge">A</span><h3>Cenário ilustrado</h3><p>Situações concretas com alternativas comportamentais e apoio visual por SVG.</p></div>
+            <div><span class="model-badge">C</span><h3>Escolha forçada</h3><p>Duas alternativas positivas colocadas em contraste para explicitar prioridade.</p></div>
+            <div><span class="model-badge">D</span><h3>Ranking</h3><p>Ordenação pontual de prioridades com peso reduzido para não dominar o resultado.</p></div>
+          </div>
+          <div class="notice">
+            <strong>Limite importante</strong>
+            <p>O Caramelo está em fase de protótipo. Não é diagnóstico psicológico, não é teste aprovado pelo SATEPSI e não possui normas populacionais. O resultado deve ser usado como hipótese para exploração vocacional.</p>
+          </div>
+          <p>Documentação completa: <a href="docs/metodologia.md">metodologia</a> e <a href="docs/documentacao-tecnica-v3.md">lógica técnica</a>.</p>
+        </article>
+      </section>
+
+      <section id="onboarding" class="view" aria-labelledby="onboarding-title">
+        <article class="panel pad onboarding-panel">
+          <span class="eyebrow">antes de começar</span>
+          <h2 id="onboarding-title">Qual é o seu momento?</h2>
+          <p class="lead">Isso ajusta a linguagem do resultado e adiciona um pequeno contexto heurístico à leitura.</p>
+          <div class="choice-grid" id="momentGrid">
+            <button class="choice-card selected" type="button" data-moment="ensino-medio" aria-pressed="true"><svg aria-hidden="true"><use href="assets/icons.svg#icon-books"></use></svg><strong>Estou no ensino médio</strong><span>Ainda explorando possibilidades.</span></button>
+            <button class="choice-card" type="button" data-moment="curso-faculdade" aria-pressed="false"><svg aria-hidden="true"><use href="assets/icons.svg#icon-landmark"></use></svg><strong>Estou escolhendo curso ou faculdade</strong><span>Quero comparar caminhos com mais clareza.</span></button>
+            <button class="choice-card" type="button" data-moment="transicao" aria-pressed="false"><svg aria-hidden="true"><use href="assets/icons.svg#icon-route"></use></svg><strong>Quero mudar de área</strong><span>Preciso reorganizar meu próximo ciclo.</span></button>
+          </div>
+          <div class="actions"><button class="btn" type="button" id="startQuizBtn">Começar o teste</button></div>
+        </article>
+      </section>
+
+      <section id="quiz" class="view" aria-labelledby="quiz-title">
+        <div class="quiz-layout">
+          <aside class="panel quiz-side">
+            <span class="eyebrow">sua jornada</span>
+            <h2 id="quiz-title">Mapa em construção</h2>
+            <p id="quizProgressText" class="progress-text" aria-live="polite"></p>
+            <div class="meter" aria-hidden="true"><span id="quizMeter"></span></div>
+            <div id="chapterList" class="chapter-list"></div>
+          </aside>
+          <article class="panel pad question-panel" id="questionHost" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="results" class="view" aria-labelledby="results-title">
+        <div class="results-grid">
+          <article class="panel pad result-main">
+            <span class="eyebrow">seu mapa está pronto</span>
+            <h2 id="results-title">Seu Mapa Vocacional Caramelo</h2>
+            <div class="profile-card">
+              <small>Perfil principal</small>
+              <h3 id="profileName"></h3>
+              <p id="profileSummary"></p>
+            </div>
+            <div class="key-grid" id="keyCards"></div>
+            <h3>Eixos em destaque</h3>
+            <p class="microcopy">Os percentuais mostram intensidade relativa dentro do seu próprio mapa. Não representam percentis populacionais nem normas psicométricas.</p>
+            <div class="bars" id="axisBars"></div>
+            <h3>Áreas para investigar</h3>
+            <div class="chips" id="careerChips"></div>
+            <h3>Plano de ação sugerido</h3>
+            <ol class="plan" id="actionPlan"></ol>
+            <div class="actions">
+              <button class="btn secondary" type="button" id="copyResultBtn">Copiar resumo</button>
+              <button class="btn" type="button" id="restartBtn">Refazer jornada</button>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="assets/data.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
