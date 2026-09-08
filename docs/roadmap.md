@@ -27,7 +27,7 @@
 - [x] Dia 1 — integrar mapa vocacional inicial à jornada;
 - [x] Dia 2 — implementar Termômetro do Momento com devolutiva não diagnóstica;
 - [x] Dia 3 — consolidar Roda da Vida com Energia, Foco, Estudo, Grana, Apoio, Autoestima e Direção;
-- [ ] Dia 4 — criar módulo de raciocínio e solução de problemas;
+- [x] Dia 4 — criar módulo de raciocínio e solução de problemas;
 - [ ] Dia 5 — criar interpretação e leitura de contexto brasileiro;
 - [ ] Dia 6 — criar situações de entrevista e prontidão profissional;
 - [ ] Dia 7 — consolidar Teu Mapa do Corre e plano de ação 7/30/90 dias;
