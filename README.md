@@ -7,7 +7,8 @@ O **Caramelo** é uma experiência digital de orientação vocacional com identi
 ## O que já existe
 
 - jornada navegável em 5 etapas;
-- 12 itens distribuídos em 5 capítulos;
+- 12 itens implementados distribuídos em 5 capítulos;
+- matriz V4 com 50 posições planejadas;
 - modelos A (cenário), C (escolha forçada) e D (ranking);
 - 10 eixos de orientação;
 - 7 perfis derivados;
@@ -26,9 +27,12 @@ caramelo/
 │  ├─ icons.svg               # sprite SVG do produto
 │  ├─ data.js                 # perguntas, eixos, perfis e pesos
 │  └─ app.js                  # estado, navegação, pontuação e resultado
+├─ data/
+│  └─ matriz-itens.csv        # matriz de especificação dos 50 itens
 ├─ docs/
 │  ├─ documentacao-tecnica-v3.md
 │  ├─ metodologia.md
+│  ├─ matriz-itens.md
 │  └─ roadmap.md
 ├─ CHANGELOG.md
 ├─ LICENSE
@@ -51,6 +55,22 @@ A pontuação ocorre em 10 eixos: Investigativo, Criativo, Social, Empreendedor,
 
 Cada resposta adiciona pontos aos eixos. No ranking, os pesos atuais são `[2.5, 2, 1.5, 1, 0.5, 0]`. Os perfis são calculados por soma ponderada dos eixos. As barras do resultado mostram intensidade **relativa ao próprio mapa da pessoa** e não percentis populacionais.
 
+## Matriz de itens
+
+A expansão do instrumento agora é guiada por uma matriz versionada com **50 itens**, sendo:
+
+- 30 cenários ilustrados — Modelo A (60%);
+- 15 escolhas forçadas — Modelo C (30%);
+- 5 rankings — Modelo D (10%);
+- 10 itens em cada um dos 5 capítulos.
+
+Cada registro documenta capítulo, formato, foco conceitual, eixos, regra de peso, controle de desejabilidade, SVG e status de revisão.
+
+- Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
+- Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
+
+Os 12 itens atuais foram preservados e 38 novas posições foram especificadas para os próximos ciclos de redação, revisão visual e piloto.
+
 ## Referências metodológicas
 
 O desenvolvimento considera boas práticas de avaliação e orientação profissional, com referência ao SATEPSI/CFP e a modelos amplamente usados em interesses vocacionais, traços de personalidade e desenvolvimento de carreira. Essas referências orientam o desenho do produto; não significam que o Caramelo, em sua versão atual, seja um teste psicológico validado ou aprovado.
@@ -60,10 +80,10 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Próximos passos
 
-1. expandir o banco para 40–60 itens;
-2. equilibrar oportunidades de pontuação por eixo;
-3. revisar os pares de escolha forçada quanto à desejabilidade;
-4. criar matriz de especificação por capítulo/eixo;
+1. redigir os 38 itens planejados a partir da matriz;
+2. revisar pares forced-choice quanto à equivalência de desejabilidade;
+3. equilibrar oportunidades e máximos teóricos de pontuação por eixo;
+4. criar os SVGs previstos para os novos cenários;
 5. testar cognitivamente as perguntas com usuários;
 6. implementar testes automatizados de navegação e cálculo;
 7. preparar backend, consentimento e governança LGPD antes de armazenar dados pessoais;
@@ -71,4 +91,4 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Histórico
 
-A V3 consolida a troca dos emojis por SVGs, melhora acessibilidade, reduz o peso do ranking, adiciona persistência local e documenta as regras internas da aplicação. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+A V3 consolida a troca dos emojis por SVGs, melhora acessibilidade, reduz o peso do ranking, adiciona persistência local e documenta as regras internas da aplicação. A matriz V4 passa a orientar a expansão do banco para 50 itens. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
