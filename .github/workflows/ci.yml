@@ -1,0 +1,28 @@
+name: CARAMELO CI
+
+on:
+  push:
+    branches: [main, 'feat/**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/data.js
+          node --check assets/app.js
+          node --check assets/journey.js
+
+      - name: Run structural smoke tests
+        run: node tests/smoke.cjs
