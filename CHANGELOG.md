@@ -1,5 +1,24 @@
 # Changelog
 
+## V4 — Capítulo 1 completo — 8 de setembro de 2026
+
+### Banco de itens
+- implementados `q13` a `q20`, fechando o Capítulo 1 com 10 itens;
+- composição atual do capítulo: 7 cenários ilustrados, 2 escolhas forçadas e 1 ranking;
+- total do protótipo ampliado de 12 para 20 itens executáveis;
+- `q19` marcado para revisão específica de equivalência de desejabilidade;
+- `q20` marcado para revisão do efeito do ranking sobre a pontuação.
+
+### Interface e ativos
+- os novos itens reutilizam SVGs já existentes no sprite;
+- evitada expansão do pack visual antes da revisão de conteúdo;
+- landing atualizada para informar 20 itens implementados.
+
+### Governança
+- matriz `data/matriz-itens.csv` sincronizada com o estado executável;
+- `docs/matriz-itens.md` atualizado para registrar 20 itens implementados e 30 planejados;
+- próximo gate definido como auditoria dos máximos teóricos e oportunidades de pontuação por eixo.
+
 ## V4 — matriz de itens — 8 de setembro de 2026
 
 ### Estrutura do instrumento
