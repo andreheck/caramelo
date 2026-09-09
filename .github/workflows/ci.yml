@@ -34,6 +34,7 @@ jobs:
           node --check assets/day6.js
           node --check assets/day7.js
           node --check assets/demo-v4.js
+          node --check assets/journey-ui.js
 
       - name: Run structural smoke tests
         run: node tests/smoke.cjs
