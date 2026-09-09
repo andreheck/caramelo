@@ -13,7 +13,7 @@
     };
   }
 
-  ['assets/journey-ui.css','assets/visual-v1.css'].forEach(href=>{
+  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css'].forEach(href=>{
     if(document.querySelector(`link[href="${href}"]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
@@ -21,9 +21,10 @@
     document.head.appendChild(link);
   });
 
-  if(!document.querySelector('script[src="assets/journey-ui.js"]')){
+  ['assets/journey-ui.js','assets/result-rings.js'].forEach(src=>{
+    if(document.querySelector(`script[src="${src}"]`)) return;
     const script=document.createElement('script');
-    script.src='assets/journey-ui.js';
+    script.src=src;
     document.body.appendChild(script);
-  }
+  });
 })();
