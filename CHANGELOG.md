@@ -1,5 +1,34 @@
 # Changelog
 
+## MVP — Perfis visuais V1 — 9 de setembro de 2026
+
+### Identidade dos resultados
+- definida direção comum **neo-cordel digital brasileiro** para os sete perfis, com linguagem editorial contemporânea e sem estereótipos profissionais;
+- criado `docs/perfis-visuais-v1.md` com briefing, paleta, composição, prompt-base, cenas e critérios específicos para cada perfil;
+- definidos nomes estáveis para artes finais em `assets/profiles/<profile-id>.webp`.
+
+### Interface
+- criada camada `assets/profile-visuals.css` para cards editoriais de perfil;
+- criado `assets/profile-visuals.js` para renderizar identidade visual no resultado do Dia 1 e no Mapa do Corre do Dia 7;
+- enquanto a arte final não existir, cada perfil usa fallback gráfico próprio com cor, símbolo e palavras-chave;
+- imagens finais entram automaticamente quando disponíveis e falhas de carregamento retornam ao fallback sem imagem quebrada.
+
+### Governança
+- identidade visual permanece camada editorial e não altera scoring, eixos ou perfis;
+- CI e smoke tests passam a proteger os sete IDs de perfil, carregamento da camada e fallback de imagem.
+
+## MVP — Resultado smartwatch V1 — 9 de setembro de 2026
+
+### Visualização
+- adicionada leitura dos cinco eixos de maior intensidade por anéis concêntricos inspirados em smartwatch;
+- aplicada no resultado do Dia 1 e na síntese do Dia 7;
+- centro do gráfico destaca o perfil principal e legenda mantém nome do eixo + percentual estrutural;
+- barras tradicionais permanecem disponíveis para detalhamento e acessibilidade.
+
+### Interpretação
+- os valores continuam representando proporção do máximo estrutural disponível em cada eixo;
+- não são percentis populacionais nem comparação normativa com outras pessoas.
+
 ## MVP — Redesign visual V1 — 9 de setembro de 2026
 
 ### Direção visual
