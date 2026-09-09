@@ -58,8 +58,8 @@ for (const dimension of ['literal','inferencia','intencao','instrucao']) assert(
 for (const id of ['reading','readingHost','reading-result','readingScore','readingBars']) assert(day5.includes(`id="${id}"`), `Dia 5 deve injetar #${id}`);
 assert(day5.includes('J.completeDay(DAY,XP)'), 'Dia 5 deve concluir a etapa usando XP idempotente da jornada');
 assert(day5.includes('window.CARAMELO_DAY5'), 'Dia 5 deve expor seu módulo para integração');
-assert(day5.includes("assets/day6.js"), 'Dia 5 deve carregar o módulo do Dia 6');
-assert(day5.includes("assets/day6.css"), 'Dia 5 deve carregar o CSS do Dia 6');
+assert(day5.includes('assets/day6.js'), 'Dia 5 deve carregar o módulo do Dia 6');
+assert(day5.includes('assets/day6.css'), 'Dia 5 deve carregar o CSS do Dia 6');
 
 const day6 = fs.readFileSync('assets/day6.js', 'utf8');
 for (let i = 1; i <= 14; i++) assert(day6.includes(`id:"i${i}"`), `Dia 6 deve conter a situação i${i}`);
@@ -69,6 +69,20 @@ assert(day6.includes('J.completeDay(DAY,XP)'), 'Dia 6 deve concluir a etapa usan
 assert(day6.includes('profilePhoto'), 'Dia 6 deve suportar foto opcional local');
 assert(day6.includes('canvas.toDataURL'), 'Dia 6 deve reduzir a foto no navegador');
 assert(day6.includes('window.CARAMELO_DAY6'), 'Dia 6 deve expor seu módulo para integração');
+assert(day6.includes('assets/day7.js'), 'Dia 6 deve carregar o módulo do Dia 7');
+assert(day6.includes('assets/day7.css'), 'Dia 6 deve carregar o CSS do Dia 7');
 assert(fs.existsSync('assets/day6.css'), 'Dia 6 deve possuir CSS próprio');
 
-console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e Dias 1–6 da jornada validados estruturalmente.`);
+const day7 = fs.readFileSync('assets/day7.js', 'utf8');
+for (const marker of ['buildMap','vocationalScores','rankedProfiles','dominantArchetypes','careerHypotheses','actionPlan','J.completeDay(DAY,XP)','window.CARAMELO_DAY7']) assert(day7.includes(marker), `Dia 7 deve conter ${marker}`);
+for (const id of ['final-map','finalProfile','finalAxes','finalSignals','finalContext','finalCareers','finalTimeline','finalLevel','finalXp']) assert(day7.includes(`id="${id}"`), `Dia 7 deve injetar #${id}`);
+for (const key of ['fogo','terra','ar','agua']) assert(day7.includes(`${key}:`), `Dia 7 deve preservar a camada narrativa ${key}`);
+assert(day7.includes('emotionScore'), 'Dia 7 deve incorporar contexto emocional sem usá-lo como filtro de carreira');
+assert(day7.includes('wheelWorst'), 'Dia 7 deve incorporar o contexto da Roda da Vida');
+assert(day7.includes('reasoningScore'), 'Dia 7 deve incorporar raciocínio observado');
+assert(day7.includes('readingScore'), 'Dia 7 deve incorporar leitura aplicada');
+assert(day7.includes('readiness'), 'Dia 7 deve incorporar prontidão profissional');
+assert(day7.includes('d7') && day7.includes('d30') && day7.includes('d90'), 'Dia 7 deve gerar plano de ação 7/30/90 dias');
+assert(fs.existsSync('assets/day7.css'), 'Dia 7 deve possuir CSS próprio');
+
+console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e jornada completa de 7 dias validada estruturalmente.`);
