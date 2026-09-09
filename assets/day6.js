@@ -1,0 +1,272 @@
+(()=>{
+  const J=window.CARAMELO_JOURNEY;
+  if(!J)return;
+
+  const state=J.state;
+  const STORAGE_KEY="caramelo:v4:journey";
+  const DAY=6;
+  const XP=120;
+  const DIMENSIONS={
+    preparacao:"Preparação",
+    comunicacao:"Comunicação",
+    responsabilidade:"Responsabilidade",
+    adaptabilidade:"Adaptabilidade",
+    autoconsciencia:"Autoconsciência",
+    profissionalismo:"Postura profissional",
+    resolucao:"Resolução de problemas"
+  };
+  const QUESTIONS=[
+    {id:"i1",dimension:"preparacao",icon:"microphone",title:"A entrevista começa com: “Conta um pouco sobre você.”",context:"Qual resposta tende a abrir melhor a conversa?",options:[
+      {label:"Conto minha história inteira desde a escola, sem me preocupar com o tempo.",score:1},
+      {label:"Faço um resumo curto de quem sou, experiências relevantes e por que essa oportunidade conversa com meu momento.",score:3},
+      {label:"Digo que está tudo no currículo e espero a próxima pergunta.",score:0},
+      {label:"Falo apenas de hobbies para parecer mais descontraído.",score:1}
+    ]},
+    {id:"i2",dimension:"preparacao",icon:"search",title:"Perguntam: “O que você sabe sobre a nossa empresa?”",context:"Você tem alguns minutos para responder.",options:[
+      {label:"Improviso elogios genéricos para não admitir que pesquisei pouco.",score:1},
+      {label:"Digo que não sei nada, porque prefiro conhecer a empresa só depois de entrar.",score:0},
+      {label:"Cito o que pesquisei sobre atuação, produto ou contexto e conecto isso ao meu interesse pela vaga.",score:3},
+      {label:"Repito a descrição da vaga quase palavra por palavra.",score:2}
+    ]},
+    {id:"i3",dimension:"comunicacao",icon:"messages",title:"O entrevistador faz uma pergunta que você não entendeu bem.",context:"Você percebe que responder no impulso pode levar para outro assunto.",options:[
+      {label:"Peço que ele repita ou esclareça o ponto antes de responder.",score:3},
+      {label:"Respondo qualquer coisa para não parecer inseguro.",score:0},
+      {label:"Fico em silêncio esperando outra pergunta.",score:0},
+      {label:"Começo uma resposta longa até descobrir no meio o que ele queria saber.",score:1}
+    ]},
+    {id:"i4",dimension:"comunicacao",icon:"community",title:"Em uma dinâmica de grupo, duas pessoas estão falando quase o tempo todo.",context:"Você tem uma ideia relevante que ainda não apareceu.",options:[
+      {label:"Interrompo e tento assumir a liderança imediatamente.",score:1},
+      {label:"Não falo nada; é melhor não correr risco.",score:0},
+      {label:"Espero uma abertura, apresento a ideia de forma objetiva e ajudo a incluir quem ainda não participou.",score:3},
+      {label:"Falo apenas com quem está ao meu lado para ver se concorda comigo.",score:1}
+    ]},
+    {id:"i5",dimension:"responsabilidade",icon:"route",title:"No caminho para a entrevista, você percebe que vai se atrasar.",context:"Ainda faltam 25 minutos para o horário marcado e houve um problema no transporte.",options:[
+      {label:"Aviso assim que percebo o atraso, explico de forma breve e informo uma nova previsão de chegada.",score:3},
+      {label:"Espero chegar e explico pessoalmente.",score:1},
+      {label:"Culpo o transporte e digo que não havia nada que eu pudesse fazer.",score:0},
+      {label:"Desisto da entrevista para evitar constrangimento.",score:0}
+    ]},
+    {id:"i6",dimension:"responsabilidade",icon:"wrench",title:"Você descobre um erro seu em uma tarefa que já foi enviada.",context:"O erro pode ser corrigido, mas outra pessoa precisa saber do impacto.",options:[
+      {label:"Corrijo escondido e torço para ninguém perceber.",score:1},
+      {label:"Aviso o responsável, assumo minha parte, explico o impacto e proponho a correção.",score:3},
+      {label:"Procuro alguém que também tenha participado para dividir a culpa.",score:0},
+      {label:"Espero alguém encontrar o erro primeiro.",score:0}
+    ]},
+    {id:"i7",dimension:"adaptabilidade",icon:"wind",title:"No meio de uma tarefa, a prioridade do projeto muda.",context:"Parte do trabalho que você já fez talvez precise ser refeita.",options:[
+      {label:"Continuo no plano original porque mudar agora seria desperdício.",score:0},
+      {label:"Entendo a nova prioridade, confirmo o que ainda é aproveitável e reorganizo a execução.",score:3},
+      {label:"Recomeço tudo imediatamente sem confirmar o que mudou.",score:1},
+      {label:"Paro de trabalhar até alguém montar um plano completo para mim.",score:1}
+    ]},
+    {id:"i8",dimension:"adaptabilidade",icon:"flask",title:"A vaga exige uma ferramenta que você nunca usou.",context:"Você conhece ferramentas parecidas, mas não aquela específica.",options:[
+      {label:"Digo que domino a ferramenta para não perder a oportunidade.",score:0},
+      {label:"Digo que não conheço, explico experiências próximas e como costumo aprender uma ferramenta nova.",score:3},
+      {label:"Falo que ferramentas não importam porque todas são iguais.",score:1},
+      {label:"Evito responder diretamente e mudo de assunto.",score:0}
+    ]},
+    {id:"i9",dimension:"autoconsciencia",icon:"lotus",title:"Perguntam sobre um ponto que você ainda precisa desenvolver.",context:"Qual abordagem mostra melhor consciência sem transformar a resposta em autossabotagem?",options:[
+      {label:"Digo que meu defeito é ser perfeccionista demais.",score:1},
+      {label:"Digo que não consigo lembrar de nenhum ponto fraco.",score:0},
+      {label:"Trago um ponto real, explico como ele aparece e o que estou fazendo para evoluir.",score:3},
+      {label:"Escolho um problema grave e digo que ainda não pensei em como melhorar.",score:1}
+    ]},
+    {id:"i10",dimension:"autoconsciencia",icon:"clipboard",title:"Você recebe um feedback difícil sobre sua comunicação.",context:"A pessoa diz que às vezes suas mensagens ficam confusas.",options:[
+      {label:"Peço um exemplo, tento entender o padrão e combino uma forma concreta de melhorar.",score:3},
+      {label:"Explico que as outras pessoas é que precisam prestar mais atenção.",score:0},
+      {label:"Concordo com tudo, mesmo sem entender, para encerrar a conversa.",score:1},
+      {label:"Evito mandar mensagens a partir daí.",score:0}
+    ]},
+    {id:"i11",dimension:"profissionalismo",icon:"receipt",title:"Perguntam sua pretensão salarial e você não quer responder no escuro.",context:"Você pesquisou uma faixa, mas ainda quer entender melhor o escopo da vaga.",options:[
+      {label:"Dou um valor muito baixo para aumentar minhas chances.",score:0},
+      {label:"Recuso qualquer conversa sobre remuneração.",score:1},
+      {label:"Apresento uma faixa coerente com minha pesquisa e pergunto sobre escopo e pacote para contextualizar.",score:3},
+      {label:"Digo apenas que aceito qualquer valor oferecido.",score:0}
+    ]},
+    {id:"i12",dimension:"profissionalismo",icon:"handshake",title:"A entrevista termina e você gostou da oportunidade.",context:"Qual próximo passo é mais adequado?",options:[
+      {label:"Envio várias mensagens no mesmo dia perguntando se fui aprovado.",score:0},
+      {label:"Agradeço de forma breve e, se fizer sentido, reforço interesse e disponibilidade para próximos passos.",score:3},
+      {label:"Não respondo mais nada até a empresa me procurar.",score:1},
+      {label:"Adiciono todos os entrevistadores em todas as redes sociais imediatamente.",score:0}
+    ]},
+    {id:"i13",dimension:"resolucao",icon:"kanban",title:"No primeiro dia, você recebe uma tarefa com instruções vagas.",context:"Você sabe o tema, mas não está claro o que precisa ser entregue nem para quando.",options:[
+      {label:"Faço do jeito que imagino e entrego quando achar pronto.",score:1},
+      {label:"Confirmo objetivo, formato esperado, prazo e critério de sucesso antes de avançar demais.",score:3},
+      {label:"Espero alguém perceber que faltam instruções.",score:0},
+      {label:"Copio uma entrega antiga sem perguntar se ainda vale.",score:1}
+    ]},
+    {id:"i14",dimension:"resolucao",icon:"balance",title:"Duas pessoas pedem tarefas urgentes ao mesmo tempo.",context:"Você não consegue concluir as duas no prazo solicitado.",options:[
+      {label:"Escolho a tarefa da pessoa com cargo mais alto sem falar com ninguém.",score:1},
+      {label:"Tento fazer as duas escondendo que o prazo é inviável.",score:0},
+      {label:"Comparo impacto e prazo, explico o conflito e alinho qual prioridade deve vir primeiro.",score:3},
+      {label:"Deixo as duas para depois porque a situação ficou confusa.",score:0}
+    ]}
+  ];
+
+  const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+  function icon(name){return `<svg aria-hidden="true"><use href="assets/icons.svg#icon-${name}"></use></svg>`}
+  function toast(msg){const e=$("#toast");if(!e)return;e.textContent=msg;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2200)}
+  function openView(view){
+    $$('.view').forEach(v=>v.classList.toggle('active',v.id===view));
+    $$('[data-view-button]').forEach(b=>b.setAttribute('aria-current',b.dataset.viewButton===view?'page':'false'));
+    scrollTo({top:0,behavior:'smooth'});
+  }
+  function ensureState(){
+    if(!Number.isInteger(state.readinessIndex))state.readinessIndex=0;
+    if(!state.readinessAnswers||typeof state.readinessAnswers!=="object")state.readinessAnswers={};
+    if(state.readinessResult===undefined)state.readinessResult=null;
+    if(state.profilePhoto===undefined)state.profilePhoto=null;
+  }
+  function injectViews(){
+    if($('#readiness-intro'))return;
+    const main=$('#main');if(!main)return;
+    main.insertAdjacentHTML('beforeend',`
+      <section id="readiness-intro" class="view" aria-labelledby="readiness-intro-title">
+        <article class="panel pad readiness-intro-card">
+          <div>
+            <span class="eyebrow">dia 6 · preparação para o corre</span>
+            <h2 id="readiness-intro-title">Você tá pronto pro corre?</h2>
+            <p class="lead">Você vai passar por 14 situações comuns de entrevista, processo seletivo e começo de trabalho. Escolha a resposta que mais se aproxima do que você faria.</p>
+            <div class="notice"><strong>Não é prova de personalidade.</strong><p>As situações funcionam como treino e leitura de repertório profissional. O resultado é educativo e não deve ser usado sozinho para selecionar ou excluir pessoas.</p></div>
+            <div class="actions"><button class="btn" type="button" id="readinessStartBtn">Começar as situações</button><button class="btn secondary" type="button" id="readinessIntroBack">Voltar para a jornada</button></div>
+          </div>
+          <aside class="photo-card">
+            <div class="photo-preview" id="readinessPhotoPreview"><span>EU</span></div>
+            <strong>Quer aparecer no centro do seu mapa?</strong>
+            <p>Opcional. A foto é reduzida no navegador e fica apenas no armazenamento local deste dispositivo.</p>
+            <label class="btn secondary photo-label" for="readinessPhotoInput">Escolher foto</label>
+            <input id="readinessPhotoInput" type="file" accept="image/*" hidden>
+            <button class="text-button" id="readinessPhotoRemove" type="button">Remover foto</button>
+          </aside>
+        </article>
+      </section>
+
+      <section id="readiness" class="view" aria-labelledby="readiness-title">
+        <div class="reflection-layout">
+          <aside class="panel quiz-side">
+            <span class="eyebrow">dia 6</span>
+            <h2 id="readiness-title">Você tá pronto pro corre?</h2>
+            <p id="readinessProgressText" class="progress-text" aria-live="polite"></p>
+            <div class="meter" aria-hidden="true"><span id="readinessMeter"></span></div>
+            <p class="microcopy">Escolha a resposta mais próxima do que você faria hoje. Este módulo é educativo e situacional, não uma avaliação psicológica normativa.</p>
+          </aside>
+          <article class="panel pad question-panel" id="readinessHost" aria-live="polite"></article>
+        </div>
+      </section>
+
+      <section id="readiness-result" class="view" aria-labelledby="readiness-result-title">
+        <article class="panel pad reflection-result readiness-result-card">
+          <span class="eyebrow">dia 6 concluído</span>
+          <h2 id="readiness-result-title">Seu mapa de prontidão profissional</h2>
+          <div class="readiness-summary">
+            <div class="readiness-orbit" id="readinessOrbit" aria-label="Mapa circular das dimensões de prontidão">
+              <div class="readiness-avatar" id="readinessAvatar"><span>EU</span></div>
+            </div>
+            <div class="readiness-copy">
+              <div class="score-disc readiness-score"><strong id="readinessScore">0</strong><span>/100</span></div>
+              <small>Leitura geral</small><h3 id="readinessLevel"></h3>
+              <p><strong>Recurso mais presente:</strong> <span id="readinessStrongest"></span></p>
+              <p><strong>Melhor próximo treino:</strong> <span id="readinessPriority"></span></p>
+            </div>
+          </div>
+          <div class="bars reflection-bars" id="readinessBars"></div>
+          <div class="notice"><strong>Como usar isso na prática</strong><p>Escolha a dimensão com menor pontuação e faça um treino concreto antes da próxima entrevista: ensaie uma resposta, pesquise uma empresa, peça feedback ou simule uma situação difícil.</p></div>
+          <div class="actions"><button class="btn" type="button" id="readinessToJourney">Voltar para a jornada</button></div>
+        </article>
+      </section>`);
+
+    $('#readinessStartBtn').onclick=()=>startQuestions();
+    $('#readinessIntroBack').onclick=()=>openView('journey');
+    $('#readinessToJourney').onclick=()=>{J.renderJourney();openView('journey')};
+    $('#readinessPhotoInput').onchange=e=>handlePhoto(e.target.files?.[0]);
+    $('#readinessPhotoRemove').onclick=()=>{state.profilePhoto=null;save();renderPhoto();renderResult()};
+  }
+  function renderPhoto(){
+    const nodes=[$('#readinessPhotoPreview'),$('#readinessAvatar')].filter(Boolean);
+    nodes.forEach(node=>{node.innerHTML=state.profilePhoto?`<img src="${state.profilePhoto}" alt="Foto escolhida para o mapa de prontidão">`:'<span>EU</span>'});
+    const remove=$('#readinessPhotoRemove');if(remove)remove.hidden=!state.profilePhoto;
+  }
+  function handlePhoto(file){
+    if(!file||!file.type.startsWith('image/')){toast('Escolha um arquivo de imagem.');return}
+    if(file.size>12*1024*1024){toast('Escolha uma imagem com até 12 MB.');return}
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        const size=Math.min(img.width,img.height),sx=(img.width-size)/2,sy=(img.height-size)/2;
+        const canvas=document.createElement('canvas');canvas.width=320;canvas.height=320;
+        canvas.getContext('2d').drawImage(img,sx,sy,size,size,0,0,320,320);
+        state.profilePhoto=canvas.toDataURL('image/jpeg',.78);save();renderPhoto();
+      };
+      img.onerror=()=>toast('Não consegui abrir essa imagem.');
+      img.src=reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  function start(){
+    if(!state.completedDays.includes(5)){toast('Conclua o Dia 5 primeiro.');return}
+    ensureState();injectViews();renderPhoto();openView('readiness-intro');
+  }
+  function startQuestions(){state.readinessIndex=0;save();openView('readiness');render()}
+  function render(){
+    const host=$('#readinessHost');if(!host)return;
+    const i=state.readinessIndex,q=QUESTIONS[i],selected=state.readinessAnswers[q.id];
+    $('#readinessProgressText').textContent=`Situação ${i+1} de ${QUESTIONS.length}`;
+    $('#readinessMeter').style.width=`${Math.round((i+1)/QUESTIONS.length*100)}%`;
+    host.innerHTML=`<div class="wheel-question-icon readiness-question-icon">${icon(q.icon)}</div><span class="eyebrow">${DIMENSIONS[q.dimension]}</span><h2 class="question-title">${q.title}</h2><div class="logic-context readiness-context">${q.context}</div><div class="reflection-options readiness-options">${q.options.map((o,n)=>`<button type="button" class="reflection-option ${selected===n?'selected':''}" data-readiness-value="${n}" aria-pressed="${selected===n}"><strong>${o.label}</strong></button>`).join('')}</div><div class="question-actions"><button class="btn secondary" id="readinessBack" type="button">${i===0?'Voltar à introdução':'Situação anterior'}</button><button class="btn" id="readinessNext" type="button">${i===QUESTIONS.length-1?'Ver meu mapa':'Próxima situação'}</button></div>`;
+    $$('[data-readiness-value]').forEach(b=>b.onclick=()=>{state.readinessAnswers[q.id]=Number(b.dataset.readinessValue);save();render()});
+    $('#readinessBack').onclick=()=>{if(i===0){renderPhoto();return openView('readiness-intro')}state.readinessIndex--;save();render()};
+    $('#readinessNext').onclick=()=>{
+      if(state.readinessAnswers[q.id]===undefined){toast('Escolha uma alternativa para continuar.');return}
+      if(i<QUESTIONS.length-1){state.readinessIndex++;save();render();scrollTo({top:0,behavior:'smooth'})}
+      else calculate();
+    };
+  }
+  function calculate(){
+    if(QUESTIONS.some(q=>state.readinessAnswers[q.id]===undefined)){toast('Ainda faltam situações.');return}
+    const dimensions=Object.keys(DIMENSIONS).reduce((o,k)=>(o[k]={points:0,max:0},o),{});
+    let points=0,max=0;
+    QUESTIONS.forEach(q=>{
+      const option=q.options[state.readinessAnswers[q.id]],score=option?.score??0;
+      points+=score;max+=3;dimensions[q.dimension].points+=score;dimensions[q.dimension].max+=3;
+    });
+    const score=Math.round(points/max*100);
+    const ranked=Object.entries(dimensions).map(([key,d])=>({key,pct:Math.round(d.points/d.max*100)})).sort((a,b)=>b.pct-a.pct);
+    const strongest=ranked[0].key,priority=ranked[ranked.length-1].key;
+    const level=score>=85?"Prontidão bem consistente nesta rodada":score>=65?"Boa base para processos seletivos":score>=45?"Repertório em construção":"Bom momento para treinar situações-chave";
+    state.readinessResult={score,points,max,dimensions,strongest,priority,level};
+    J.completeDay(DAY,XP);save();renderResult();openView('readiness-result');
+  }
+  function renderResult(){
+    const r=state.readinessResult;if(!r||!$('#readinessScore'))return;
+    $('#readinessScore').textContent=r.score;$('#readinessLevel').textContent=r.level;
+    $('#readinessStrongest').textContent=DIMENSIONS[r.strongest];$('#readinessPriority').textContent=DIMENSIONS[r.priority];
+    $('#readinessBars').innerHTML=Object.entries(DIMENSIONS).map(([key,label])=>{const d=r.dimensions[key],pc=Math.round(d.points/d.max*100);return `<div class="bar-row"><span>${label}</span><div class="bar-track" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pc}"><div class="bar-fill readiness-fill" style="width:${pc}%"></div></div><span>${pc}%</span></div>`}).join('');
+    const orbit=$('#readinessOrbit');
+    if(orbit){
+      orbit.querySelectorAll('.orbit-tag').forEach(n=>n.remove());
+      Object.entries(DIMENSIONS).forEach(([key,label],i)=>{const d=r.dimensions[key],pc=Math.round(d.points/d.max*100),tag=document.createElement('div');tag.className=`orbit-tag orbit-pos-${i+1}`;tag.innerHTML=`<strong>${pc}%</strong><span>${label}</span>`;orbit.appendChild(tag)});
+    }
+    renderPhoto();
+  }
+  function patchJourneyCard(){
+    const button=$('[data-journey-day="6"]');if(!button)return;
+    const card=button.closest('.journey-card'),status=card?.querySelector('.journey-status');
+    const done=state.completedDays.includes(6),available=state.completedDays.includes(5)&&!done;
+    if(done){card?.classList.remove('active','soon','locked');card?.classList.add('done');if(status)status.textContent="Concluído";button.disabled=false;button.textContent="Rever etapa"}
+    else if(available){card?.classList.remove('done','soon','locked');card?.classList.add('active');if(status)status.textContent="Disponível agora";button.disabled=false;button.textContent="Começar"}
+  }
+  function resetOwnState(){state.readinessIndex=0;state.readinessAnswers={};state.readinessResult=null;state.profilePhoto=null;save()}
+
+  ensureState();injectViews();patchJourneyCard();renderPhoto();renderResult();
+  document.addEventListener('click',e=>{
+    const button=e.target.closest?.('[data-journey-day="6"]');if(!button)return;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(state.completedDays.includes(6)||state.completedDays.includes(5))start();else toast('Conclua o Dia 5 primeiro.');
+  },true);
+  const grid=$('#journeyGrid');if(grid)new MutationObserver(()=>patchJourneyCard()).observe(grid,{childList:true,subtree:true});
+  $('#resetJourneyBtn')?.addEventListener('click',()=>setTimeout(()=>{resetOwnState();patchJourneyCard();renderPhoto()},0));
+
+  window.CARAMELO_DAY6={start,render,calculate,questions:QUESTIONS,dimensions:DIMENSIONS};
+})();
