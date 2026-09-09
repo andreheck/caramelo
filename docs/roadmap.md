@@ -30,12 +30,29 @@
 - [x] Dia 4 — criar módulo de raciocínio e solução de problemas;
 - [x] Dia 5 — criar interpretação e leitura de contexto brasileiro;
 - [x] Dia 6 — criar situações de entrevista e prontidão profissional;
-- [ ] Dia 7 — consolidar Teu Mapa do Corre e plano de ação 7/30/90 dias;
+- [x] Dia 7 — consolidar Teu Mapa do Corre e plano de ação 7/30/90 dias;
 - [x] implementar desbloqueio sequencial, XP e níveis;
 - [x] garantir XP idempotente ao refazer módulos;
 - [ ] testar retomada de progresso salvo em navegador;
 
 Especificação: [`jornada-7-dias.md`](jornada-7-dias.md).
+
+## Marco MVP — próximo ciclo
+
+Objetivo: transformar a jornada funcional atual em uma versão navegável, testável e apresentável para usuários reais.
+
+- [ ] executar teste ponta a ponta em navegador dos 7 dias;
+- [ ] corrigir bugs de navegação, retomada e reset;
+- [ ] revisar responsividade mobile;
+- [ ] revisar contraste, foco e navegação por teclado;
+- [ ] unificar sistema visual de ícones e estados;
+- [ ] revisar microcopy para público de 16+ anos;
+- [ ] criar consentimento, aviso de privacidade e explicação de limites;
+- [ ] definir persistência do MVP: local-first ou backend mínimo;
+- [ ] preparar modo demonstração para apresentação sem preencher toda a jornada;
+- [ ] revisar impressão/PDF do Teu Mapa do Corre;
+- [ ] criar checklist de teste com 5–10 usuários piloto;
+- [ ] versionar release `v0.1.0-mvp` após validação do fluxo completo.
 
 ## Fase 3 — Pesquisa com usuários
 
