@@ -1,5 +1,28 @@
 # Changelog
 
+## V4 — Capítulo 4 completo — 8 de setembro de 2026
+
+### Banco de itens
+- implementados `q36` a `q42`, fechando o Capítulo 4 — “Onde eu funciono melhor”;
+- total do protótipo ampliado para **42 itens executáveis**;
+- novos itens cobrem configuração de equipe, estilo de liderança, clima do ambiente, forma de meta, previsibilidade × variedade, decisão compartilhada × autonomia e prioridades do ambiente.
+
+### Pontuação
+- máximos estruturais recalculados para os 42 itens;
+- mantida normalização estrutural dos 10 eixos;
+- rankings seguem com pesos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
+- momento de carreira permanece fora do cálculo e atua apenas na interpretação.
+
+### Design de conteúdo
+- reforçada a separação entre preferências de ambiente e interesses ocupacionais;
+- ampliada a cobertura de Autonomia, Estabilidade, Social, Propósito e Reconhecimento sem transformar esses eixos em rótulos de profissão;
+- `q40` e `q41` permanecem sujeitos a revisão empírica de equivalência de desejabilidade;
+- `q42` deve ser acompanhado na auditoria final pelo efeito agregado dos rankings.
+
+### Governança
+- landing e README atualizados para 42 itens executáveis;
+- próximo ciclo definido como fechamento do Capítulo 5 e auditoria estrutural dos 50 itens.
+
 ## V4 — Capítulo 3 completo — 8 de setembro de 2026
 
 ### Banco de itens
