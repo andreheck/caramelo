@@ -48,6 +48,8 @@ for (const id of [
 
 assert(html.includes('assets/journey.js'), 'index.html deve carregar assets/journey.js');
 assert(html.includes('assets/reasoning.css'), 'index.html deve carregar assets/reasoning.css');
+assert(html.includes('assets/day5.js'), 'index.html deve carregar assets/day5.js');
+assert(html.includes('assets/day5.css'), 'index.html deve carregar assets/day5.css');
 
 const journey = fs.readFileSync('assets/journey.js', 'utf8');
 for (const marker of [
@@ -67,4 +69,17 @@ for (const dimension of ['padroes','atencao','priorizacao','aplicacao']) {
 
 assert(journey.includes('{day:4,title:"Como sua cabeça resolve?",subtitle:"Raciocínio e solução de problemas",icon:"brain",implemented:true}'), 'Dia 4 deve estar habilitado');
 
-console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e Dias 1–4 da jornada validados estruturalmente.`);
+const day5 = fs.readFileSync('assets/day5.js', 'utf8');
+for (let i = 1; i <= 8; i++) {
+  assert(day5.includes(`id:"t${i}"`), `Dia 5 deve conter a situação t${i}`);
+}
+for (const dimension of ['literal','inferencia','intencao','instrucao']) {
+  assert(day5.includes(`${dimension}:`), `Dia 5 deve declarar a dimensão ${dimension}`);
+}
+for (const id of ['reading','readingHost','reading-result','readingScore','readingBars']) {
+  assert(day5.includes(`id="${id}"`), `Dia 5 deve injetar #${id}`);
+}
+assert(day5.includes('J.completeDay(DAY,XP)'), 'Dia 5 deve concluir a etapa usando XP idempotente da jornada');
+assert(day5.includes('window.CARAMELO_DAY5'), 'Dia 5 deve expor seu módulo para integração');
+
+console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis e Dias 1–5 da jornada validados estruturalmente.`);
