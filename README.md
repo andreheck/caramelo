@@ -7,9 +7,10 @@ O **Caramelo** é uma experiência digital de orientação vocacional com identi
 ## O que já existe
 
 - jornada navegável em 5 etapas;
-- **28 itens implementados**;
+- **35 itens implementados**;
 - Capítulo 1 completo — “Quem sou em movimento”;
 - Capítulo 2 completo — “Como resolvo problemas”;
+- Capítulo 3 completo — “O que me atrai no mundo”;
 - matriz V4 com 50 posições planejadas;
 - modelos A (cenário), C (escolha forçada) e D (ranking);
 - 10 eixos de orientação;
@@ -31,6 +32,7 @@ caramelo/
 │  ├─ data.js
 │  ├─ chapter1-v4.js
 │  ├─ chapter2-v4.js
+│  ├─ chapter3-v4.js
 │  ├─ scoring-v4.js
 │  └─ app.js
 ├─ data/
@@ -62,7 +64,7 @@ A pontuação ocorre em 10 eixos: Investigativo, Criativo, Social, Empreendedor,
 
 Cada resposta adiciona pontos aos eixos. Rankings usam pesos reduzidos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]` para funcionar como refinamento, e não como componente dominante. Os eixos são normalizados pelo máximo estrutural disponível na versão atual antes do cálculo dos perfis.
 
-O momento de carreira — ensino médio, escolha de curso/faculdade ou transição — **não altera mais a pontuação**. Ele é usado apenas para adaptar a interpretação e os próximos passos.
+O momento de carreira — ensino médio, escolha de curso/faculdade ou transição — **não altera a pontuação**. Ele é usado apenas para adaptar a interpretação e os próximos passos.
 
 As barras do resultado mostram a proporção do máximo estrutural disponível em cada eixo. Elas não representam percentis populacionais nem normas psicométricas.
 
@@ -75,7 +77,7 @@ A expansão do instrumento é guiada por uma matriz versionada com **50 itens**,
 - 5 rankings — Modelo D (10%);
 - 10 itens em cada um dos 5 capítulos.
 
-Neste momento, **28 itens estão implementados e 22 permanecem planejados**.
+Neste momento, **35 itens estão implementados e 15 permanecem planejados**.
 
 - Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
 - Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
@@ -90,7 +92,7 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Próximos passos
 
-1. implementar o Capítulo 3 — “O que me atrai no mundo” (`q29` a `q35`);
+1. implementar o Capítulo 4 — “Onde eu funciono melhor” (`q36` a `q42`);
 2. revisar pares forced-choice quanto à equivalência de desejabilidade;
 3. repetir a auditoria de máximos e simulação após cada capítulo completo;
 4. ampliar o pack SVG quando os novos itens exigirem cenas não cobertas pelo sprite atual;
@@ -101,4 +103,4 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Histórico
 
-A V4 consolida a matriz de 50 itens, completa os dois primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+A V4 consolida a matriz de 50 itens, completa os três primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).

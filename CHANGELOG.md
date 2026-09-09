@@ -1,5 +1,27 @@
 # Changelog
 
+## V4 — Capítulo 3 completo — 8 de setembro de 2026
+
+### Banco de itens
+- implementados `q29` a `q35`, fechando o Capítulo 3 — “O que me atrai no mundo”;
+- total do protótipo ampliado para **35 itens executáveis**;
+- novos itens cobrem atenção espontânea, papel em projeto social, atividade preferida, tipo de transformação desejada, curiosidade sustentada, criação × melhoria e reconhecimento × domínio técnico.
+
+### Diferenciação conceitual
+- introduzida distinção mais explícita entre **cuidado direto com pessoas** e **impacto social sistêmico**;
+- reforçada separação entre criatividade autoral, execução prática, profundidade técnica e visibilidade profissional;
+- `q32` foi desenhado especificamente para ajudar a diferenciar Cuidador Estratégico de Transformador Social sem alterar artificialmente os pesos dos perfis.
+
+### Pontuação
+- máximos estruturais recalculados para os 35 itens;
+- mantida normalização estrutural dos 10 eixos;
+- rankings seguem com pesos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
+- momento de carreira permanece fora do cálculo e atua apenas na interpretação.
+
+### Governança
+- matriz `data/matriz-itens.csv` atualizada para 35 itens implementados e 15 planejados;
+- README e landing sincronizados com o estado atual da aplicação.
+
 ## V4 — Capítulo 2 completo — 8 de setembro de 2026
 
 ### Banco de itens

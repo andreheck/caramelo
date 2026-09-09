@@ -5,24 +5,24 @@
   // Ranking funciona como refinamento, e não como força dominante do resultado.
   data.rankWeights = [1.5, 1.2, 0.9, 0.6, 0.3, 0];
 
-  // Máximo estrutural por eixo considerando os 28 itens implementados e os
-  // pesos de ranking acima. Esses valores são apenas referências internas de
-  // escala e NÃO correspondem a normas populacionais.
+  // Máximo estrutural por eixo considerando os 35 itens implementados e os
+  // pesos de ranking acima. Esses valores são referências internas de escala
+  // e NÃO correspondem a normas populacionais.
   data.axisStructuralMax = {
-    investigativo: 55,
-    criativo: 40,
-    social: 56,
-    empreendedor: 39.5,
-    organizador: 52.5,
-    pratico: 51,
-    autonomia: 34,
-    estabilidade: 24,
-    proposito: 24,
-    reconhecimento: 17
+    investigativo: 67,
+    criativo: 55,
+    social: 71,
+    empreendedor: 48.5,
+    organizador: 58.5,
+    pratico: 62,
+    autonomia: 36,
+    estabilidade: 26,
+    proposito: 32,
+    reconhecimento: 23
   };
 
   // O momento de carreira afeta apenas a interpretação textual.
   data.useMomentBoosts = false;
-  data.scoringModel = "structural-normalized-v2";
-  data.version = "4.1.0-prototype";
+  data.scoringModel = "structural-normalized-v3";
+  data.version = "4.2.0-prototype";
 })();
