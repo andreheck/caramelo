@@ -13,12 +13,14 @@
     };
   }
 
-  if(!document.querySelector('link[href="assets/journey-ui.css"]')){
+  ['assets/journey-ui.css','assets/visual-v1.css'].forEach(href=>{
+    if(document.querySelector(`link[href="${href}"]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href='assets/journey-ui.css';
+    link.href=href;
     document.head.appendChild(link);
-  }
+  });
+
   if(!document.querySelector('script[src="assets/journey-ui.js"]')){
     const script=document.createElement('script');
     script.src='assets/journey-ui.js';

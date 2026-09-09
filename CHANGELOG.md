@@ -1,5 +1,30 @@
 # Changelog
 
+## MVP — Redesign visual V1 — 9 de setembro de 2026
+
+### Direção visual
+- criada a camada `assets/visual-v1.css` como tema visual isolado sobre o MVP existente;
+- adotada paleta brasileira contemporânea com verde profundo, azul, amarelo, caramelo e fundo palha, evitando uso literal da bandeira;
+- tipografia e hierarquia ajustadas para reduzir a aparência industrial e aproximar o produto de uma experiência mais humana e editorial;
+- cards, botões, painéis e áreas de conteúdo ganharam mais respiro, profundidade leve e variação visual entre etapas.
+
+### Jornada
+- landing, onboarding, Dia 1, Dias 2–6 e visão da jornada foram harmonizados pela mesma linguagem visual;
+- marcador superior continua sendo a referência global de posição na jornada e foi adaptado ao novo tema;
+- mantidas as transições leves e o respeito a `prefers-reduced-motion`.
+
+### Resultado
+- Dia 7 recebeu apenas harmonização visual nesta etapa;
+- visual de resultado com círculos concêntricos inspirado em smartwatch permanece como etapa seguinte, separado do redesign geral para não misturar estrutura e visualização de dados.
+
+### Responsividade
+- incluídos ajustes específicos para 980px, 850px, 620px e 420px;
+- navegação, cards, jornada, questionários e ações foram compactados para preparar o MVP para validação mobile.
+
+### Governança
+- nenhuma regra de scoring, item ou persistência foi alterada;
+- smoke test atualizado para exigir existência e carregamento do tema visual V1.
+
 ## V4 — Capítulo 5 completo — 8 de setembro de 2026
 
 ### Banco de itens

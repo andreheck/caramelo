@@ -56,13 +56,19 @@ assert(day7.includes('scoringModel'),'Mapa final deve registrar o modelo de scor
 const demo=fs.readFileSync('assets/demo-v4.js','utf8');
 assert(demo.includes('assets/journey-ui.css'),'Camada de UX deve carregar o CSS do marcador global');
 assert(demo.includes('assets/journey-ui.js'),'Camada de UX deve carregar o JS do marcador global');
+assert(demo.includes('assets/visual-v1.css'),'Tema visual V1 deve ser carregado');
 assert(fs.existsSync('assets/journey-ui.css'),'CSS do marcador global deve existir');
 assert(fs.existsSync('assets/journey-ui.js'),'JS do marcador global deve existir');
+assert(fs.existsSync('assets/visual-v1.css'),'Tema visual V1 deve existir');
 const journeyUi=fs.readFileSync('assets/journey-ui.js','utf8');
 assert(journeyUi.includes('Dia ${day} de 7'),'Marcador deve informar posição na jornada');
 assert(journeyUi.includes('prefers-reduced-motion')===false,'Preferência de movimento deve ficar no CSS, não duplicada no JS');
 const journeyUiCss=fs.readFileSync('assets/journey-ui.css','utf8');
 assert(journeyUiCss.includes('prefers-reduced-motion'),'Transições devem respeitar preferência por movimento reduzido');
 assert(journeyUiCss.includes('journey-top-progress'),'CSS deve estilizar marcador superior');
+const visualCss=fs.readFileSync('assets/visual-v1.css','utf8');
+for(const token of ['--green','--blue','--yellow','--caramel'])assert(visualCss.includes(token),`Tema visual deve declarar ${token}`);
+assert(visualCss.includes('@media(max-width:620px)'),'Tema visual deve ter breakpoint mobile principal');
+assert(visualCss.includes('prefers-reduced-motion'),'Tema visual deve respeitar movimento reduzido');
 
-console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis, 5 capítulos e jornada MVP V4 estruturalmente consistente.`);
+console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis, 5 capítulos, jornada MVP V4 e tema visual V1 estruturalmente consistentes.`);
