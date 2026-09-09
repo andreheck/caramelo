@@ -1,5 +1,32 @@
 # Changelog
 
+## V4 — auditoria e normalização de pontuação — 8 de setembro de 2026
+
+### Auditoria estrutural
+- auditados os 20 itens implementados;
+- levantadas oportunidades de pontuação e máximos estruturais dos 10 eixos;
+- identificada concentração excessiva de perfis no cálculo por escores brutos;
+- identificada influência desproporcional dos rankings em Estabilidade e Reconhecimento;
+- identificada mudança de perfil em cerca de 7,6% dos casos simulados ao alterar apenas o momento de carreira.
+
+### Correções
+- ranking reduzido de `[2.5, 2, 1.5, 1, 0.5, 0]` para `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
+- `momentBoosts` removidos da pontuação e mantidos apenas como histórico/interpretacao;
+- eixos passam a ser normalizados pelo máximo estrutural disponível nos 20 itens atuais;
+- perfis passam a ser calculados a partir dos eixos normalizados;
+- pesos internos de cada perfil são normalizados pela própria soma antes da comparação;
+- barras do resultado passam a representar proporção do máximo estrutural do eixo, e não comparação com o maior eixo individual.
+
+### Simulação
+- no modelo anterior, Cuidador Estratégico, Construtor Organizado e Explorador Analítico concentravam cerca de 81% dos perfis principais em respostas aleatórias;
+- após normalização estrutural, a distribuição simulada ficou significativamente mais espalhada entre os sete perfis;
+- registrada alta semelhança estrutural entre Cuidador Estratégico e Transformador Social como pendência para os próximos capítulos.
+
+### Documentação
+- criada `docs/auditoria-pontuacao-v4.md` com critérios, resultados, decisões e pendências;
+- criada camada `assets/scoring-v4.js` para manter as regras de escala separadas do banco de itens;
+- persistência local migra para chave V4 para não misturar estados calculados com regras anteriores.
+
 ## V4 — Capítulo 1 completo — 8 de setembro de 2026
 
 ### Banco de itens

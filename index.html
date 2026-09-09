@@ -88,7 +88,7 @@
         <article class="panel pad onboarding-panel">
           <span class="eyebrow">antes de começar</span>
           <h2 id="onboarding-title">Qual é o seu momento?</h2>
-          <p class="lead">Isso ajusta a linguagem do resultado e adiciona um pequeno contexto heurístico à leitura.</p>
+          <p class="lead">Isso adapta a linguagem e os próximos passos do resultado, sem alterar sua pontuação nos eixos.</p>
           <div class="choice-grid" id="momentGrid">
             <button class="choice-card selected" type="button" data-moment="ensino-medio" aria-pressed="true"><svg aria-hidden="true"><use href="assets/icons.svg#icon-books"></use></svg><strong>Estou no ensino médio</strong><span>Ainda explorando possibilidades.</span></button>
             <button class="choice-card" type="button" data-moment="curso-faculdade" aria-pressed="false"><svg aria-hidden="true"><use href="assets/icons.svg#icon-landmark"></use></svg><strong>Estou escolhendo curso ou faculdade</strong><span>Quero comparar caminhos com mais clareza.</span></button>
@@ -123,7 +123,7 @@
             </div>
             <div class="key-grid" id="keyCards"></div>
             <h3>Eixos em destaque</h3>
-            <p class="microcopy">Os percentuais mostram intensidade relativa dentro do seu próprio mapa. Não representam percentis populacionais nem normas psicométricas.</p>
+            <p class="microcopy">As barras mostram quanto do máximo estrutural disponível em cada eixo foi ativado pelas suas respostas nesta versão do instrumento. Não são percentis populacionais nem normas psicométricas.</p>
             <div class="bars" id="axisBars"></div>
             <h3>Áreas para investigar</h3>
             <div class="chips" id="careerChips"></div>
@@ -143,6 +143,7 @@
 
   <script src="assets/data.js"></script>
   <script src="assets/chapter1-v4.js"></script>
+  <script src="assets/scoring-v4.js"></script>
   <script src="assets/app.js"></script>
 </body>
 </html>
