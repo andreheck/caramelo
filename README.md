@@ -7,10 +7,11 @@ O **Caramelo** é uma experiência digital de orientação vocacional com identi
 ## O que já existe
 
 - jornada navegável em 5 etapas;
-- **35 itens implementados**;
+- **42 itens implementados**;
 - Capítulo 1 completo — “Quem sou em movimento”;
 - Capítulo 2 completo — “Como resolvo problemas”;
 - Capítulo 3 completo — “O que me atrai no mundo”;
+- Capítulo 4 completo — “Onde eu funciono melhor”;
 - matriz V4 com 50 posições planejadas;
 - modelos A (cenário), C (escolha forçada) e D (ranking);
 - 10 eixos de orientação;
@@ -33,6 +34,7 @@ caramelo/
 │  ├─ chapter1-v4.js
 │  ├─ chapter2-v4.js
 │  ├─ chapter3-v4.js
+│  ├─ chapter4-v4.js
 │  ├─ scoring-v4.js
 │  └─ app.js
 ├─ data/
@@ -77,7 +79,7 @@ A expansão do instrumento é guiada por uma matriz versionada com **50 itens**,
 - 5 rankings — Modelo D (10%);
 - 10 itens em cada um dos 5 capítulos.
 
-Neste momento, **35 itens estão implementados e 15 permanecem planejados**.
+Neste momento, **42 itens estão executáveis e 8 permanecem para o fechamento do banco**.
 
 - Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
 - Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
@@ -92,10 +94,10 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Próximos passos
 
-1. implementar o Capítulo 4 — “Onde eu funciono melhor” (`q36` a `q42`);
+1. implementar o Capítulo 5 — “Meu futuro possível” (`q43` a `q50`);
 2. revisar pares forced-choice quanto à equivalência de desejabilidade;
-3. repetir a auditoria de máximos e simulação após cada capítulo completo;
-4. ampliar o pack SVG quando os novos itens exigirem cenas não cobertas pelo sprite atual;
+3. repetir a auditoria estrutural com os 50 itens completos;
+4. consolidar a matriz final de itens e ativos;
 5. testar cognitivamente as perguntas com usuários;
 6. implementar testes automatizados de navegação e cálculo;
 7. preparar backend, consentimento e governança LGPD antes de armazenar dados pessoais;
@@ -103,4 +105,4 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Histórico
 
-A V4 consolida a matriz de 50 itens, completa os três primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+A V4 consolida a matriz de 50 itens, completa os quatro primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
