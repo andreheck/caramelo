@@ -53,4 +53,16 @@ assert(!day7.includes('momentBoosts'),'Dia 7 não pode reaplicar momentBoosts');
 assert(!day7.includes('caramelo:v3:state'),'Dia 7 não pode ler estado V3');
 assert(day7.includes('scoringModel'),'Mapa final deve registrar o modelo de scoring usado');
 
+const demo=fs.readFileSync('assets/demo-v4.js','utf8');
+assert(demo.includes('assets/journey-ui.css'),'Camada de UX deve carregar o CSS do marcador global');
+assert(demo.includes('assets/journey-ui.js'),'Camada de UX deve carregar o JS do marcador global');
+assert(fs.existsSync('assets/journey-ui.css'),'CSS do marcador global deve existir');
+assert(fs.existsSync('assets/journey-ui.js'),'JS do marcador global deve existir');
+const journeyUi=fs.readFileSync('assets/journey-ui.js','utf8');
+assert(journeyUi.includes('Dia ${day} de 7'),'Marcador deve informar posição na jornada');
+assert(journeyUi.includes('prefers-reduced-motion')===false,'Preferência de movimento deve ficar no CSS, não duplicada no JS');
+const journeyUiCss=fs.readFileSync('assets/journey-ui.css','utf8');
+assert(journeyUiCss.includes('prefers-reduced-motion'),'Transições devem respeitar preferência por movimento reduzido');
+assert(journeyUiCss.includes('journey-top-progress'),'CSS deve estilizar marcador superior');
+
 console.log(`OK: ${D.questions.length} itens, ${D.profiles.length} perfis, 5 capítulos e jornada MVP V4 estruturalmente consistente.`);
