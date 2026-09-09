@@ -28,7 +28,6 @@
   const HIDDEN_VIEWS = new Set(["landing", "methodology"]);
 
   const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
   function journeyState() {
     return window.CARAMELO_JOURNEY?.state || {};
@@ -83,11 +82,11 @@
     $("#journeyTopTitle").textContent = `Dia ${day} de 7 · ${LABELS[day - 1]}`;
     $("#journeyTopSteps").innerHTML = LABELS.map((label, index) => {
       const n = index + 1;
-      const done = completed.includes(n) || n < day;
       const current = n === day;
-      const cls = done ? "done" : current ? "current" : "future";
+      const done = completed.includes(n) || n < day;
+      const cls = current ? "current" : done ? "done" : "future";
       return `<div class="journey-top-step ${cls}" aria-label="Dia ${n}: ${label}${current ? ", etapa atual" : done ? ", concluído" : ""}">
-        <span class="journey-top-dot">${done ? "✓" : n}</span>
+        <span class="journey-top-dot">${current ? n : done ? "✓" : n}</span>
         <span class="journey-top-label">${label}</span>
       </div>`;
     }).join("");
