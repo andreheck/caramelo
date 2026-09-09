@@ -2,37 +2,44 @@
 
 O **Caramelo** é uma experiência digital de orientação vocacional com identidade brasileira. O projeto combina cenários ilustrados, escolhas forçadas e rankings para ajudar pessoas a explorar interesses, motivadores, ambientes de trabalho e hipóteses de carreira.
 
-> Status atual: protótipo V3 em evolução. O instrumento é orientativo e ainda não corresponde a teste psicológico aprovado pelo SATEPSI nem a classificação normativa da população.
+> Status atual: protótipo V4 em evolução. O instrumento é orientativo e ainda não corresponde a teste psicológico aprovado pelo SATEPSI nem a classificação normativa da população.
 
 ## O que já existe
 
 - jornada navegável em 5 etapas;
-- 12 itens implementados distribuídos em 5 capítulos;
+- **28 itens implementados**;
+- Capítulo 1 completo — “Quem sou em movimento”;
+- Capítulo 2 completo — “Como resolvo problemas”;
 - matriz V4 com 50 posições planejadas;
 - modelos A (cenário), C (escolha forçada) e D (ranking);
 - 10 eixos de orientação;
 - 7 perfis derivados;
 - biblioteca própria de ícones SVG, sem emojis;
 - persistência local do progresso;
+- normalização estrutural dos eixos;
 - resultado com perfil principal/secundário, eixos, áreas para investigar e plano de ação;
-- documentação técnica e metodológica.
+- documentação técnica, metodológica e auditoria de pontuação.
 
 ## Estrutura do repositório
 
 ```text
 caramelo/
-├─ index.html                 # aplicação atual
+├─ index.html
 ├─ assets/
-│  ├─ styles.css              # identidade visual e responsividade
-│  ├─ icons.svg               # sprite SVG do produto
-│  ├─ data.js                 # perguntas, eixos, perfis e pesos
-│  └─ app.js                  # estado, navegação, pontuação e resultado
+│  ├─ styles.css
+│  ├─ icons.svg
+│  ├─ data.js
+│  ├─ chapter1-v4.js
+│  ├─ chapter2-v4.js
+│  ├─ scoring-v4.js
+│  └─ app.js
 ├─ data/
-│  └─ matriz-itens.csv        # matriz de especificação dos 50 itens
+│  └─ matriz-itens.csv
 ├─ docs/
 │  ├─ documentacao-tecnica-v3.md
 │  ├─ metodologia.md
 │  ├─ matriz-itens.md
+│  ├─ auditoria-pontuacao-v4.md
 │  └─ roadmap.md
 ├─ CHANGELOG.md
 ├─ LICENSE
@@ -53,23 +60,26 @@ Depois acesse `http://localhost:8000`.
 
 A pontuação ocorre em 10 eixos: Investigativo, Criativo, Social, Empreendedor, Organizador, Prático-realizador, Autonomia, Estabilidade, Propósito e Reconhecimento.
 
-Cada resposta adiciona pontos aos eixos. No ranking, os pesos atuais são `[2.5, 2, 1.5, 1, 0.5, 0]`. Os perfis são calculados por soma ponderada dos eixos. As barras do resultado mostram intensidade **relativa ao próprio mapa da pessoa** e não percentis populacionais.
+Cada resposta adiciona pontos aos eixos. Rankings usam pesos reduzidos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]` para funcionar como refinamento, e não como componente dominante. Os eixos são normalizados pelo máximo estrutural disponível na versão atual antes do cálculo dos perfis.
+
+O momento de carreira — ensino médio, escolha de curso/faculdade ou transição — **não altera mais a pontuação**. Ele é usado apenas para adaptar a interpretação e os próximos passos.
+
+As barras do resultado mostram a proporção do máximo estrutural disponível em cada eixo. Elas não representam percentis populacionais nem normas psicométricas.
 
 ## Matriz de itens
 
-A expansão do instrumento agora é guiada por uma matriz versionada com **50 itens**, sendo:
+A expansão do instrumento é guiada por uma matriz versionada com **50 itens**, sendo:
 
 - 30 cenários ilustrados — Modelo A (60%);
 - 15 escolhas forçadas — Modelo C (30%);
 - 5 rankings — Modelo D (10%);
 - 10 itens em cada um dos 5 capítulos.
 
-Cada registro documenta capítulo, formato, foco conceitual, eixos, regra de peso, controle de desejabilidade, SVG e status de revisão.
+Neste momento, **28 itens estão implementados e 22 permanecem planejados**.
 
 - Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
 - Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
-
-Os 12 itens atuais foram preservados e 38 novas posições foram especificadas para os próximos ciclos de redação, revisão visual e piloto.
+- Auditoria de pontuação: [`docs/auditoria-pontuacao-v4.md`](docs/auditoria-pontuacao-v4.md)
 
 ## Referências metodológicas
 
@@ -80,10 +90,10 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Próximos passos
 
-1. redigir os 38 itens planejados a partir da matriz;
+1. implementar o Capítulo 3 — “O que me atrai no mundo” (`q29` a `q35`);
 2. revisar pares forced-choice quanto à equivalência de desejabilidade;
-3. equilibrar oportunidades e máximos teóricos de pontuação por eixo;
-4. criar os SVGs previstos para os novos cenários;
+3. repetir a auditoria de máximos e simulação após cada capítulo completo;
+4. ampliar o pack SVG quando os novos itens exigirem cenas não cobertas pelo sprite atual;
 5. testar cognitivamente as perguntas com usuários;
 6. implementar testes automatizados de navegação e cálculo;
 7. preparar backend, consentimento e governança LGPD antes de armazenar dados pessoais;
@@ -91,4 +101,4 @@ O desenvolvimento considera boas práticas de avaliação e orientação profiss
 
 ## Histórico
 
-A V3 consolida a troca dos emojis por SVGs, melhora acessibilidade, reduz o peso do ranking, adiciona persistência local e documenta as regras internas da aplicação. A matriz V4 passa a orientar a expansão do banco para 50 itens. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+A V4 consolida a matriz de 50 itens, completa os dois primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).

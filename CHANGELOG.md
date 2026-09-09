@@ -1,5 +1,26 @@
 # Changelog
 
+## V4 — Capítulo 2 completo — 8 de setembro de 2026
+
+### Banco de itens
+- implementados `q21` a `q28`, fechando o Capítulo 2 — “Como resolvo problemas”;
+- composição do capítulo: 7 cenários ilustrados, 2 escolhas forçadas e 1 ranking, considerando `q3` e `q4` já existentes;
+- total do protótipo ampliado para **28 itens executáveis**;
+- novos itens cobrem instruções incompletas, falha de protótipo, conflito de soluções, decisão sob prazo, aprendizagem de ferramenta, coordenação de projeto, precisão × velocidade e critérios de decisão.
+
+### Pontuação
+- mantida a normalização estrutural introduzida na auditoria V4;
+- máximos estruturais recalculados para os 28 itens;
+- ranking continua com pesos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
+- `momentBoosts` permanecem fora do cálculo dos eixos;
+- simulação preliminar do conjunto de 28 itens não mostrou nova concentração extrema de perfis.
+
+### Design de conteúdo
+- evitado uso artificial de Reconhecimento onde o construto não correspondia ao cenário;
+- mantido equilíbrio entre investigação, execução, organização, criatividade, socialização e iniciativa;
+- `q27` permanece sujeito a revisão empírica de desejabilidade entre precisão e velocidade;
+- `q28` deve ser acompanhado na próxima auditoria pelo efeito agregado dos rankings.
+
 ## V4 — auditoria e normalização de pontuação — 8 de setembro de 2026
 
 ### Auditoria estrutural
@@ -11,8 +32,8 @@
 
 ### Correções
 - ranking reduzido de `[2.5, 2, 1.5, 1, 0.5, 0]` para `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
-- `momentBoosts` removidos da pontuação e mantidos apenas como histórico/interpretacao;
-- eixos passam a ser normalizados pelo máximo estrutural disponível nos 20 itens atuais;
+- `momentBoosts` removidos da pontuação e mantidos apenas como histórico/interpretação;
+- eixos passam a ser normalizados pelo máximo estrutural disponível nos itens atuais;
 - perfis passam a ser calculados a partir dos eixos normalizados;
 - pesos internos de cada perfil são normalizados pela própria soma antes da comparação;
 - barras do resultado passam a representar proporção do máximo estrutural do eixo, e não comparação com o maior eixo individual.
