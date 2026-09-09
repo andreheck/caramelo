@@ -36,6 +36,7 @@ jobs:
           node --check assets/demo-v4.js
           node --check assets/journey-ui.js
           node --check assets/result-rings.js
+          node --check assets/profile-visuals.js
 
       - name: Run structural smoke tests
         run: node tests/smoke.cjs
