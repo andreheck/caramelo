@@ -1,5 +1,24 @@
 # Changelog
 
+## V4 — Capítulo 5 completo — 8 de setembro de 2026
+
+### Banco de itens
+- implementados `q43` a `q50`, fechando o Capítulo 5 — “Meu futuro possível”;
+- banco V4 fechado em **50 itens executáveis**;
+- novos itens cobrem investigação de curso, conflito com expectativa familiar, avaliação de oportunidade, propósito × estabilidade, reconhecimento × autonomia, especialização × liderança, previsibilidade × experimentação e ranking final de critérios de carreira.
+
+### Pontuação
+- máximos estruturais recalculados para os 50 itens;
+- mantida normalização estrutural dos 10 eixos;
+- rankings permanecem com pesos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`;
+- momento de carreira permanece fora do cálculo e atua apenas na interpretação;
+- modelo de escala atualizado para `structural-normalized-v5`.
+
+### Governança
+- landing e README atualizados para 50 itens;
+- matriz deve refletir os 50 itens como implementados, sem confundir implementação com validação;
+- próxima etapa definida como auditoria estrutural final, revisão de forced-choice e integração com a jornada de 7 dias do MVP.
+
 ## V4 — Capítulo 4 completo — 8 de setembro de 2026
 
 ### Banco de itens

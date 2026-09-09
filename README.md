@@ -6,13 +6,13 @@ O **Caramelo** é uma experiência digital de orientação vocacional com identi
 
 ## O que já existe
 
-- jornada navegável em 5 etapas;
-- **42 itens implementados**;
+- jornada navegável em 5 capítulos;
+- **50 itens implementados**;
 - Capítulo 1 completo — “Quem sou em movimento”;
 - Capítulo 2 completo — “Como resolvo problemas”;
 - Capítulo 3 completo — “O que me atrai no mundo”;
 - Capítulo 4 completo — “Onde eu funciono melhor”;
-- matriz V4 com 50 posições planejadas;
+- Capítulo 5 completo — “Meu futuro possível”;
 - modelos A (cenário), C (escolha forçada) e D (ranking);
 - 10 eixos de orientação;
 - 7 perfis derivados;
@@ -35,6 +35,7 @@ caramelo/
 │  ├─ chapter2-v4.js
 │  ├─ chapter3-v4.js
 │  ├─ chapter4-v4.js
+│  ├─ chapter5-v4.js
 │  ├─ scoring-v4.js
 │  └─ app.js
 ├─ data/
@@ -64,7 +65,7 @@ Depois acesse `http://localhost:8000`.
 
 A pontuação ocorre em 10 eixos: Investigativo, Criativo, Social, Empreendedor, Organizador, Prático-realizador, Autonomia, Estabilidade, Propósito e Reconhecimento.
 
-Cada resposta adiciona pontos aos eixos. Rankings usam pesos reduzidos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]` para funcionar como refinamento, e não como componente dominante. Os eixos são normalizados pelo máximo estrutural disponível na versão atual antes do cálculo dos perfis.
+Cada resposta adiciona pontos aos eixos. Rankings usam pesos reduzidos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]` para funcionar como refinamento, e não como componente dominante. Os eixos são normalizados pelo máximo estrutural disponível antes do cálculo dos perfis.
 
 O momento de carreira — ensino médio, escolha de curso/faculdade ou transição — **não altera a pontuação**. Ele é usado apenas para adaptar a interpretação e os próximos passos.
 
@@ -72,37 +73,41 @@ As barras do resultado mostram a proporção do máximo estrutural disponível e
 
 ## Matriz de itens
 
-A expansão do instrumento é guiada por uma matriz versionada com **50 itens**, sendo:
+O banco V4 está fechado em **50 itens**, distribuídos em:
 
 - 30 cenários ilustrados — Modelo A (60%);
 - 15 escolhas forçadas — Modelo C (30%);
 - 5 rankings — Modelo D (10%);
 - 10 itens em cada um dos 5 capítulos.
 
-Neste momento, **42 itens estão executáveis e 8 permanecem para o fechamento do banco**.
+Todos os 50 itens estão executáveis. Isso fecha a etapa de construção do banco, mas **não significa validação psicométrica**. Os itens ainda precisam passar por revisão de conteúdo, desejabilidade, acessibilidade, piloto e análise empírica.
 
 - Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
 - Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
 - Auditoria de pontuação: [`docs/auditoria-pontuacao-v4.md`](docs/auditoria-pontuacao-v4.md)
 
-## Referências metodológicas
+## Frente paralela do MVP
 
-O desenvolvimento considera boas práticas de avaliação e orientação profissional, com referência ao SATEPSI/CFP e a modelos amplamente usados em interesses vocacionais, traços de personalidade e desenvolvimento de carreira. Essas referências orientam o desenho do produto; não significam que o Caramelo, em sua versão atual, seja um teste psicológico validado ou aprovado.
+Há uma frente complementar em desenvolvimento para transformar o instrumento em uma **jornada de 7 dias**, com módulos reflexivos, raciocínio, prontidão profissional, XP e síntese final. Essa camada deve consumir o banco V4 como núcleo do Dia 1, sem substituir a lógica dos 50 itens.
 
-- SATEPSI/CFP: https://satepsi.cfp.org.br/
-- 16Personalities — teoria e comunicação de traços: https://www.16personalities.com/articles/our-theory
+A integração deve preservar a separação entre:
+
+- **instrumento vocacional** — 50 itens e 10 eixos;
+- **experiências reflexivas** — contexto, momento e Roda da Vida;
+- **módulos complementares** — raciocínio, leitura de contexto e prontidão;
+- **camada narrativa/gamificada** — 7 dias, XP e progressão.
 
 ## Próximos passos
 
-1. implementar o Capítulo 5 — “Meu futuro possível” (`q43` a `q50`);
-2. revisar pares forced-choice quanto à equivalência de desejabilidade;
-3. repetir a auditoria estrutural com os 50 itens completos;
-4. consolidar a matriz final de itens e ativos;
+1. rodar a auditoria estrutural final com os 50 itens;
+2. revisar os pares forced-choice quanto à equivalência de desejabilidade;
+3. revisar carga cognitiva e influência agregada dos 5 rankings;
+4. reconciliar a aplicação dos 50 itens com a jornada de 7 dias do MVP;
 5. testar cognitivamente as perguntas com usuários;
-6. implementar testes automatizados de navegação e cálculo;
+6. implementar e manter testes automatizados de navegação e cálculo;
 7. preparar backend, consentimento e governança LGPD antes de armazenar dados pessoais;
 8. evoluir o relatório e a taxonomia de cursos/carreiras.
 
 ## Histórico
 
-A V4 consolida a matriz de 50 itens, completa os quatro primeiros capítulos e normaliza a pontuação por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+A V4 fecha o banco planejado de 50 itens, completa os cinco capítulos e mantém a pontuação normalizada por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
