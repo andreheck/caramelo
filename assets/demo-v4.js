@@ -13,7 +13,7 @@
     };
   }
 
-  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css'].forEach(href=>{
+  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css','assets/mobile-v1.css'].forEach(href=>{
     if(document.querySelector(`link[href="${href}"]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';

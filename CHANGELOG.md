@@ -1,5 +1,36 @@
 # Changelog
 
+## MVP — Mobile UX V1 — 10 de setembro de 2026
+
+### Auditoria responsiva
+- criada `assets/mobile-v1.css` como camada específica para telas de até 620px, com ajuste adicional abaixo de 380px;
+- foco principal em uso entre 390px e 430px, preservando o desktop existente;
+- incluído suporte a safe areas via `env(safe-area-inset-*)`.
+
+### Navegação e jornada
+- cabeçalho simplificado em telas pequenas, mantendo marca, Jornada e Começar como ações principais;
+- marcador superior dos 7 dias compactado para ocupar menos altura sem perder posição na jornada;
+- botões e alvos principais passam a respeitar altura mínima de toque;
+- efeitos de hover são neutralizados em dispositivos touch.
+
+### Dia 1 e módulos de perguntas
+- cards, badges, tipografia e ilustrações compactados para reduzir rolagem desnecessária;
+- ações de pergunta passam a usar barra sticky próxima ao polegar;
+- rankings e ações auxiliares são reorganizados para telas estreitas;
+- barras de resultado passam a empilhar rótulo/valor sobre a trilha em mobile.
+
+### Resultados e Dias 6–7
+- smartwatch reduzido e reequilibrado para 390–430px;
+- cards editoriais de perfil ajustados para leitura vertical;
+- órbita de prontidão do Dia 6 vira grade compacta em mobile, evitando uma área circular excessivamente alta;
+- cabeçalho do Mapa do Corre compactado, com nível, XP e foto em bloco horizontal;
+- cards de hipóteses, contexto e plano de ação recebem espaçamento mobile específico.
+
+### Governança
+- nenhuma regra de scoring, persistência ou conteúdo do instrumento foi alterada;
+- smoke test passa a exigir carregamento da camada mobile, safe areas, alvos de toque e adaptações de Dias 6–7;
+- validação em aparelho físico ainda é necessária antes de considerar o mobile fechado.
+
 ## MVP — Perfis visuais V1 — 9 de setembro de 2026
 
 ### Identidade dos resultados
