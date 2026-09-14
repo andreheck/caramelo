@@ -1,0 +1,29 @@
+name: CARAMELO Quality Gate
+on:
+  push:
+    branches: [main, 'feat/**']
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Structural smoke tests
+        run: node tests/smoke.cjs
+      - name: Full bank audit and regression tests
+        run: node --test tests/quality.cjs
+      - name: Preserve audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: caramelo-auditoria-${{ github.sha }}
+          path: reports/
+          if-no-files-found: error
+          retention-days: 30
