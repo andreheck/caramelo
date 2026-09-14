@@ -49,3 +49,20 @@ jobs:
           path: reports/browser/
           if-no-files-found: warn
           retention-days: 30
+  preview-package:
+    needs: [audit, browser]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build identified static preview
+        run: node scripts/build-preview.cjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: caramelo-preview-${{ github.sha }}
+          path: dist/caramelo-preview/
+          if-no-files-found: error
+          retention-days: 30

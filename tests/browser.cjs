@@ -1,10 +1,9 @@
 'use strict';
-// Functional browser smoke: real clicks, synthetic answers, no personal data.
+// Real clicks and synthetic answers only. Browser checks are not a user pilot.
 const {chromium} = require('playwright');
 const {spawn} = require('node:child_process');
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
-const path = require('node:path');
 const server = spawn('python3',['-m','http.server','8765','--bind','127.0.0.1'],{stdio:'ignore'});
 const records = [];
 let browser, stage = 'startup';
@@ -56,7 +55,36 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         await page.locator(`#${prefix}ToJourney`).click();
         records.push({width,check:`day ${day}`,status:'passed'});
       }
-      // Days 6-7 and print/foto validation remain a separate acceptance gate.
+      mark('day 6: 14 situations');
+      await page.locator('[data-journey-day="6"]').click();
+      await page.locator('#readinessStartBtn').click();
+      const count=await page.evaluate(()=>window.CARAMELO_DAY6.questions.length);
+      for(let i=0;i<count;i++){
+        await page.locator('.view.active [data-readiness-value="0"]').click();
+        await page.locator('#readinessNext').click();
+      }
+      await page.locator('#readinessToJourney').click();
+      assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),520);
+      records.push({width,check:'day 6, 520 XP before final',status:'passed'});
+      mark('day 7: final map and repeated access');
+      await page.locator('[data-journey-day="7"]').click();
+      await page.locator('#final-map.active').waitFor();
+      assert.equal(await page.locator('#finalProfile').textContent(),expected);
+      assert.equal(await page.locator('#finalXp').textContent(),'720 XP');
+      assert.equal(await page.locator('#finalCareers .career-hypothesis').count(),3);
+      assert.equal(await page.locator('#finalTimeline article').count(),3);
+      await page.screenshot({path:`reports/browser/final-${width}.png`,fullPage:true});
+      await page.locator('#finalJourneyBtn').click();
+      await page.locator('[data-journey-day="7"]').click();
+      assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),720);
+      // Assert the print button invokes print; pagination needs visual review separately.
+      await page.evaluate(()=>{window.__printed=0;window.print=()=>window.__printed++;});
+      await page.locator('#finalPrintBtn').click();
+      assert.equal(await page.evaluate(()=>window.__printed),1);
+      await page.reload({waitUntil:'domcontentloaded'});
+      await page.waitForFunction(()=>window.CARAMELO_DAY7);
+      assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),720);
+      records.push({width,check:'day 7, profile parity, three hypotheses, 7/30/90 plan, 720 XP, reload and print action',status:'passed'});
       assert.deepEqual(errors,[],'Uncaught browser errors');
       records.push({width,check:'uncaught exceptions',status:'passed'});
     }catch(error){records.push({width,stage,status:'failed',error:error.message});throw error;}
@@ -64,6 +92,8 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   }
 })().catch(error=>{console.error('BROWSER_FAILURE',stage,error);process.exitCode=1;}).finally(async()=>{
   fs.mkdirSync('reports/browser',{recursive:true});
-  fs.writeFileSync('reports/browser/results.json',JSON.stringify({sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-5; synthetic protocols; desktop and mobile Chromium; not physical device or accessibility certification'},null,2));
+  const result={sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-7; synthetic protocols; desktop and narrow-viewport Chromium; print invocation only; not physical-device testing, PDF pagination, photo or accessibility certification'};
+  fs.writeFileSync('reports/browser/results.json',JSON.stringify(result,null,2));
+  console.log('BROWSER_RESULT '+JSON.stringify(result));
   if(browser)await browser.close();server.kill();
 });
