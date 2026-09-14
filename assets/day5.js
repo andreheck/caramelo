@@ -1,17 +1,11 @@
 (()=>{
   const J=window.CARAMELO_JOURNEY;
   if(!J)return;
-
   const state=J.state;
   const STORAGE_KEY="caramelo:v4:journey";
   const DAY=5;
   const XP=70;
-  const DIMENSIONS={
-    literal:"Informação explícita",
-    inferencia:"Inferência",
-    intencao:"Intenção comunicativa",
-    instrucao:"Aplicação de instruções"
-  };
+  const DIMENSIONS={literal:"Informação explícita",inferencia:"Inferência",intencao:"Intenção comunicativa",instrucao:"Aplicação de instruções"};
   const QUESTIONS=[
     {id:"t1",dimension:"literal",icon:"clipboard",source:"Anúncio de estágio",title:"Quantos dias por semana a pessoa precisa ir ao escritório?",context:"Estágio em Produto · 25 horas semanais · segunda a sexta, das 13h às 18h · modelo híbrido com presença no escritório às terças, quartas e quintas.",options:["1 dia","2 dias","3 dias","5 dias"],correct:2},
     {id:"t2",dimension:"inferencia",icon:"messages",source:"Mensagem de WhatsApp",title:"Por que a pessoa pediu o arquivo antes das 16h?",context:"“Consegue me mandar a versão final antes das 16h? Às 16h30 entro na reunião com o cliente e queria dar uma última conferida.”",options:["Porque o arquivo vence às 16h","Porque ela quer revisar o material antes da reunião","Porque a reunião foi cancelada","Porque o cliente pediu o arquivo diretamente"],correct:1},
@@ -22,7 +16,6 @@
     {id:"t7",dimension:"intencao",icon:"handshake",source:"Mensagem de trabalho",title:"O que a pessoa está comunicando sobre a prioridade dessa conversa?",context:"“Quando der, me chama? Não é urgente agora, mas queria alinhar isso com você antes de enviar ao cliente amanhã.”",options:["Precisa ser resolvido imediatamente","Pode ser ignorado até depois do envio","Não é urgente neste instante, mas precisa ser alinhado antes de amanhã","O cliente já recebeu o material"],correct:2},
     {id:"t8",dimension:"instrucao",icon:"receipt",source:"Instrução de inscrição",title:"Qual envio segue todas as regras?",context:"Envie o currículo em PDF até 23h59. Nomeie o arquivo como Nome_Sobrenome_Curso. Não serão aceitos links para arquivos externos.",options:["ana.pdf enviado às 20h","Ana_Silva_Design.docx enviado às 18h","Link do Drive para Ana_Silva_Design.pdf","Ana_Silva_Design.pdf enviado às 22h30"],correct:3}
   ];
-
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
@@ -58,14 +51,12 @@
   function renderResult(){const r=state.readingResult;if(!r||!$('#readingScore'))return;$('#readingScore').textContent=r.score;$('#readingLevel').textContent=r.level;$('#readingStrongest').textContent=DIMENSIONS[r.strongest];$('#readingBars').innerHTML=Object.entries(DIMENSIONS).map(([key,label])=>{const d=r.dimensions[key],pc=Math.round(d.correct/d.total*100);return `<div class="bar-row"><span>${label}</span><div class="bar-track" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pc}"><div class="bar-fill reading-fill" style="width:${pc}%"></div></div><span>${d.correct}/${d.total}</span></div>`}).join('')}
   function patchJourneyCard(){const button=$('[data-journey-day="5"]');if(!button)return;const card=button.closest('.journey-card'),status=card?.querySelector('.journey-status');const done=state.completedDays.includes(5),available=state.completedDays.includes(4)&&!done;if(done){card?.classList.remove('active','soon','locked');card?.classList.add('done');if(status)status.textContent="Concluído";button.disabled=false;button.textContent="Rever etapa"}else if(available){card?.classList.remove('done','soon','locked');card?.classList.add('active');if(status)status.textContent="Disponível agora";button.disabled=false;button.textContent="Começar"}}
   function resetOwnState(){state.readingIndex=0;state.readingAnswers={};state.readingResult=null;save()}
-
   ensureState();injectViews();patchJourneyCard();renderResult();
   document.addEventListener('click',e=>{const button=e.target.closest?.('[data-journey-day="5"]');if(!button)return;e.preventDefault();e.stopImmediatePropagation();if(state.completedDays.includes(5)||state.completedDays.includes(4))start();else toast('Conclua o Dia 4 primeiro.')},true);
-  const grid=$('#journeyGrid');if(grid)new MutationObserver(()=>patchJourneyCard()).observe(grid,{childList:true,subtree:true});
+  // Watch only card replacement. Descendant text updates must not retrigger this callback.
+  const grid=$('#journeyGrid');if(grid)new MutationObserver(()=>patchJourneyCard()).observe(grid,{childList:true});
   $('#resetJourneyBtn')?.addEventListener('click',()=>setTimeout(()=>{resetOwnState();patchJourneyCard()},0));
-
   window.CARAMELO_DAY5={start,render,calculate,questions:QUESTIONS,dimensions:DIMENSIONS};
-
   if(!document.querySelector('link[href="assets/day6.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='assets/day6.css';document.head.appendChild(l)}
   if(!document.querySelector('script[src="assets/day6.js"]')){const s=document.createElement('script');s.src='assets/day6.js';s.defer=false;document.body.appendChild(s)}
 })();
