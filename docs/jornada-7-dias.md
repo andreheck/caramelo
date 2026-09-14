@@ -1,137 +1,28 @@
-# Jornada CARAMELO — 7 dias
+# Jornada Caramelo — sete dias
 
-## Visão
+Especificação consolidada em 14/09/2026. Implementação e homologação são estados diferentes. Resultados da rodada técnica atual: PR #15 e issue #16; pendências editoriais: #17; artes finais: #18.
 
-A V4 passa a tratar o CARAMELO como uma jornada guiada de orientação de carreira em 7 dias, e não apenas como um teste pontual. A experiência combina autoconhecimento, leitura de contexto, exploração profissional, preparo para processos seletivos e plano de ação.
+## Camadas
 
-A jornada deve manter uma separação clara entre:
+O núcleo vocacional reúne 50 itens e dez eixos. Termômetro do Momento e Roda da Vida são experiências reflexivas próprias. Raciocínio, leitura e prontidão descrevem desafios situacionais. Arquétipos, elementos, XP e níveis são recursos narrativos, não tipos psicológicos fixos.
 
-- **medidas e instrumentos**: eixos de interesse, raciocínio, leitura e outros indicadores;
-- **experiências de reflexão**: roda da vida, termômetro do momento e enigma regional;
-- **camadas narrativas**: arquétipos, elementos da natureza, identidade brasileira, XP e níveis.
+## Percurso implementado
 
-## Estrutura dos 7 dias
+| Dia | Experiência | Conteúdo atual | Saída | XP |
+|---|---|---|---|---:|
+| 1 | Bora se entender | Onboarding e 50 itens em cinco capítulos | Eixos, perfis principal/secundário, áreas e ações | 100 |
+| 2 | Como você tá por dentro | 21 autorrelatos próprios sobre o momento | Devolutiva não diagnóstica de contexto | 80 |
+| 3 | Sua vida tá no eixo? | Sete áreas: energia, foco, estudo, grana, apoio, autoestima, direção | Leitura reflexiva e área de maior peso | 60 |
+| 4 | Como sua cabeça resolve? | Oito desafios de padrões, atenção, priorização e aplicação | Desempenho nesta rodada; não inteligência global | 90 |
+| 5 | Você entende o jogo? | Oito situações de leitura aplicada | Informação explícita, inferência, intenção e instruções | 70 |
+| 6 | Você tá pronto pro corre? | 14 situações profissionais, foto local opcional | Repertório de prontidão e prioridade de treino | 120 |
+| 7 | Teu Mapa do Corre | Síntese do núcleo e dos módulos | Três hipóteses e plano 7/30/90 dias | 200 |
 
-### Dia 1 — Bora se entender
+Total da jornada: **720 XP**. Revisitar uma etapa concluída não deve duplicar XP. O Dia 7 não acrescenta pontos aos eixos vocacionais. Na retomada do PR #15, a síntese é reconstruída a partir das respostas atuais quando reaberta.
 
-**Objetivo:** construir o mapa vocacional inicial.
+## Progressão narrativa
 
-Inclui:
-- onboarding;
-- enigma regional como personalização cultural;
-- interesses e preferências de ambiente;
-- itens vocacionais do instrumento principal.
-
-**Saída:** mapa inicial de interesses, ambiente preferido e hipóteses de exploração.
-
-**XP:** 100.
-
-### Dia 2 — Como você tá por dentro
-
-**Objetivo:** gerar uma leitura de contexto emocional do momento atual.
-
-Nome de produto recomendado: **Termômetro do Momento**.
-
-Dimensões editoriais:
-- tensão/sobrecarga;
-- preocupação/alerta;
-- energia/desânimo.
-
-A experiência pode se inspirar em escalas de autorrelato, mas qualquer adaptação de redação deve ser tratada como experiência própria do CARAMELO, sem alegação de equivalência psicométrica a instrumentos validados.
-
-**XP:** 80.
-
-### Dia 3 — Sua vida tá no eixo?
-
-**Objetivo:** mostrar quais áreas da vida estão ajudando ou drenando a caminhada de carreira.
-
-Dimensões:
-- Energia;
-- Foco;
-- Estudo;
-- Grana;
-- Família/rede de apoio;
-- Autoestima;
-- Direção.
-
-**Saída:** score de equilíbrio, maior gargalo e prioridades de cuidado.
-
-**XP:** 60.
-
-### Dia 4 — Como sua cabeça resolve?
-
-**Objetivo:** observar estratégias de raciocínio e solução de problemas.
-
-Conteúdos possíveis:
-- padrões e sequências;
-- raciocínio verbal;
-- atenção;
-- priorização;
-- solução prática de problemas.
-
-**Saída:** leitura de estilo de resolução, sem rotular capacidade global.
-
-**XP:** 90.
-
-### Dia 5 — Você entende o jogo?
-
-**Objetivo:** avaliar leitura de contexto e interpretação aplicada.
-
-Situações brasileiras possíveis:
-- anúncio de estágio;
-- print de WhatsApp;
-- e-mail de trabalho;
-- aviso escolar;
-- notícia curta;
-- instrução de tarefa;
-- mensagem ambígua em contexto cotidiano.
-
-**XP:** 70.
-
-### Dia 6 — Você tá pronto pro corre?
-
-**Objetivo:** observar prontidão para processos seletivos.
-
-Situações:
-- atraso;
-- pergunta que não sabe responder;
-- feedback difícil;
-- erro cometido;
-- conflito em grupo;
-- pretensão salarial;
-- motivação pela vaga;
-- postura após rejeição.
-
-**Saída:** leitura de maturidade para entrevista com foto do usuário no centro da composição visual, quando disponível.
-
-**XP:** 120.
-
-### Dia 7 — Teu mapa do corre
-
-**Objetivo:** consolidar a jornada em um plano de ação.
-
-Cruza:
-- interesses;
-- valores;
-- ambiente preferencial;
-- indicadores de raciocínio e leitura;
-- contexto emocional;
-- roda da vida;
-- prontidão profissional.
-
-**Saída final:**
-- mapa de afinidades;
-- áreas e cursos para investigar;
-- pontos fortes observados;
-- pontos de desenvolvimento;
-- ambiente de trabalho a explorar;
-- próximos passos para 7, 30 e 90 dias.
-
-**XP:** 200.
-
-## Progressão sugerida
-
-| XP | Nível |
+| XP mínimo | Nível |
 |---:|---|
 | 0 | Zé Orelha |
 | 80 | Juvenil |
@@ -145,48 +36,40 @@ Cruza:
 | 2.200 | Dono do Pedaço |
 | 3.000 | Pronto pra Ação |
 
-A jornada de 7 dias soma aproximadamente 720 XP. Isso permite que o usuário encerre a primeira jornada perto do nível **Estagiário**, preservando espaço para progressão posterior com exploração de profissões, entrevistas com profissionais, currículo, simulações e novos desafios.
+A primeira jornada termina em Estagiário. Níveis superiores dependem de experiências futuras; não implicam emprego, qualificação formal ou aptidão comprovada.
 
-## Enigma regional
+## Regras da interpretação
 
-O enigma regional deve influenciar:
-- referências culturais;
-- exemplos;
-- linguagem;
-- ilustrações;
-- contexto local de mercado.
+O momento de carreira adapta os textos e próximos passos, sem modificar a pontuação. A porcentagem dos eixos é proporção do máximo estrutural disponível, não percentil populacional. Perfis são hipóteses derivadas; contexto emocional e situação socioeconômica não definem nem restringem uma vocação.
 
-Não deve, por si só, adicionar pontos a personalidade, aptidão ou interesse profissional. Região é contexto, não traço psicológico.
+O Termômetro usa redação própria do produto e não deve ser apresentado como equivalente psicométrico a uma escala validada. Desafios de leitura, raciocínio e entrevista não são avaliações padronizadas nem critérios isolados de seleção/exclusão.
 
-## Arquétipos narrativos
+## Identidade e personalização
 
-Os nomes abaixo podem ser usados como camada editorial de síntese, desde que derivados de indicadores anteriores e apresentados como metáforas, não como tipos psicológicos fixos:
+Viajantes/Fogo, Governantes/Terra, Deuses/Ar e Humanos/Água são metáforas editoriais de síntese. Não substituem os sete perfis do núcleo vocacional.
 
-- **Viajantes · Fogo** — movimento, influência, ação e exploração;
-- **Governantes · Terra** — estrutura, gestão, estabilidade e execução;
-- **Deuses · Ar** — ideias, tecnologia, análise e sistemas;
-- **Humanos · Água** — relações, cuidado, desenvolvimento e significado.
+O enigma regional e personalização cultural foram propostos no histórico, mas não devem ser tratados como funcionalidade concluída por estarem nesta especificação. Região, quando usada, deve contextualizar exemplos e linguagem, não acrescentar pontos a personalidade, aptidão ou interesse.
 
-## Persistência e desbloqueio
+## Persistência e navegação
 
-Requisitos mínimos:
-- salvar progresso localmente;
-- registrar dias concluídos;
-- desbloquear o dia seguinte após conclusão;
-- preservar XP e nível;
-- permitir retomar a primeira etapa incompleta;
-- não duplicar XP ao refazer uma etapa já concluída.
+- Estado vocacional: `caramelo:v4:state`.
+- Estado complementar e XP: `caramelo:v4:journey`.
+- Armazenamento local ao navegador; sem conta/sincronização entre dispositivos.
+- Dias futuros ficam bloqueados pela progressão na interface.
+- Questões do Dia 1 têm retomada após recarregar e validação de respostas.
+- Módulos complementares preservam respostas, mas a retomada exata de cada tela, reinícios e recuperação de erros exigem homologação específica.
 
-## Critérios de aceite da V4
+## Critérios com evidência técnica
 
-- [ ] tela da jornada com 7 dias;
-- [ ] estados concluído, disponível e bloqueado;
-- [ ] Dia 1 ligado ao instrumento principal;
-- [ ] Dia 2 com termômetro e devolutiva não diagnóstica;
-- [ ] Dia 3 com roda da vida funcional;
-- [ ] especificação de conteúdo dos Dias 4, 5 e 6;
-- [ ] consolidação do Dia 7;
-- [ ] persistência e desbloqueio testados;
-- [ ] XP idempotente;
-- [ ] acessibilidade de teclado, foco e contraste;
-- [ ] aviso claro de limites metodológicos.
+- [x] Telas dos sete dias implementadas e ligadas ao núcleo de 50 itens.
+- [x] Estados concluído, disponível e bloqueado implementados.
+- [x] Termômetro, roda, desafios e síntese implementados.
+- [x] Auditoria matemática do núcleo executada com 12 regressões aprovadas.
+- [x] Navegação dos Dias 1–5, retomada do Dia 1 e não duplicação de XP testadas em Chromium na execução 34899239954.
+- [x] Teste ampliado 1–7, três hipóteses, plano e 720 XP implementado; resultado da execução mais recente registrado em #16.
+- [ ] Revisão visual, acessibilidade assistiva e aparelho físico.
+- [ ] Foto, cópia real, reinícios e cenários excepcionais.
+- [ ] Paginação de impressão/salvar PDF: o teste automatizado verifica somente a chamada do botão, não o arquivo final.
+- [ ] Conteúdo revisado com usuários e responsáveis técnicos antes do piloto.
+
+Arquivos históricos V3 e auditoria de 20 itens devem ser consultados como histórico, não como prova da situação atual.
