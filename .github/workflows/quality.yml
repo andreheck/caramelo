@@ -27,3 +27,25 @@ jobs:
           path: reports/
           if-no-files-found: error
           retention-days: 30
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test dependency
+        run: npm install --no-save --package-lock=false playwright@1.55.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Browser navigation gate
+        run: node tests/browser.cjs
+      - name: Preserve browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: caramelo-browser-${{ github.sha }}
+          path: reports/browser/
+          if-no-files-found: warn
+          retention-days: 30

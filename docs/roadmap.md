@@ -1,59 +1,52 @@
-# Roadmap do Caramelo
+# Backlog único do Caramelo
 
-## Fase atual — Consolidação da V3
+Atualizado em 14/09/2026. Fonte de retomada dos dois chats. `[x]` indica entrega confirmada, não validação psicométrica. Alterações do PR #15 ainda não fazem parte da main enquanto o PR estiver aberto.
 
-- [x] substituir emojis por SVGs próprios;
-- [x] documentar lógica de pontuação;
-- [x] separar código em arquivos mais fáceis de manter;
-- [x] documentar metodologia e limites éticos;
-- [x] adicionar persistência local;
-- [x] reduzir peso excessivo do ranking;
-- [ ] criar bateria de testes automatizados;
-- [ ] revisar todos os ícones em sistema visual único;
+## Entregas já presentes na main
 
-## Fase 1 — Instrumento ampliado
+- [x] Banco V4 de 50 itens, cinco capítulos, dez eixos e sete perfis.
+- [x] SVGs e persistência local do núcleo vocacional.
+- [x] Normalização estrutural e exclusão do momento biográfico da pontuação.
+- [x] Jornada de sete dias integrada, XP e síntese final implementados.
+- [x] Camadas de redesign, anéis e mobile implementadas.
+- [x] Briefing e fallback dos sete perfis visuais.
+- [x] CI de sintaxe e smoke tests estruturais.
 
-- [ ] expandir de 12 para 40–60 itens;
-- [ ] garantir cobertura equilibrada dos 10 eixos;
-- [ ] revisar pares de escolha forçada quanto à desejabilidade;
-- [ ] criar matriz de especificação por capítulo, eixo e formato;
-- [ ] definir regras de desempate entre perfis;
-- [ ] versionar banco de itens;
+## Fechamento técnico — PR #15
 
-## Fase 2 — Pesquisa com usuários
+- [x] Auditoria reproduzível dos 50 itens executada: dez tetos conferidos.
+- [x] Doze regressões executadas com sucesso na primeira rodada.
+- [x] Simulação de 10.000 protocolos documentada, sem alegação psicométrica.
+- [x] Validação de índices e permutações no núcleo compartilhado.
+- [x] Critério técnico de empate explicitado.
+- [x] Dia 1 encaminhado ao núcleo compartilhado no código do PR.
+- [ ] Homologar navegação em navegador real e examinar erros, bloqueios e retomada.
+- [ ] Investigar observadores da jornada que escrevem no próprio elemento observado.
+- [ ] Conferir a última rodada de CI antes de incorporar o PR.
+- [ ] Preparar pacote e endereço de prévia identificados pelo commit.
 
-- [ ] testes cognitivos com adolescentes e adultos em transição;
-- [ ] revisão de linguagem e acessibilidade;
-- [ ] observar tempo de resposta e taxa de abandono;
-- [ ] avaliar compreensão dos cenários ilustrados;
-- [ ] revisar feedback qualitativo dos resultados;
+## Conteúdo e interpretação — antes do piloto
 
-## Fase 3 — Robustez metodológica
+- [ ] Revisar os 15 pares de escolha forçada quanto à desejabilidade, linguagem e ambiguidade.
+- [ ] Revisar carga cognitiva e contribuição dos cinco rankings.
+- [ ] Revisar separação entre Cuidador Estratégico e Transformador Social.
+- [ ] Fazer entrevistas cognitivas com o público-alvo e registrar alterações.
+- [ ] Verificar devolutivas não diagnósticas e não deterministas.
 
-- [ ] revisão por especialistas em orientação profissional e psicometria;
-- [ ] estudo piloto com amostra adequada;
-- [ ] análise de distribuição dos itens;
-- [ ] investigação de estrutura interna;
-- [ ] análise de precisão/consistência;
-- [ ] evidências de validade convergente e discriminante;
-- [ ] revisão dos pesos de perfis e regras interpretativas;
+## Visual e acessibilidade
 
-## Fase 4 — Produto
+- [ ] Produzir as sete artes finais WebP e integrá-las nos Dias 1 e 7.
+- [ ] Homologar em aparelhos físicos, teclado, foco, contraste e leitores de tela.
+- [ ] Conferir cópia do resultado e impressão/salvar PDF no navegador.
 
-- [ ] autenticação e conta de usuário;
-- [ ] consentimento e governança LGPD;
-- [ ] backend para resultados versionados;
-- [ ] painel editorial de perguntas e carreiras;
-- [ ] relatório PDF;
-- [ ] trilha de 7 dias pós-resultado;
-- [ ] taxonomia ocupacional e cursos;
-- [ ] dashboard de evolução do usuário;
+## Operação com participantes
 
-## Fase 5 — Escala e operação
+- [ ] Definir escopo do piloto, responsáveis e critérios de aceite.
+- [ ] Revisar informação ao participante, privacidade, consentimento e tratamento de dados antes da coleta.
+- [ ] Projetar autenticação, backend e resultados versionados quando houver necessidade de conta.
+- [ ] Ampliar taxonomia de cursos e ocupações e explicitar critérios de recomendação.
+- [ ] Planejar revisão especializada e estudos empíricos; não confundir com testes de software.
 
-- [ ] painel administrativo;
-- [ ] analytics de uso sem expor dados sensíveis;
-- [ ] versionamento de instrumento e resultados;
-- [ ] testes A/B de interface sem alterar construtos;
-- [ ] documentação de release e governança de mudanças;
-- [ ] revisão jurídica, ética e de privacidade;
+## Fora do fechamento da demonstração interna
+
+Painel editorial, administração, analytics e estudos psicométricos em escala são etapas posteriores. Uma demonstração local não equivale à autorização para pesquisa, uso profissional regulado ou coleta pública de dados.
