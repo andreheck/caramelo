@@ -6,16 +6,16 @@ Experiência digital brasileira para explorar interesses, ambientes, valores e h
 
 ## Estado consolidado — 14/09/2026
 
-O banco vocacional e a jornada já foram integrados na `main`. A retomada técnica ocorre em `feat/fechamento-tecnico-v4`, PR #15, sem substituir a versão principal até a conferência dos testes.
+O banco vocacional e a jornada foram integrados na `main`. O fechamento técnico está em `feat/fechamento-tecnico-v4`, PR #15, sem substituir a versão principal enquanto o PR estiver aberto.
 
 - **50 itens executáveis**, cinco capítulos com dez itens: 30 cenários A, 15 escolhas forçadas C e cinco rankings D.
-- Dez eixos e sete perfis derivados, com perfil secundário e orientação exploratória.
-- Jornada de sete dias, persistência local, XP e síntese final implementados.
+- Dez eixos e sete perfis derivados; perfil secundário e hipóteses exploratórias.
+- Jornada de sete dias, persistência local, XP e síntese final.
 - SVGs, tema neo-cordel, resultados em anéis e camada mobile.
-- Sete artes finais ainda pendentes; os componentes usam fallback gráfico.
-- CI estrutural, auditoria reproduzível e testes de regressão.
+- Sete artes finais ainda pendentes; componentes usam fallback gráfico.
+- Auditoria reproduzível, regressões matemáticas e teste funcional em Chromium.
 
-O backlog único está em [`docs/roadmap.md`](docs/roadmap.md). Marcação de implementação não equivale a homologação de uso.
+O [backlog único](docs/roadmap.md) distingue implementado, testado e pendente. A issue #16 acompanha a homologação e publicação; #17 reúne conteúdo e piloto; #18 acompanha as artes finais.
 
 ## Executar localmente
 
@@ -25,9 +25,9 @@ Requer Python 3 para o servidor local:
 python -m http.server 8000
 ```
 
-Abra `http://localhost:8000`. O aplicativo é front-end estático; não exige compilação para execução local. Não é recomendado abrir o HTML diretamente por `file://`, devido ao carregamento de SVGs e outros recursos.
+Abra `http://localhost:8000`. O aplicativo é estático; não exige compilação. Evite abrir por `file://`, devido ao carregamento dos SVGs e outros recursos. O progresso pertence a este navegador/origem; não há sincronização de conta entre dispositivos.
 
-## Testes
+## Auditoria e testes
 
 Requer Node.js 22:
 
@@ -36,9 +36,9 @@ node tests/smoke.cjs
 node --test tests/quality.cjs
 ```
 
-A auditoria grava `reports/auditoria-50-itens.json` e `.md`, com semente, fingerprint dos dados, máximos, contribuição dos rankings e simulações. No GitHub Actions os relatórios ficam nos artefatos da execução.
+A auditoria grava `reports/auditoria-50-itens.json` e `.md`: semente, fingerprint dos dados, máximos, influência dos rankings, distribuição simulada e sensibilidade. O workflow preserva os relatórios como artefatos por 30 dias.
 
-Para o teste funcional com Chromium e Python 3 disponíveis:
+Para navegação funcional, com Python 3 disponível:
 
 ```bash
 npm install --no-save --package-lock=false playwright@1.55.0
@@ -46,34 +46,46 @@ npx playwright install chromium
 node tests/browser.cjs
 ```
 
-O teste usa exclusivamente respostas sintéticas, verifica navegação dos Dias 1–5, retomada no Dia 1, paridade entre interface e núcleo e XP idempotente. A primeira falha interrompe a sequência: cenários posteriores não devem ser considerados aprovados. Dias 6–7, impressão, leitores de tela e aparelhos físicos permanecem critérios separados.
+O teste percorre os Dias 1–7 com respostas sintéticas em Chromium, nas larguras de 1280 e 390 px. Verifica bloqueio de resposta ausente no Dia 1, retomada após recarregar, paridade entre interface e núcleo, XP sem duplicação, 720 XP no final, três hipóteses e plano 7/30/90. O botão imprimir é testado por chamada interceptada: isso **não** valida o PDF nem sua paginação.
+
+A primeira falha interrompe a sequência. Cenários seguintes não executados não estão aprovados. Largura estreita não substitui aparelho físico, teste de toque, leitor de tela, avaliação visual ou piloto com pessoas. Foto opcional, cópia efetiva e reinícios têm critérios adicionais na issue #16.
+
+## Pacote de prévia interna
+
+```bash
+node scripts/build-preview.cjs
+```
+
+Saída: `dist/caramelo-preview/`, com código de execução, documentação, `COMO-TESTAR.txt` e `BUILD.json`. O manifesto identifica o commit e hashes dos arquivos. Execução local fora do CI aparece como `local-unversioned` quando `GITHUB_SHA` não é informado.
+
+No workflow **CARAMELO Quality Gate**, o pacote `caramelo-preview-<commit>` é publicado como artefato **somente se os jobs de auditoria e navegador terminarem com sucesso**. Consulte a execução correspondente ao commit do PR, na área Actions; o pacote fica disponível por 30 dias. Uma execução de PR pode usar SHA de integração de teste, identificado no manifesto.
+
+Esse pacote não é um endereço web hospedado nem uma release pública. A publicação de URL continua separada na issue #16. Use somente dados fictícios na demonstração interna.
 
 ## Matemática e separação de camadas
 
-Fluxo: respostas → pontos brutos → divisão pelo máximo estrutural de cada eixo → média ponderada dos perfis → interpretação.
+Fluxo: respostas → pontos brutos → divisão pelo máximo estrutural do eixo → média ponderada dos perfis → interpretação.
 
-- Rankings: pesos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`.
+- Rankings: `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`.
 - Modelo: `structural-normalized-v5`; banco: `4.4.0-prototype`.
 - Momento de carreira adapta o texto, não acrescenta pontos.
-- Percentuais representam proporções dos máximos estruturais, não percentis populacionais.
-- Empate numérico usa ordem técnica estável, sem alegação de maior afinidade.
-- O núcleo compartilhado é `assets/vocational-core.js`; a interface do Dia 1 delega o cálculo a ele no PR #15.
-- Reflexões emocionais, roda da vida, desempenho em desafios e gamificação não devem ser confundidos com o instrumento vocacional.
+- Percentuais são proporções dos máximos estruturais, não percentis populacionais.
+- Empate numérico tem ordem técnica estável, sem inferir maior afinidade.
+- Núcleo compartilhado: `assets/vocational-core.js`; o Dia 1 e a síntese consomem a mesma lógica no PR #15.
+- Reflexões emocionais, roda da vida, desafios e gamificação são camadas distintas do instrumento vocacional.
 
-## Evidências e documentação
+## Documentação
 
 - [Auditoria dos 50 itens — 14/09/2026](docs/auditoria-50-itens-2026-09-14.md)
-- [Backlog único e critérios ainda abertos](docs/roadmap.md)
+- [Backlog e critérios](docs/roadmap.md)
 - [Matriz de itens](docs/matriz-itens.md)
 - [Metodologia](docs/metodologia.md)
-- [Especificação da jornada](docs/jornada-7-dias.md)
-- [Briefing das sete artes](docs/perfis-visuais-v1.md)
-- [Histórico de alterações](CHANGELOG.md)
+- [Jornada de sete dias](docs/jornada-7-dias.md)
+- [Briefing das artes](docs/perfis-visuais-v1.md)
+- [Histórico](CHANGELOG.md)
 
-A auditoria anterior de 20 itens e a documentação técnica V3 são históricas. Não devem ser usadas como evidência numérica do banco atual.
+A auditoria de 20 itens e a documentação V3 são históricas. Não representam numericamente o banco completo atual.
 
-## Antes de publicar para participantes
+## Antes da coleta com participantes
 
-Conferir navegação integral, resultados e exportação, revisar conteúdo com o público-alvo, produzir informação ao participante e revisar privacidade e governança de dados. A implementação atual é local: não há promessa de sincronização entre dispositivos. Não carregar dados reais em issues ou artefatos de CI.
-
-Publicação de prévia, autenticação e backend são entregas separadas. Enquanto não houver versão identificada e homologada, não tratar o repositório como produto pronto para coleta pública.
+Revisar conteúdo, informação ao participante, privacidade, consentimento, responsabilidades e governança. Backend, autenticação e resultados versionados são entregas posteriores quando necessários. Não inserir dados reais de participantes em issues, testes ou artefatos.

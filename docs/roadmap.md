@@ -1,52 +1,62 @@
 # Backlog único do Caramelo
 
-Atualizado em 14/09/2026. Fonte de retomada dos dois chats. `[x]` indica entrega confirmada, não validação psicométrica. Alterações do PR #15 ainda não fazem parte da main enquanto o PR estiver aberto.
+Atualizado em 14/09/2026. Esta é a fonte consolidada de retomada dos dois chats. Implementação não significa validação psicométrica. Alterações do PR #15 permanecem fora da main enquanto o PR estiver aberto.
 
-## Entregas já presentes na main
+## Controle das próximas entregas
 
-- [x] Banco V4 de 50 itens, cinco capítulos, dez eixos e sete perfis.
-- [x] SVGs e persistência local do núcleo vocacional.
+- **#16 — Fechamento técnico, homologação e publicação da prévia.** Resultados da última rodada ficam registrados nessa issue e no PR #15.
+- **#17 — Revisão de conteúdo e interpretação antes do piloto.**
+- **#18 — Sete artes finais e homologação visual.**
+
+## Implementado antes desta retomada
+
+- [x] Banco V4: 50 itens, cinco capítulos, dez eixos e sete perfis.
+- [x] SVGs e persistência local.
 - [x] Normalização estrutural e exclusão do momento biográfico da pontuação.
-- [x] Jornada de sete dias integrada, XP e síntese final implementados.
-- [x] Camadas de redesign, anéis e mobile implementadas.
-- [x] Briefing e fallback dos sete perfis visuais.
-- [x] CI de sintaxe e smoke tests estruturais.
+- [x] Jornada de sete dias, progressão por XP e síntese final.
+- [x] Tema visual, resultados em anéis, camada mobile e fallback de perfis.
+- [x] CI de sintaxe e smoke tests.
 
-## Fechamento técnico — PR #15
+## Implementado e auditado no PR #15
 
-- [x] Auditoria reproduzível dos 50 itens executada: dez tetos conferidos.
-- [x] Doze regressões executadas com sucesso na primeira rodada.
-- [x] Simulação de 10.000 protocolos documentada, sem alegação psicométrica.
-- [x] Validação de índices e permutações no núcleo compartilhado.
-- [x] Critério técnico de empate explicitado.
-- [x] Dia 1 encaminhado ao núcleo compartilhado no código do PR.
-- [ ] Homologar navegação em navegador real e examinar erros, bloqueios e retomada.
-- [ ] Investigar observadores da jornada que escrevem no próprio elemento observado.
-- [ ] Conferir a última rodada de CI antes de incorporar o PR.
-- [ ] Preparar pacote e endereço de prévia identificados pelo commit.
+- [x] Auditoria de 50 itens executada: 12 regressões aprovadas, dez tetos conferidos.
+- [x] Simulação documentada de 10.000 protocolos, sem alegação psicométrica.
+- [x] Validação de índices, rankings e armazenamento no núcleo.
+- [x] Critério técnico de empate explícito.
+- [x] Dia 1 alinhado ao núcleo compartilhado.
+- [x] Travamento ao finalizar Dia 4 reproduzido na execução 34898940262.
+- [x] Correção dos observadores dos Dias 5 e 6 aprovada no percurso 1–5: execução 34899239954, desktop e largura 390 px.
+- [x] Mesma correção aplicada ao Dia 7 e teste ampliado para os sete dias.
+- [x] Síntese final reconstruída ao revisitar para refletir respostas atuais, sem novo XP.
+- [x] Gerador de pacote estático com manifesto e hashes.
+- [x] Pipeline condiciona o pacote à aprovação da auditoria e navegador.
+- [x] README, jornada e backlog reconciliados com a implementação.
 
-## Conteúdo e interpretação — antes do piloto
+O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferidos por execução/commit em **#16**, evitando interpretar apenas a presença de um teste como aprovação.
 
-- [ ] Revisar os 15 pares de escolha forçada quanto à desejabilidade, linguagem e ambiguidade.
-- [ ] Revisar carga cognitiva e contribuição dos cinco rankings.
-- [ ] Revisar separação entre Cuidador Estratégico e Transformador Social.
-- [ ] Fazer entrevistas cognitivas com o público-alvo e registrar alterações.
-- [ ] Verificar devolutivas não diagnósticas e não deterministas.
+## Homologação e distribuição — #16
 
-## Visual e acessibilidade
+- [ ] Aprovar revisão do PR e integração à main.
+- [ ] Revisar capturas visualmente e paginação de impressão/salvar PDF.
+- [ ] Testar foto opcional, cópia real, reinícios e cenários de armazenamento indisponível.
+- [ ] Testar aparelhos físicos, teclado, foco, contraste e leitores de tela.
+- [ ] Publicar endereço da prévia identificada e registrar suas limitações.
 
-- [ ] Produzir as sete artes finais WebP e integrá-las nos Dias 1 e 7.
-- [ ] Homologar em aparelhos físicos, teclado, foco, contraste e leitores de tela.
-- [ ] Conferir cópia do resultado e impressão/salvar PDF no navegador.
+## Conteúdo e interpretação — #17
 
-## Operação com participantes
+- [ ] Revisar 15 pares de escolha forçada e cinco rankings.
+- [ ] Rever contribuição dos rankings em Estabilidade, Reconhecimento e Propósito.
+- [ ] Revisar separação Cuidador Estratégico × Transformador Social.
+- [ ] Verificar hipóteses de carreira e devolutivas não deterministas.
+- [ ] Realizar entrevistas cognitivas e registrar ajustes dos itens.
+- [ ] Definir responsáveis, informação ao participante e governança antes do piloto.
 
-- [ ] Definir escopo do piloto, responsáveis e critérios de aceite.
-- [ ] Revisar informação ao participante, privacidade, consentimento e tratamento de dados antes da coleta.
-- [ ] Projetar autenticação, backend e resultados versionados quando houver necessidade de conta.
-- [ ] Ampliar taxonomia de cursos e ocupações e explicitar critérios de recomendação.
-- [ ] Planejar revisão especializada e estudos empíricos; não confundir com testes de software.
+## Visual — #18
 
-## Fora do fechamento da demonstração interna
+- [ ] Produzir sete WebPs conforme briefing.
+- [ ] Integrar e conferir recortes nos Dias 1 e 7.
+- [ ] Conferir acessibilidade da composição e fallback.
 
-Painel editorial, administração, analytics e estudos psicométricos em escala são etapas posteriores. Uma demonstração local não equivale à autorização para pesquisa, uso profissional regulado ou coleta pública de dados.
+## Depois da demonstração interna
+
+Autenticação, backend, resultados versionados, taxonomia ampliada de cursos/ocupações, painel editorial, administração e analytics dependem do escopo do produto/piloto. Estudos psicométricos são uma frente própria. Demonstração de software não equivale a autorização de coleta pública nem a uso profissional regulado.
