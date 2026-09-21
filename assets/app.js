@@ -131,7 +131,7 @@
     const text = `Meu Mapa Vocacional Caramelo\n\nPerfil: ${$('#profileName').textContent}\n\n${$('#profileSummary').innerText}`;
     try { if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable'); await navigator.clipboard.writeText(text); toast('Resumo copiado.'); } catch { toast('Não foi possível copiar automaticamente. Selecione o resumo para copiar.'); }
   };
-  window.CARAMELO_APP = {go};
+  window.CARAMELO_APP = {go,restart,state};
   syncMoment(); if (state.view === 'results' && !V.quizComplete(state.answers)) state.view = 'landing';
   go(state.view);
 })();
