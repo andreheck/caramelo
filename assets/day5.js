@@ -18,7 +18,7 @@
   ];
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+  function save(){if(J.save)return J.save();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch{toast('Não foi possível salvar neste navegador. Seu progresso pode se perder ao fechar a página.');return false}}
   function icon(name){return `<svg aria-hidden="true"><use href="assets/icons.svg#icon-${name}"></use></svg>`}
   function toast(msg){const e=$("#toast");if(!e)return;e.textContent=msg;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2200)}
   function openView(view){$$('.view').forEach(v=>v.classList.toggle('active',v.id===view));$$('[data-view-button]').forEach(b=>b.setAttribute('aria-current',b.dataset.viewButton===view?'page':'false'));scrollTo({top:0,behavior:'smooth'})}
