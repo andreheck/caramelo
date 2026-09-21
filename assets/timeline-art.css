@@ -125,3 +125,20 @@
   .side-progress-compass .ring { animation: none; }
   .side-progress-compass .needle, .journey-top-dot, .side-progress-track span { transition: none !important; }
 }
+
+/* Result-screen compact progress */
+@media(min-width:1051px){
+  body:has(.view.active[id$="-result"]) #carameloSideProgress,
+  body:has(#final-map.active) #carameloSideProgress{width:118px;padding:9px;gap:6px}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-compass,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-compass{width:78px;height:78px}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-title,
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-text,
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-overall,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-title,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-text,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-overall{display:none}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-percent,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-percent{justify-content:center}
+}
+@media print{#journeyTopProgress,#carameloSideProgress{display:none!important}}
