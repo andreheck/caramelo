@@ -151,8 +151,9 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         await page.locator('#resetAllBtn').click();
         await pause(120);
         assert.ok(await page.locator('#landing.active').count());
-        const cleared=await page.evaluate(()=>({app:localStorage.getItem('caramelo:v4:state'),journey:localStorage.getItem('caramelo:v4:journey'),quiz:window.CARAMELO_VOCATIONAL.quizComplete(),xp:window.CARAMELO_JOURNEY.state.xp}));
-        assert.equal(cleared.app,null);
+        const cleared=await page.evaluate(()=>{const app=JSON.parse(localStorage.getItem('caramelo:v4:state')||'null');return {app,journey:localStorage.getItem('caramelo:v4:journey'),quiz:window.CARAMELO_VOCATIONAL.quizComplete(),xp:window.CARAMELO_JOURNEY.state.xp}});
+        assert.equal(cleared.app?.view,'landing');
+        assert.deepEqual(cleared.app?.answers||{},{});
         assert.equal(cleared.journey,null);
         assert.equal(cleared.quiz,false);
         assert.equal(cleared.xp,0);
