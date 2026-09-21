@@ -50,8 +50,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         records.push({width,check:'keyboard skip link, focus target, semantics and key color contrast',status:'passed',contrast:a11y.contrast});
       }
       await page.locator('#landing [data-go="onboarding"]').click();
+      if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
+      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
       const questions=await page.evaluate(()=>window.CARAMELO_DATA.questions.map(q=>({type:q.type,count:(q.items||q.options).length})));
       await page.locator('#nextQuestionBtn').click();
       assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),0);
@@ -64,9 +66,11 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
+      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
       const expected=await page.evaluate(()=>window.CARAMELO_VOCATIONAL.result().primary.title);
       assert.equal(await page.locator('#profileName').textContent(),expected);
       await page.locator('#results [data-go="journey"]').click();
+      if(width===1280) await page.screenshot({path:'reports/browser/audit-journey-1280.png',fullPage:true});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
       await page.evaluate(()=>{window.CARAMELO_JOURNEY.completeDay(1);window.CARAMELO_JOURNEY.completeDay(1);});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
@@ -74,6 +78,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       for(const [day,prefix,count] of [[2,'emotion',21],[3,'wheel',7],[4,'reasoning',8],[5,'reading',null]]){
         mark(`day ${day}`);
         await page.locator(`[data-journey-day="${day}"]`).click();
+        if(width===1280) await page.screenshot({path:`reports/browser/audit-day${day}-start-1280.png`,fullPage:true});
         const n=count||await page.evaluate(()=>window.CARAMELO_DAY5.questions.length);
         for(let i=0;i<n;i++){
           await page.locator(`.view.active [data-${prefix}-value="0"]`).click();
@@ -84,6 +89,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       }
       mark('day 6: 14 situations');
       await page.locator('[data-journey-day="6"]').click();
+      if(width===1280) await page.screenshot({path:'reports/browser/audit-day6-intro-1280.png',fullPage:true});
       if(width===1280){
         mark('day 6: optional photo');
         await page.locator('#readinessPhotoInput').setInputFiles({name:'avatar.png',mimeType:'image/png',buffer:tinyPng});
