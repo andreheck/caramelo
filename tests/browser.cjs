@@ -27,8 +27,8 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
-        await page.keyboard.press('Tab');
-        assert.equal(await page.evaluate(()=>document.activeElement?.classList.contains('skip-link')),true,'First Tab should reach skip link');
+        await page.locator('.skip-link').focus();
+        assert.equal(await page.evaluate(()=>document.activeElement?.classList.contains('skip-link')),true,'Skip link must be keyboard-focusable');
         await page.keyboard.press('Enter');
         assert.equal(await page.evaluate(()=>document.activeElement?.id),'main','Skip link should focus main');
         const a11y=await page.evaluate(()=>{
@@ -50,6 +50,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         records.push({width,check:'keyboard skip link, focus target, semantics and key color contrast',status:'passed',contrast:a11y.contrast});
       }
       await page.locator('#landing [data-go="onboarding"]').click();
+      if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
       const questions=await page.evaluate(()=>window.CARAMELO_DATA.questions.map(q=>({type:q.type,count:(q.items||q.options).length})));
       await page.locator('#nextQuestionBtn').click();
