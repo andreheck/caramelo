@@ -68,6 +68,7 @@
 .journey-card.active .journey-card-art { box-shadow: inset 0 0 0 2px rgba(13,139,120,.12), 0 10px 22px rgba(13,139,120,.08); }
 
 #carameloSideProgress {
+  pointer-events: none;
   position: fixed;
   z-index: 26;
   right: 16px;
