@@ -8,3 +8,13 @@
   .final-map-shell{gap:9px}
   .final-close{break-inside:avoid-page}
 }
+
+/* PDF pagination refinement — 2026-09-21 */
+@media print{
+  .final-map-hero,
+  .final-grid>.panel,
+  .final-careers,
+  .result-rings-card{break-inside:avoid-page;page-break-inside:avoid}
+  .final-plan{break-inside:auto!important;page-break-inside:auto!important}
+  .timeline-grid article{break-inside:avoid-page;page-break-inside:avoid}
+}
