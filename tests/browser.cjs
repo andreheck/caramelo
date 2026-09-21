@@ -9,7 +9,7 @@ const records = [];
 let browser, stage = 'startup';
 const pause = ms => new Promise(resolve => setTimeout(resolve,ms));
 const tinyPng = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Y9Z4ZkAAAAASUVORK5CYII=','base64');
-function pdfPageCount(buffer){return (buffer.toString('latin1').match(/\\/Type\\s*\\/Page\\b/g)||[]).length;}
+function pdfPageCount(buffer){return (buffer.toString('latin1').match(/\/Type\s*\/Page\b/g)||[]).length;}
 async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0.1:8765')).ok)return;}catch{}await pause(100);}throw Error('Local server unavailable');}
 (async()=>{
   fs.mkdirSync('reports/browser',{recursive:true});
