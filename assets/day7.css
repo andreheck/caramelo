@@ -15,6 +15,6 @@
   .final-grid>.panel,
   .final-careers,
   .result-rings-card{break-inside:avoid-page;page-break-inside:avoid}
-  .final-plan{break-inside:auto!important;page-break-inside:auto!important}
+  .final-plan{break-inside:auto!important;page-break-inside:auto!important;break-before:page!important;page-break-before:always!important}
   .timeline-grid article{break-inside:avoid-page;page-break-inside:avoid}
 }
