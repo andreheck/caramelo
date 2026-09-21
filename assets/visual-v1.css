@@ -407,3 +407,7 @@ button:focus-visible,.choice-card:focus-visible,.option-card:focus-visible,.rank
   .journey-actions .btn{width:100%}
   .journey-reset-note{font-size:11px;line-height:1.45}
 }
+
+/* Programmatic heading focus: announce the new view without drawing an interactive-looking box. */
+.view h1[tabindex="-1"]:focus-visible,
+.view h2[tabindex="-1"]:focus-visible{outline:none}
