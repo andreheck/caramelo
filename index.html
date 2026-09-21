@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/reasoning.css">
   <link rel="stylesheet" href="assets/day5.css">
+  <link rel="stylesheet" href="assets/timeline-art.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Pular para o conteúdo principal</a>
@@ -28,7 +29,7 @@
       </nav>
     </header>
 
-    <main id="main">
+    <main id="main" tabindex="-1">
       <section id="landing" class="view active" aria-labelledby="landing-title">
         <div class="hero">
           <article class="panel pad hero-copy">
@@ -58,7 +59,7 @@
       <section id="journey" class="view" aria-labelledby="journey-title">
         <article class="panel pad journey-hero"><div><span class="eyebrow"><svg aria-hidden="true"><use href="assets/icons.svg#icon-route"></use></svg> sua jornada</span><h2 id="journey-title">Sete dias para tirar a escolha do campo da ansiedade e colocar no campo da exploração.</h2><p class="lead">Cada etapa acrescenta uma peça ao seu mapa. O primeiro ciclo não termina em uma profissão: termina em hipóteses melhores e ações possíveis.</p></div><div class="xp-panel" aria-label="Progressão da jornada"><small>Seu nível</small><strong id="journeyLevel">Zé Orelha</strong><span id="journeyXp">0 XP</span><div class="meter"><span id="journeyProgress"></span></div><small id="journeyProgressText">0 de 7 dias concluídos</small><small id="journeyNextLevel">80 XP para Juvenil</small></div></article>
         <div class="journey-grid" id="journeyGrid"></div>
-        <div class="actions journey-actions"><button class="btn secondary" type="button" id="resetJourneyBtn">Reiniciar progresso complementar</button></div>
+        <div class="actions journey-actions"><button class="btn secondary" type="button" id="resetJourneyBtn">Reiniciar etapas 2–7</button><button class="btn secondary danger-action" type="button" id="resetAllBtn">Reiniciar jornada completa</button><p class="microcopy journey-reset-note">O primeiro botão preserva o seu mapa vocacional do Dia 1. O segundo apaga todo o progresso deste navegador.</p></div>
       </section>
 
       <section id="methodology" class="view" aria-labelledby="methodology-title"><article class="panel pad prose"><span class="eyebrow">como funciona</span><h2 id="methodology-title">Nossa metodologia</h2><p class="lead">O núcleo vocacional combina cenários ilustrados, escolhas forçadas e rankings para organizar hipóteses sobre interesses, motivadores, ambientes e estilos de decisão.</p><div class="method-grid"><div><span class="model-badge">A</span><h3>Cenário ilustrado</h3><p>Situações concretas com alternativas comportamentais e apoio visual por SVG.</p></div><div><span class="model-badge">C</span><h3>Escolha forçada</h3><p>Duas alternativas positivas colocadas em contraste para explicitar prioridade.</p></div><div><span class="model-badge">D</span><h3>Ranking</h3><p>Ordenação pontual de prioridades com peso reduzido para não dominar o resultado.</p></div></div><div class="notice"><strong>Limite importante</strong><p>O Caramelo está em fase de protótipo. Não é diagnóstico psicológico, não é teste aprovado pelo SATEPSI e não possui normas populacionais. O resultado deve ser usado como hipótese para exploração vocacional.</p></div><p>Documentação completa: <a href="docs/metodologia.md">metodologia</a>, <a href="docs/documentacao-tecnica-v3.md">lógica técnica</a> e <a href="docs/jornada-7-dias.md">jornada de 7 dias</a>.</p></article></section>
@@ -93,5 +94,6 @@
   <script src="assets/journey.js"></script>
   <script src="assets/day5.js"></script>
   <script src="assets/demo-v4.js"></script>
+  <script src="assets/timeline-art.js"></script>
 </body>
 </html>

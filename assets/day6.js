@@ -1,20 +1,11 @@
 (()=>{
   const J=window.CARAMELO_JOURNEY;
   if(!J)return;
-
   const state=J.state;
   const STORAGE_KEY="caramelo:v4:journey";
   const DAY=6;
   const XP=120;
-  const DIMENSIONS={
-    preparacao:"Preparação",
-    comunicacao:"Comunicação",
-    responsabilidade:"Responsabilidade",
-    adaptabilidade:"Adaptabilidade",
-    autoconsciencia:"Autoconsciência",
-    profissionalismo:"Postura profissional",
-    resolucao:"Resolução de problemas"
-  };
+  const DIMENSIONS={preparacao:"Preparação",comunicacao:"Comunicação",responsabilidade:"Responsabilidade",adaptabilidade:"Adaptabilidade",autoconsciencia:"Autoconsciência",profissionalismo:"Postura profissional",resolucao:"Resolução de problemas"};
   const QUESTIONS=[
     {id:"i1",dimension:"preparacao",icon:"microphone",title:"A entrevista começa com: “Conta um pouco sobre você.”",context:"Qual resposta tende a abrir melhor a conversa?",options:[{label:"Conto minha história inteira desde a escola, sem me preocupar com o tempo.",score:1},{label:"Faço um resumo curto de quem sou, experiências relevantes e por que essa oportunidade conversa com meu momento.",score:3},{label:"Digo que está tudo no currículo e espero a próxima pergunta.",score:0},{label:"Falo apenas de hobbies para parecer mais descontraído.",score:1}]},
     {id:"i2",dimension:"preparacao",icon:"search",title:"Perguntam: “O que você sabe sobre a nossa empresa?”",context:"Você tem alguns minutos para responder.",options:[{label:"Improviso elogios genéricos para não admitir que pesquisei pouco.",score:1},{label:"Digo que não sei nada, porque prefiro conhecer a empresa só depois de entrar.",score:0},{label:"Cito o que pesquisei sobre atuação, produto ou contexto e conecto isso ao meu interesse pela vaga.",score:3},{label:"Repito a descrição da vaga quase palavra por palavra.",score:2}]},
@@ -31,10 +22,9 @@
     {id:"i13",dimension:"resolucao",icon:"kanban",title:"No primeiro dia, você recebe uma tarefa com instruções vagas.",context:"Você sabe o tema, mas não está claro o que precisa ser entregue nem para quando.",options:[{label:"Faço do jeito que imagino e entrego quando achar pronto.",score:1},{label:"Confirmo objetivo, formato esperado, prazo e critério de sucesso antes de avançar demais.",score:3},{label:"Espero alguém perceber que faltam instruções.",score:0},{label:"Copio uma entrega antiga sem perguntar se ainda vale.",score:1}]},
     {id:"i14",dimension:"resolucao",icon:"balance",title:"Duas pessoas pedem tarefas urgentes ao mesmo tempo.",context:"Você não consegue concluir as duas no prazo solicitado.",options:[{label:"Escolho a tarefa da pessoa com cargo mais alto sem falar com ninguém.",score:1},{label:"Tento fazer as duas escondendo que o prazo é inviável.",score:0},{label:"Comparo impacto e prazo, explico o conflito e alinho qual prioridade deve vir primeiro.",score:3},{label:"Deixo as duas para depois porque a situação ficou confusa.",score:0}]}
   ];
-
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
-  function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+  function save(){if(J.save)return J.save();try{localStorage.setItem(STORAGE_KEY,JSON.stringify(state));return true}catch{toast('Não foi possível salvar neste navegador. Seu progresso pode se perder ao fechar a página.');return false}}
   function icon(name){return `<svg aria-hidden="true"><use href="assets/icons.svg#icon-${name}"></use></svg>`}
   function toast(msg){const e=$("#toast");if(!e)return;e.textContent=msg;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),2200)}
   function openView(view){$$('.view').forEach(v=>v.classList.toggle('active',v.id===view));$$('[data-view-button]').forEach(b=>b.setAttribute('aria-current',b.dataset.viewButton===view?'page':'false'));scrollTo({top:0,behavior:'smooth'})}
@@ -57,14 +47,12 @@
   function renderResult(){const r=state.readinessResult;if(!r||!$('#readinessScore'))return;$('#readinessScore').textContent=r.score;$('#readinessLevel').textContent=r.level;$('#readinessStrongest').textContent=DIMENSIONS[r.strongest];$('#readinessPriority').textContent=DIMENSIONS[r.priority];$('#readinessBars').innerHTML=Object.entries(DIMENSIONS).map(([key,label])=>{const d=r.dimensions[key],pc=Math.round(d.points/d.max*100);return `<div class="bar-row"><span>${label}</span><div class="bar-track" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pc}"><div class="bar-fill readiness-fill" style="width:${pc}%"></div></div><span>${pc}%</span></div>`}).join('');const orbit=$('#readinessOrbit');if(orbit){orbit.querySelectorAll('.orbit-tag').forEach(n=>n.remove());Object.entries(DIMENSIONS).forEach(([key,label],i)=>{const d=r.dimensions[key],pc=Math.round(d.points/d.max*100),tag=document.createElement('div');tag.className=`orbit-tag orbit-pos-${i+1}`;tag.innerHTML=`<strong>${pc}%</strong><span>${label}</span>`;orbit.appendChild(tag)})}renderPhoto()}
   function patchJourneyCard(){const button=$('[data-journey-day="6"]');if(!button)return;const card=button.closest('.journey-card'),status=card?.querySelector('.journey-status');const done=state.completedDays.includes(6),available=state.completedDays.includes(5)&&!done;if(done){card?.classList.remove('active','soon','locked');card?.classList.add('done');if(status)status.textContent="Concluído";button.disabled=false;button.textContent="Rever etapa"}else if(available){card?.classList.remove('done','soon','locked');card?.classList.add('active');if(status)status.textContent="Disponível agora";button.disabled=false;button.textContent="Começar"}}
   function resetOwnState(){state.readinessIndex=0;state.readinessAnswers={};state.readinessResult=null;state.profilePhoto=null;save()}
-
   ensureState();injectViews();patchJourneyCard();renderPhoto();renderResult();
   document.addEventListener('click',e=>{const button=e.target.closest?.('[data-journey-day="6"]');if(!button)return;e.preventDefault();e.stopImmediatePropagation();if(state.completedDays.includes(6)||state.completedDays.includes(5))start();else toast('Conclua o Dia 5 primeiro.')},true);
-  const grid=$('#journeyGrid');if(grid)new MutationObserver(()=>patchJourneyCard()).observe(grid,{childList:true,subtree:true});
+  // Card children are updated by the callback; observe replacement, not descendants.
+  const grid=$('#journeyGrid');if(grid)new MutationObserver(()=>patchJourneyCard()).observe(grid,{childList:true});
   $('#resetJourneyBtn')?.addEventListener('click',()=>setTimeout(()=>{resetOwnState();patchJourneyCard();renderPhoto()},0));
-
   window.CARAMELO_DAY6={start,render,calculate,questions:QUESTIONS,dimensions:DIMENSIONS};
-
   if(!document.querySelector('link[href="assets/day7.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='assets/day7.css';document.head.appendChild(l)}
   if(!document.querySelector('script[src="assets/day7.js"]')){const s=document.createElement('script');s.src='assets/day7.js';s.defer=false;document.body.appendChild(s)}
 })();

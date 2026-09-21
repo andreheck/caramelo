@@ -1,0 +1,144 @@
+/* Caramelo V6.2 — illustrated timeline and dynamic compass */
+:root {
+  --journey-gold: #f4b52f;
+  --journey-teal: #0d8b78;
+  --journey-ink: #17364f;
+  --journey-paper: #fffaf0;
+}
+
+.journey-top-progress {
+  position: sticky;
+  top: 10px;
+  z-index: 18;
+  display: none;
+  grid-template-columns: minmax(150px, 220px) 1fr;
+  gap: 18px;
+  align-items: center;
+  margin: 0 0 18px;
+  padding: 12px 16px;
+  border: 1px solid rgba(85, 65, 33, .12);
+  border-radius: 24px;
+  background: rgba(255, 250, 240, .96);
+  box-shadow: 0 14px 34px rgba(58, 45, 26, .10);
+}
+.journey-top-progress.visible { display: grid; }
+.journey-top-copy { display: grid; gap: 3px; min-width: 0; }
+.journey-top-copy small { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: .09em; color: #718091; }
+.journey-top-copy strong { font-size: 14px; color: var(--journey-ink); }
+.journey-top-steps { display: grid; grid-template-columns: repeat(7, minmax(64px, 1fr)); gap: 8px; align-items: start; }
+.journey-top-step { position: relative; display: grid; justify-items: center; gap: 5px; min-width: 0; }
+.journey-top-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 23px;
+  left: calc(50% + 24px);
+  width: calc(100% - 16px);
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(13,139,120,.44), rgba(244,181,47,.55));
+}
+.journey-top-dot { position: relative; z-index: 1; width: 50px; height: 50px; display: grid; place-items: center; transition: transform .22s ease, filter .22s ease, opacity .22s ease; }
+.journey-top-dot img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 7px 12px rgba(42, 53, 63, .16)); }
+.journey-top-step.current .journey-top-dot { transform: translateY(-2px) scale(1.08); }
+.journey-top-step.future .journey-top-dot { opacity: .58; filter: saturate(.55); }
+.journey-top-step.done .journey-top-dot::after { content: "✓"; position: absolute; right: -2px; bottom: -1px; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; background: #087f42; color: #fff; font-size: 11px; font-weight: 900; box-shadow: 0 5px 12px rgba(8, 127, 66, .26); }
+.journey-top-label { max-width: 11ch; overflow: hidden; text-overflow: ellipsis; text-align: center; font-size: 9px; line-height: 1.15; font-weight: 800; color: #617181; }
+.journey-top-step.current .journey-top-label { color: var(--journey-ink); }
+
+.journey-card-copy .journey-card-art {
+  position: relative;
+  min-height: 104px;
+  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px 10px 10px;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(85, 65, 33, .10);
+  background:
+    radial-gradient(circle at 18% 16%, rgba(244,181,47,.22), transparent 28%),
+    radial-gradient(circle at 88% 78%, rgba(13,139,120,.13), transparent 30%),
+    linear-gradient(135deg, #fff9eb, #f4e8c9);
+}
+.journey-card-art .badge-large { width: 86px; height: 86px; display: block; object-fit: contain; filter: drop-shadow(0 10px 16px rgba(30,46,61,.16)); }
+.journey-card-art .caption { position: relative; z-index: 2; color: #334e61; font-size: 12px; line-height: 1.35; font-weight: 800; }
+.journey-card.active .journey-card-art { box-shadow: inset 0 0 0 2px rgba(13,139,120,.12), 0 10px 22px rgba(13,139,120,.08); }
+
+#carameloSideProgress {
+  pointer-events: none;
+  position: fixed;
+  z-index: 26;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 184px;
+  display: none;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(85, 65, 33, .13);
+  border-radius: 26px;
+  background: rgba(255, 250, 240, .97);
+  box-shadow: 0 18px 42px rgba(36, 51, 62, .16);
+}
+#carameloSideProgress.visible { display: grid; }
+.side-progress-compass { position: relative; width: 116px; height: 116px; margin-inline: auto; display: grid; place-items: center; }
+.side-progress-compass img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.side-progress-compass .ring { animation: carameloRingDrift 18s linear infinite; }
+.side-progress-compass .needle { transform-origin: 50% 50%; transition: transform .5s cubic-bezier(.2,.72,.2,1); }
+.side-progress-badge { position: absolute !important; inset: auto -4px -4px auto !important; width: 40px !important; height: 40px !important; padding: 4px; border-radius: 13px; background: rgba(255, 250, 240, .95); box-shadow: 0 8px 16px rgba(27,42,56,.16); }
+.side-progress-copy { display: grid; gap: 5px; }
+.side-progress-copy small { color: #806739; font-weight: 900; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
+.side-progress-copy strong { color: var(--journey-ink); font-size: 15px; line-height: 1.15; }
+.side-progress-copy p { margin: 0; color: #657381; font-size: 11px; line-height: 1.35; }
+.side-progress-percent { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--journey-ink); font-size: 11px; font-weight: 800; }
+.side-progress-percent b { display: inline-flex; min-width: 48px; justify-content: center; padding: 5px 8px; border-radius: 999px; background: #fff0c9; color: #8b5513; font-size: 12px; }
+.side-progress-track { height: 10px; overflow: hidden; border-radius: 999px; background: #eadfc9; }
+.side-progress-track span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--journey-teal), var(--journey-gold)); transition: width .4s ease; }
+
+@keyframes carameloRingDrift { to { transform: rotate(360deg); } }
+
+@media (max-width: 1280px) {
+  #carameloSideProgress { right: 8px; width: 156px; }
+  .side-progress-compass { width: 94px; height: 94px; }
+}
+@media (max-width: 1050px) {
+  #carameloSideProgress { position: sticky; top: 78px; right: auto; transform: none; width: auto; grid-template-columns: 62px minmax(0,1fr); align-items: center; margin: 0 0 12px; border-radius: 18px; }
+  .side-progress-compass { width: 58px; height: 58px; margin: 0; }
+  .side-progress-badge { width: 24px !important; height: 24px !important; border-radius: 8px; }
+  .side-progress-copy p { display: none; }
+}
+@media (max-width: 760px) {
+  .journey-top-progress { position: relative; top: auto; grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+  .journey-top-copy { grid-template-columns: auto 1fr; align-items: center; gap: 8px; }
+  .journey-top-steps { gap: 3px; }
+  .journey-top-step:not(:last-child)::after { display: none; }
+  .journey-top-dot { width: 38px; height: 38px; }
+  .journey-top-label { display: none; }
+  .journey-card-copy .journey-card-art { grid-template-columns: 70px minmax(0,1fr); min-height: 90px; }
+  .journey-card-art .badge-large { width: 68px; height: 68px; }
+  #carameloSideProgress { top: 6px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .side-progress-compass .ring { animation: none; }
+  .side-progress-compass .needle, .journey-top-dot, .side-progress-track span { transition: none !important; }
+}
+
+/* Result-screen compact progress */
+@media(min-width:1051px){
+  body:has(.view.active[id$="-result"]) #carameloSideProgress,
+  body:has(#final-map.active) #carameloSideProgress{width:118px;padding:9px;gap:6px}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-compass,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-compass{width:78px;height:78px}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-title,
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-text,
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-overall,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-title,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-text,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-overall{display:none}
+  body:has(.view.active[id$="-result"]) #carameloSideProgress .side-progress-percent,
+  body:has(#final-map.active) #carameloSideProgress .side-progress-percent{justify-content:center}
+}
+@media print{#journeyTopProgress,#carameloSideProgress{display:none!important}}
