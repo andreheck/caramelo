@@ -27,7 +27,7 @@ body.v8-question-mode .journey-top-label,body.v8-result-mode .journey-top-label{
 .v8-home-chip svg{width:17px;height:17px;color:var(--v8-green)}
 @keyframes v8Float{0%,100%{transform:translate3d(0,0,0) rotate(-1deg)}50%{transform:translate3d(0,-9px,0) rotate(1.2deg)}}
 
-.v8-question-mode main{height:calc(100dvh - 126px)}
+.v8-question-mode main{height:calc(100dvh - 156px)}
 .v8-question-mode .view.active{height:100%;padding-bottom:0}
 .v8-question-mode .quiz-layout,.v8-question-mode .reflection-layout{height:100%;min-height:0;grid-template-columns:230px minmax(0,1fr);gap:10px}
 .v8-question-mode .quiz-side{position:relative;top:auto;height:100%;min-height:0;padding:15px;overflow:hidden}
@@ -55,7 +55,7 @@ body.v8-question-mode .journey-top-label,body.v8-result-mode .journey-top-label{
 @keyframes v8QuestionStay{from{opacity:.45;transform:scale(.992)}to{opacity:1;transform:none}}
 .v8-answer-pulse{animation:v8AnswerPulse .26s ease}@keyframes v8AnswerPulse{50%{transform:scale(1.018);box-shadow:0 0 0 6px rgba(244,196,48,.18),0 12px 28px rgba(8,122,67,.12)}}
 
-body.v8-result-mode main{height:calc(100dvh - 126px)}
+body.v8-result-mode main{height:calc(100dvh - 156px)}
 #results.active{height:100%;padding-bottom:0}
 #results.active .result-main{height:100%;overflow:hidden;padding:13px 16px;display:flex;flex-direction:column}
 #results.active .result-main>.eyebrow{align-self:flex-start;padding:5px 9px;font-size:9px}
@@ -102,7 +102,7 @@ body.v8-result-mode main{height:calc(100dvh - 126px)}
 #carameloSideProgress.visible{box-shadow:0 18px 42px rgba(36,51,62,.16),0 0 0 6px rgba(244,196,48,.06)}
 
 @media(max-height:720px) and (min-width:900px){
- body.v8-question-mode main,body.v8-result-mode main{height:calc(100dvh - 112px)}
+ body.v8-question-mode main,body.v8-result-mode main{height:calc(100dvh - 142px)}
  body.v8-question-mode .journey-top-progress,body.v8-result-mode .journey-top-progress{padding:5px 10px}
  body.v8-question-mode .journey-top-dot,body.v8-result-mode .journey-top-dot{width:34px;height:34px}
  body.v8-question-mode .question-title{font-size:24px}
