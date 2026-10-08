@@ -40,8 +40,8 @@ Cada perfil pode enfatizar duas ou três cores, mantendo pelo menos uma cor comp
 - recorte seguro central para adaptação em cards;
 - sem texto dentro da arte;
 - sem logotipo dentro da arte;
-- preview V7: SVG leve e responsivo; uma arte raster final em WebP pode substituir o SVG sem alterar a lógica do resultado;
-- nome esperado: `assets/profiles/<profile-id>.svg`.
+- preview V7: WebP editorial é a arte principal; SVG leve e responsivo permanece como fallback técnico, sem alterar a lógica do resultado;
+- arte principal: `assets/profiles/<profile-id>.webp`; fallback: `assets/profiles/<profile-id>.svg`.
 
 ## Estrutura comum da cena
 
@@ -193,13 +193,15 @@ Adicionar a esse prompt a descrição específica de cada perfil acima.
 O app deve procurar a arte final em:
 
 ```text
-assets/profiles/explorador-analitico.svg
-assets/profiles/criador-expressivo.svg
-assets/profiles/cuidador-estrategico.svg
-assets/profiles/construtor-organizado.svg
-assets/profiles/comunicador-influente.svg
-assets/profiles/transformador-social.svg
-assets/profiles/realizador-pratico.svg
+assets/profiles/explorador-analitico.webp
+assets/profiles/criador-expressivo.webp
+assets/profiles/cuidador-estrategico.webp
+assets/profiles/construtor-organizado.webp
+assets/profiles/comunicador-influente.webp
+assets/profiles/transformador-social.webp
+assets/profiles/realizador-pratico.webp
+
+Fallbacks técnicos equivalentes permanecem em `assets/profiles/*.svg`.
 ```
 
 Até a produção das artes finais, a interface usa um fallback gráfico por perfil. Uma falha no carregamento da imagem deve voltar automaticamente ao fallback, sem ícone quebrado.
@@ -216,4 +218,4 @@ Até a produção das artes finais, a interface usa um fallback gráfico por per
 
 ## Integração V7
 
-A build de homologação V7 usa uma cena vetorial separada por perfil em `assets/profiles/*.svg`. Descrições, motivadores e áreas sugeridas continuam vindo de `CARAMELO_DATA.profiles` e do resultado calculado; não ficam gravados dentro das imagens. Os SVGs são uma camada editorial substituível e não alteram a pontuação.
+A build de homologação V7 usa uma cena editorial WebP separada por perfil em `assets/profiles/*.webp`, com fallback SVG por perfil. Descrições, motivadores e áreas sugeridas continuam vindo de `CARAMELO_DATA.profiles` e do resultado calculado; não ficam gravados dentro das imagens. Os SVGs são uma camada editorial substituível e não alteram a pontuação.

@@ -12,3 +12,9 @@
 .profile-visual-subtitle{display:block;margin-top:18px;margin-bottom:10px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:#7a6854}.profile-visual-careers{display:flex;flex-wrap:wrap;gap:8px}.profile-visual-career{padding:8px 11px;border-radius:999px;background:rgba(255,250,240,.88);border:1px solid rgba(33,26,20,.1);font-size:10.5px;font-weight:800;color:#354958;box-shadow:0 6px 14px rgba(74,48,23,.05)}
 .profile-visual-compact .profile-visual-career{font-size:10px;padding:7px 9px}.profile-visual-compact .profile-visual-subtitle{margin-top:14px}.journey-card.active{animation:carameloActiveCard 3s ease-in-out infinite}@keyframes carameloActiveCard{0%,100%{box-shadow:0 0 0 4px rgba(8,122,67,.08),0 15px 34px rgba(65,75,48,.08)}50%{box-shadow:0 0 0 5px rgba(36,87,197,.09),0 18px 38px rgba(36,87,197,.1)}}
 @media(max-width:760px){.profile-visual-emblem{width:42px;height:42px;border-radius:14px;left:12px;bottom:12px}.profile-visual-emblem svg{width:22px;height:22px}.profile-visual-careers{gap:6px}}@media(prefers-reduced-motion:reduce){.view.active,.visual-scene,.journey-card.active,.journey-top-step.current .journey-top-dot::before,.profile-visual{animation:none!important}.profile-visual-image,.btn,.option-card,.rank-card,.reflection-option,.choice-card,.journey-card{transition:none!important}}
+/* painterly profile sizing */
+@media(min-width:761px){
+  .profile-visual{grid-template-columns:minmax(260px,360px) minmax(0,1fr)}
+  .profile-visual-compact{grid-template-columns:300px minmax(0,1fr)}
+}
+.profile-visual-image{image-rendering:auto}
