@@ -13,7 +13,7 @@
     };
   }
 
-  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css','assets/mobile-v1.css'].forEach(href=>{
+  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css','assets/mobile-v1.css','assets/refine-v7.css','assets/refine-v8.css'].forEach(href=>{
     if(document.querySelector(`link[href="${href}"]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
@@ -21,10 +21,11 @@
     document.head.appendChild(link);
   });
 
-  ['assets/journey-ui.js','assets/result-rings.js','assets/profile-visuals.js'].forEach(src=>{
+  ['assets/journey-ui.js','assets/result-rings.js','assets/profile-visuals.js','assets/refine-v7.js','assets/refine-v8.js'].forEach(src=>{
     if(document.querySelector(`script[src="${src}"]`)) return;
     const script=document.createElement('script');
     script.src=src;
+    script.async=false;
     document.body.appendChild(script);
   });
 })();

@@ -53,7 +53,12 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
-      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
+      if(width===1280){
+        await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
+        const qfit=await page.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+        assert.ok(qfit.bottom<=qfit.height+2,`Primary question actions should fit in viewport: ${JSON.stringify(qfit)}`);
+        records.push({width,check:'day 1 primary question fits viewport without vertical scroll to actions',status:'passed'});
+      }
       const questions=await page.evaluate(()=>window.CARAMELO_DATA.questions.map(q=>({type:q.type,count:(q.items||q.options).length})));
       await page.locator('#nextQuestionBtn').click();
       assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),0);
@@ -66,7 +71,14 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
-      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
+      if(width===1280){
+        await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v8ResultDetailBtn'));
+        await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
+        const rfit=await page.evaluate(()=>({bottom:document.querySelector('#results .actions')?.getBoundingClientRect().bottom||9999,height:innerHeight,dashboard:!!document.querySelector('#v8ResultDashboard'),details:!!document.querySelector('#v8ResultDetails')}));
+        assert.ok(rfit.bottom<=rfit.height+2,`Primary result actions should fit in viewport: ${JSON.stringify(rfit)}`);
+        assert.ok(rfit.dashboard&&rfit.details);
+        records.push({width,check:'day 1 primary result dashboard and actions fit viewport; full detail available in dialog',status:'passed'});
+      }
       const expected=await page.evaluate(()=>window.CARAMELO_VOCATIONAL.result().primary.title);
       assert.equal(await page.locator('#profileName').textContent(),expected);
       await page.locator('#results [data-go="journey"]').click();
