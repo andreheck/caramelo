@@ -111,6 +111,7 @@ body.v8-result-mode main{height:calc(100dvh - 156px)}
 }
 @media(max-width:900px){
  #questionHost.v8-enter-forward,#questionHost.v8-enter-back,#questionHost.v8-enter-stay,.v8-answer-pulse{animation:none!important}
+ .btn:hover,.option-card:hover,.rank-card:hover,.reflection-option:hover,.choice-card:hover{transform:none!important}
  body.v8-question-mode,body.v8-result-mode{overflow:auto}
  body.v8-question-mode main,body.v8-result-mode main,#results.active,.v8-question-mode .view.active{height:auto}
  .v8-question-mode .quiz-layout,.v8-question-mode .reflection-layout{height:auto;grid-template-columns:1fr}
