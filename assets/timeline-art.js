@@ -24,6 +24,7 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   let refreshQueued = false;
+  let compassTarget = -98, compassCurrent = -98, compassVelocity = 0, compassNudge = 0, compassRaf = 0;
 
   function journeyState() {
     const state = window.CARAMELO_JOURNEY?.state;
@@ -133,6 +134,26 @@
     return widget;
   }
 
+  function animateCompass() {
+    compassRaf = 0;
+    const widget = $('#carameloSideProgress');
+    const needle = widget ? $('.needle', widget) : null;
+    if (!widget?.classList.contains('visible') || !needle) return;
+    const t = performance.now();
+    const drift = Math.sin(t / 720) * 3.8 + Math.sin(t / 1320 + 1.4) * 2.2;
+    const delta = compassTarget + compassNudge - compassCurrent;
+    compassVelocity = (compassVelocity + delta * .075) * .82;
+    compassCurrent += compassVelocity;
+    compassNudge *= .9;
+    needle.style.transform = `rotate(${(compassCurrent + drift).toFixed(2)}deg)`;
+    compassRaf = requestAnimationFrame(animateCompass);
+  }
+  function setCompassTarget(angle, nudge = 0) {
+    compassTarget = angle;
+    compassNudge += nudge;
+    if (!compassRaf) compassRaf = requestAnimationFrame(animateCompass);
+  }
+
   function updateSideProgress() {
     const widget = ensureSideProgress();
     const view = activeViewId();
@@ -150,7 +171,7 @@
     $('.side-progress-overall', widget).textContent = `${completedDays().length} de 7 dias concluídos`;
     $('.side-progress-value', widget).textContent = `${pct}%`;
     $('.side-progress-track span', widget).style.width = `${pct}%`;
-    $('.needle', widget).style.transform = `rotate(${angle}deg)`;
+    setCompassTarget(angle);
   }
 
   function refresh() {
@@ -166,7 +187,15 @@
     requestAnimationFrame(refresh);
   }
 
-  document.addEventListener('click', () => setTimeout(scheduleRefresh, 0), true);
+  document.addEventListener('click', event => {
+    const answer = event.target.closest?.('[data-option-index],[data-rank-index],[data-emotion-value],[data-wheel-value],[data-reasoning-value],[data-reading-value],[data-readiness-value]');
+    if (answer) {
+      const raw = Number(answer.dataset.optionIndex ?? answer.dataset.rankIndex ?? answer.dataset.emotionValue ?? answer.dataset.wheelValue ?? answer.dataset.reasoningValue ?? answer.dataset.readingValue ?? answer.dataset.readinessValue ?? 0);
+      const direction = (raw % 2 ? 1 : -1) * (10 + (raw % 3) * 4);
+      setCompassTarget(compassTarget, direction);
+    }
+    setTimeout(scheduleRefresh, 0);
+  }, true);
   document.addEventListener('change', () => setTimeout(scheduleRefresh, 0), true);
   window.addEventListener('load', scheduleRefresh);
   document.addEventListener('DOMContentLoaded', scheduleRefresh);
@@ -177,5 +206,6 @@
   if (main) new MutationObserver(scheduleRefresh).observe(main, { childList: true, subtree: true });
 
   scheduleRefresh();
+  requestAnimationFrame(animateCompass);
   window.CARAMELO_TIMELINE_ART = { refresh: scheduleRefresh, stages: STAGES };
 })();
