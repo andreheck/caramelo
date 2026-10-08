@@ -21,19 +21,22 @@
   function markup(profile,{compact=false}={}){
     if(!profile)return'';
     const meta=META[profile.id]||{icon:'compass',kicker:'seu jeito de caminhar',tags:[]};
-    const src=`assets/profiles/${profile.id}.webp`;
+    const src=`assets/profiles/${profile.id}.svg`;
+    const careers=(profile.careers||[]).slice(0,compact?4:6);
     return `<section class="profile-visual ${compact?'profile-visual-compact':''}" data-profile="${esc(profile.id)}" aria-label="Representação visual do perfil ${esc(profile.title)}">
       <div class="profile-visual-art">
         <div class="profile-visual-pattern" aria-hidden="true"></div>
         <div class="profile-visual-orbit" aria-hidden="true"></div>
         <div class="profile-visual-symbol" aria-hidden="true">${icon(meta.icon)}</div>
         <img class="profile-visual-image" src="${src}" alt="Cena editorial representando o perfil ${esc(profile.title)}" loading="lazy">
+        <div class="profile-visual-emblem" aria-hidden="true">${icon(meta.icon)}</div>
       </div>
       <div class="profile-visual-copy">
         <span class="profile-visual-kicker">${esc(meta.kicker)}</span>
         <h3>${esc(profile.title)}</h3>
         <p>${esc(profile.summary)}</p>
         <div class="profile-visual-tags">${meta.tags.map(tag=>`<span class="profile-visual-tag">${esc(tag)}</span>`).join('')}</div>
+        <div class="profile-visual-careers-wrap"><span class="profile-visual-subtitle">Você também pode gostar de</span><div class="profile-visual-careers">${careers.map(area=>`<span class="profile-visual-career">${esc(area)}</span>`).join('')}</div></div>
       </div>
     </section>`;
   }

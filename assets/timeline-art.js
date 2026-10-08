@@ -1,12 +1,12 @@
 (() => {
   const STAGES = {
-    1: { short: 'Mapa vocacional', title: 'Bora se entender', subtitle: 'Seu mapa vocacional inicial', badge: 'assets/journey/day1_badge.webp', caption: 'Explorar com curiosidade e juntar pistas sobre seu jeito de caminhar.' },
-    2: { short: 'Momento atual', title: 'Termômetro do momento', subtitle: 'Como você tá por dentro', badge: 'assets/journey/day2_badge.webp', caption: 'Perceber como você está por dentro para escolher com mais cuidado.' },
-    3: { short: 'Roda da vida', title: 'Roda da Vida', subtitle: 'Sua vida tá no eixo?', badge: 'assets/journey/day3_badge.webp', caption: 'Olhar para as áreas da vida e enxergar o que pede atenção agora.' },
-    4: { short: 'Raciocínio', title: 'Raciocínio', subtitle: 'Como sua cabeça resolve?', badge: 'assets/journey/day4_badge.webp', caption: 'Treinar lógica, atenção e solução de problemas do dia a dia.' },
-    5: { short: 'Leitura', title: 'Leitura e contexto', subtitle: 'Você entende o jogo?', badge: 'assets/journey/day5_badge.webp', caption: 'Ler contextos, interpretar sinais e ampliar repertório.' },
-    6: { short: 'Preparação', title: 'Preparação', subtitle: 'Você tá pronto pro corre?', badge: 'assets/journey/day6_badge.webp', caption: 'Organizar recursos, estratégia e confiança para os próximos passos.' },
-    7: { short: 'Mapa do corre', title: 'Mapa do corre', subtitle: 'Teu mapa do corre', badge: 'assets/journey/day7_badge.webp', caption: 'Juntar a jornada em um plano visual de ação e possibilidades.' }
+    1: { short: 'Mapa vocacional', title: 'Bora se entender', subtitle: 'Seu mapa vocacional inicial', badge: 'assets/journey/day1_badge.svg', caption: 'Explorar com curiosidade e juntar pistas sobre seu jeito de caminhar.' },
+    2: { short: 'Momento atual', title: 'Termômetro do momento', subtitle: 'Como você tá por dentro', badge: 'assets/journey/day2_badge.svg', caption: 'Perceber como você está por dentro para escolher com mais cuidado.' },
+    3: { short: 'Roda da vida', title: 'Roda da Vida', subtitle: 'Sua vida tá no eixo?', badge: 'assets/journey/day3_badge.svg', caption: 'Olhar para as áreas da vida e enxergar o que pede atenção agora.' },
+    4: { short: 'Raciocínio', title: 'Raciocínio', subtitle: 'Como sua cabeça resolve?', badge: 'assets/journey/day4_badge.svg', caption: 'Treinar lógica, atenção e solução de problemas do dia a dia.' },
+    5: { short: 'Leitura', title: 'Leitura e contexto', subtitle: 'Você entende o jogo?', badge: 'assets/journey/day5_badge.svg', caption: 'Ler contextos, interpretar sinais e ampliar repertório.' },
+    6: { short: 'Preparação', title: 'Preparação', subtitle: 'Você tá pronto pro corre?', badge: 'assets/journey/day6_badge.svg', caption: 'Organizar recursos, estratégia e confiança para os próximos passos.' },
+    7: { short: 'Mapa do corre', title: 'Mapa do corre', subtitle: 'Teu mapa do corre', badge: 'assets/journey/day7_badge.svg', caption: 'Juntar a jornada em um plano visual de ação e possibilidades.' }
   };
 
   const VIEW_DAY = {
@@ -128,7 +128,7 @@
     widget = document.createElement('aside');
     widget.id = 'carameloSideProgress';
     widget.setAttribute('aria-label', 'Progresso da etapa atual');
-    widget.innerHTML = `<div class="side-progress-compass" aria-hidden="true"><img class="ring" src="assets/journey/compass_ring.webp" alt=""><img class="base" src="assets/journey/compass_base.webp" alt=""><img class="needle" src="assets/journey/compass_needle.webp" alt=""><img class="side-progress-badge" src="assets/journey/day1_badge.webp" alt=""></div><div class="side-progress-copy"><small class="side-progress-kicker">Dia 1 · Mapa vocacional</small><strong class="side-progress-title">Sua direção está em construção</strong><p class="side-progress-text">A bússola se movimenta conforme você avança.</p><div class="side-progress-percent"><span class="side-progress-overall">0 de 7 dias concluídos</span><b class="side-progress-value">0%</b></div><div class="side-progress-track" aria-hidden="true"><span></span></div></div>`;
+    widget.innerHTML = `<div class="side-progress-compass" aria-hidden="true"><img class="ring" src="assets/journey/compass_ring.svg" alt=""><img class="base" src="assets/journey/compass_base.svg" alt=""><img class="needle" src="assets/journey/compass_needle.svg" alt=""><img class="side-progress-badge" src="assets/journey/day1_badge.svg" alt=""></div><div class="side-progress-copy"><small class="side-progress-kicker">Dia 1 · Mapa vocacional</small><strong class="side-progress-title">Sua direção está em construção</strong><p class="side-progress-text">A bússola se movimenta conforme você avança.</p><div class="side-progress-percent"><span class="side-progress-overall">0 de 7 dias concluídos</span><b class="side-progress-value">0%</b></div><div class="side-progress-track" aria-hidden="true"><span></span></div></div>`;
     document.body.appendChild(widget);
     return widget;
   }
@@ -142,7 +142,7 @@
     widget.classList.add('visible');
     const stage = STAGES[day];
     const pct = stagePercent(view);
-    const angle = -120 + pct * 2.4;
+    const angle = -118 + pct * 2.18 + Math.sin((pct + day * 17) * .12) * 18;
     $('.side-progress-badge', widget).src = stage.badge;
     $('.side-progress-kicker', widget).textContent = `Dia ${day} · ${stage.short}`;
     $('.side-progress-title', widget).textContent = pct >= 100 ? 'Etapa concluída' : stage.title;
