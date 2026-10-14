@@ -12,7 +12,7 @@
   };
   const safeGet=(k,fallback)=>{try{return localStorage.getItem(k)??fallback}catch{return fallback}};
   const safeSet=(k,v)=>{try{localStorage.setItem(k,v)}catch{}};
-  let soundEnabled=safeGet('caramelo:v81:sound','on')!=='off',audio=null,lastDay=0,phaseTimer=0,heroTimer=0,heroIndex=0;
+  let soundEnabled=safeGet('caramelo:v81:sound','on')!=='off',audio=null,lastDay=0,phaseTimer=0,phaseShowTimer=0,heroTimer=0,heroIndex=0;
   function activeView(){return $('.view.active')?.id||''}
   function phaseForView(view){return Number(Object.entries(PHASES).find(([,p])=>p.views.includes(view))?.[0]||0)}
   function ensureAudio(){
@@ -68,7 +68,7 @@
     const view=activeView();
     if(view==='landing')lastDay=0;
     const day=phaseForView(view);
-    if(day&&day!==lastDay){lastDay=day;showPhase(day)}
+    if(day&&day!==lastDay){lastDay=day;clearTimeout(phaseShowTimer);phaseShowTimer=setTimeout(()=>showPhase(day),90)}
   }
   function installQuestionRibbon(){
     const host=$('#questionHost');if(!host)return;
