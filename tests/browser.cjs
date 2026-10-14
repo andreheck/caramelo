@@ -53,6 +53,9 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
+      assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
+      assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
+      assert.equal(await page.locator('#v81PhaseOverlay').getAttribute('data-day'),'1');
       if(width===1280){
         await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
         const qfit=await page.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
@@ -182,6 +185,24 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     }catch(error){records.push({width,stage,status:'failed',error:error.message});throw error;}
     finally{await context.close();}
   }
+  const compactContext=await browser.newContext({viewport:{width:1366,height:768},reducedMotion:'reduce'});
+  const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
+  const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
+  await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81);
+  await compactPage.locator('#landing [data-go="onboarding"]').click();
+  await compactPage.locator('#startQuizBtn').click();
+  const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+  assert.ok(compactQuestion.bottom<=compactQuestion.height+2,`1366x768 question actions must fit viewport: ${JSON.stringify(compactQuestion)}`);
+  await compactPage.evaluate(()=>window.CARAMELO_APP.go('landing'));
+  await compactPage.locator('#demoResultBtn').click();
+  await compactPage.waitForFunction(()=>document.querySelector('#results.active')&&document.querySelector('#v8ResultDashboard'));
+  const compactResult=await compactPage.evaluate(()=>({bottom:document.querySelector('#results .actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+  assert.ok(compactResult.bottom<=compactResult.height+2,`1366x768 result actions must fit viewport: ${JSON.stringify(compactResult)}`);
+  assert.deepEqual(compactErrors,[],'Compact desktop viewport must not create uncaught errors');
+  records.push({width:1366,height:768,check:'V8.1 compact desktop question and result actions fit viewport; phase and sound UI present',status:'passed'});
+  await compactContext.close();
+
   const storageContext=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
   const storagePage=await storageContext.newPage(); storagePage.setDefaultTimeout(10000);
   const storageErrors=[]; storagePage.on('pageerror',e=>storageErrors.push(e.message));
@@ -201,7 +222,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   await storageContext.close();
 })().catch(error=>{console.error('BROWSER_FAILURE',stage,error);process.exitCode=1;}).finally(async()=>{
   fs.mkdirSync('reports/browser',{recursive:true});
-  const result={sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-7; synthetic protocols; desktop and narrow-viewport Chromium; clipboard, optional photo, resets, blocked storage, keyboard/focus, semantic and contrast checks, real Chromium PDF generation; not physical-device or human screen-reader certification'};
+  const result={sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-7; synthetic protocols; desktop 1280x900, compact desktop 1366x768 and narrow 390x900 Chromium; optional sound/phase UI, clipboard, optional photo, resets, blocked storage, keyboard/focus, semantic and contrast checks, real Chromium PDF generation; not physical-device or human screen-reader certification'};
   fs.writeFileSync('reports/browser/results.json',JSON.stringify(result,null,2));
   console.log('BROWSER_RESULT '+JSON.stringify(result));
   if(browser)await browser.close();server.kill();

@@ -1,0 +1,80 @@
+/* CARAMELO V8.1 — perceptible polish */
+.v81-sound-toggle{display:inline-flex!important;align-items:center;justify-content:center;gap:6px;min-width:86px;border:1px solid rgba(23,61,53,.12)!important;background:#fffaf0!important;color:#173d35!important;font-weight:800!important}
+.v81-sound-toggle[aria-pressed="true"]{background:#f0f8f3!important;border-color:rgba(8,122,67,.22)!important;color:#087a43!important}
+.v81-phase-overlay{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:22px;background:rgba(17,43,37,.34);backdrop-filter:blur(7px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .22s ease,visibility .22s ease}
+.v81-phase-overlay.is-visible{opacity:1;visibility:visible}
+.v81-phase-card{width:min(430px,88vw);display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:center;padding:22px;border-radius:30px;background:#fffaf0;border:1px solid rgba(255,255,255,.72);box-shadow:0 28px 90px rgba(18,45,39,.28);transform:translateY(18px) scale(.96);opacity:.2;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .3s ease}
+.v81-phase-overlay.is-visible .v81-phase-card{transform:none;opacity:1}
+.v81-phase-card img{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 10px 18px rgba(79,58,28,.15))}
+.v81-phase-copy small{display:block;margin-bottom:5px;color:#a76715;text-transform:uppercase;letter-spacing:.11em;font-size:10px;font-weight:900}
+.v81-phase-copy strong{display:block;color:#173d35;font-size:28px;line-height:1;letter-spacing:-.035em}
+.v81-phase-copy p{margin:8px 0 0;color:#657067;font-size:12px;line-height:1.45}
+.v81-phase-progress{grid-column:1/-1;height:5px;border-radius:999px;background:#eadfca;overflow:hidden}
+.v81-phase-progress span{display:block;height:100%;width:0;background:#087a43;border-radius:inherit}
+.v81-phase-overlay.is-visible .v81-phase-progress span{animation:v81PhaseProgress 1.05s ease-out forwards}
+@keyframes v81PhaseProgress{to{width:100%}}
+
+.v8-home-main{transform:translate3d(calc(var(--v81-px,0)*1px),calc(var(--v81-py,0)*1px),0) scale(1.06);transition:opacity .24s ease,filter .24s ease,transform .4s cubic-bezier(.2,.7,.2,1)}
+.v8-home-main.v81-switching{opacity:.28;filter:saturate(.88) blur(1px);transform:scale(1.1)}
+.v8-home-stage{isolation:isolate}
+.v8-home-copy,.v8-home-chiprow,.v8-home-card{will-change:transform}
+.v8-home-stage:hover .v8-home-copy{transform:translateY(-2px)}
+.v8-home-copy{transition:transform .35s ease}
+
+#questionHost.v81-question-arrival{box-shadow:0 18px 42px rgba(34,55,48,.09),0 0 0 1px rgba(244,196,48,.14)}
+.v81-question-ribbon{height:3px;border-radius:999px;background:#eadfca;overflow:hidden;margin:2px 0 7px}
+.v81-question-ribbon span{display:block;height:100%;width:100%;transform-origin:left;background:#2457c5;animation:v81Ribbon .52s cubic-bezier(.2,.7,.2,1)}
+@keyframes v81Ribbon{from{transform:scaleX(.08);opacity:.2}to{transform:scaleX(1);opacity:1}}
+
+#carameloSideProgress.v81-reacting{animation:v81CompassCard .5s cubic-bezier(.2,.75,.25,1)}
+#carameloSideProgress.v81-reacting .side-progress-compass{animation:v81CompassKick .55s cubic-bezier(.18,.8,.2,1)}
+#carameloSideProgress.v81-reacting .side-progress-compass .ring{animation-duration:2.2s!important}
+@keyframes v81CompassCard{45%{box-shadow:0 22px 54px rgba(36,87,197,.2),0 0 0 9px rgba(244,196,48,.1)}}
+@keyframes v81CompassKick{35%{transform:scale(1.075) rotate(2.5deg)}70%{transform:scale(.985) rotate(-1deg)}}
+.journey-top-step.current .journey-top-dot{box-shadow:0 0 0 5px rgba(244,196,48,.12),0 8px 22px rgba(36,87,197,.12)}
+.journey-top-step.current .journey-top-badge{animation:v81BadgeFloat 3.4s ease-in-out infinite}
+@keyframes v81BadgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+
+#v8ResultDashboard .profile-visual,#v8ResultDashboard .result-rings-card,#v8ResultDashboard #keyCards>div{animation:v81ResultIn .48s cubic-bezier(.2,.78,.2,1) both}
+#v8ResultDashboard .result-rings-card{animation-delay:.07s}
+#v8ResultDashboard #keyCards>div:nth-child(1){animation-delay:.11s}
+#v8ResultDashboard #keyCards>div:nth-child(2){animation-delay:.15s}
+#v8ResultDashboard #keyCards>div:nth-child(3){animation-delay:.19s}
+#v8ResultDashboard #keyCards>div:nth-child(4){animation-delay:.23s}
+@keyframes v81ResultIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+
+@media(max-height:800px) and (min-width:901px){
+ body.v8-question-mode .journey-top-progress,body.v8-result-mode .journey-top-progress{padding:6px 10px;margin-bottom:5px}
+ body.v8-question-mode .journey-top-dot,body.v8-result-mode .journey-top-dot{width:36px;height:36px}
+ body.v8-question-mode .journey-top-label,body.v8-result-mode .journey-top-label{font-size:7.5px}
+ .v8-question-mode main,body.v8-result-mode main{height:calc(100dvh - 140px)}
+ .v8-question-mode .quiz-side{padding:11px 13px}
+ .v8-question-mode .quiz-side h2{font-size:20px;margin:5px 0}
+ .v8-question-mode .question-panel{padding:12px 15px}
+ .v8-question-mode .question-title{font-size:clamp(22px,2vw,29px);margin:5px 0 4px}
+ .v8-question-mode .question-helper{font-size:11.5px}
+ .v8-question-mode .option-card,.v8-question-mode .rank-card,.v8-question-mode .reflection-option{padding:8px 10px}
+ .v8-question-mode .question-actions,.v8-question-mode .rank-actions{margin-top:6px}
+ #results.active .result-main{padding:10px 13px}
+ #results.active #results-title{font-size:22px;margin:4px 0 6px}
+ #v8ResultDashboard{gap:7px}
+ #v8ResultDashboard .profile-visual-copy{padding:12px 14px}
+ #v8ResultDashboard .profile-visual-copy h3{font-size:clamp(25px,2.5vw,35px)}
+ #v8ResultDashboard .profile-visual-copy p{font-size:11px}
+ #v8ResultDashboard .result-rings-card{padding:10px}
+ #v8ResultDashboard .result-rings-watch{width:min(205px,100%)}
+ #v8ResultDashboard #keyCards>div{padding:7px 9px}
+ #results.active .actions{margin-top:6px}
+}
+@media(max-width:900px){
+ .v81-sound-toggle{min-width:0!important;padding-inline:9px!important}
+ .v81-phase-card{grid-template-columns:72px minmax(0,1fr);padding:18px;border-radius:24px}
+ .v81-phase-card img{width:72px;height:72px}
+ .v81-phase-copy strong{font-size:24px}
+ .v81-phase-copy p{font-size:11px}
+ .v8-home-main{transform:scale(1.05)}
+ .journey-top-step.current .journey-top-badge{animation:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .v81-phase-overlay,.v81-phase-card,.v81-phase-progress span,.v8-home-main,#carameloSideProgress.v81-reacting,.journey-top-step.current .journey-top-badge,#v8ResultDashboard .profile-visual,#v8ResultDashboard .result-rings-card,#v8ResultDashboard #keyCards>div{animation:none!important;transition:none!important}
+}
