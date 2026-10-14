@@ -107,12 +107,13 @@
   function sync(){
     installSoundToggle();installPhaseOverlay();installHeroMotion();syncPhase();
   }
-  document.addEventListener('pointerdown',e=>{
-    ensureAudio();
-    if(e.target.closest?.('[data-option-index],[data-rank-index],[data-emotion-value],[data-wheel-value],[data-reasoning-value],[data-reading-value],[data-readiness-value]')){sound('select');kickCompass()}
-    if(e.target.closest?.('#nextQuestionBtn,#emotionNext,#wheelNext,#reasoningNext,#readingNext,#readinessNext'))sound('next');
-  },true);
-  document.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){ensureAudio()}},true);
+  document.addEventListener('click',e=>{
+    const isAnswer=Boolean(e.target.closest?.('[data-option-index],[data-rank-index],[data-emotion-value],[data-wheel-value],[data-reasoning-value],[data-reading-value],[data-readiness-value]'));
+    const isNext=Boolean(e.target.closest?.('#nextQuestionBtn,#emotionNext,#wheelNext,#reasoningNext,#readingNext,#readinessNext'));
+    if(!isAnswer&&!isNext)return;
+    setTimeout(()=>{ensureAudio();if(isAnswer){sound('select');kickCompass()}if(isNext)sound('next')},0);
+  });
+  document.addEventListener('keyup',e=>{if(e.key==='Enter'||e.key===' '){setTimeout(ensureAudio,0)}},true);
   const main=$('#main');if(main)new MutationObserver(()=>requestAnimationFrame(sync)).observe(main,{subtree:true,attributes:true,attributeFilter:['class']});
   installSoundToggle();installPhaseOverlay();installQuestionRibbon();installHeroMotion();syncPhase();
   window.CARAMELO_V81={sound:(v)=>{soundEnabled=Boolean(v);safeSet('caramelo:v81:sound',soundEnabled?'on':'off');installSoundToggle()},phase:showPhase};
