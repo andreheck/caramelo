@@ -55,6 +55,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.locator('#startQuizBtn').click();
       assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
       assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
+      await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
       assert.equal(await page.locator('#v81PhaseOverlay').getAttribute('data-day'),'1');
       if(width===1280){
         await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
