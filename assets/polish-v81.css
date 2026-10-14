@@ -47,7 +47,7 @@
  body.v8-question-mode .journey-top-progress,body.v8-result-mode .journey-top-progress{padding:6px 10px;margin-bottom:5px}
  body.v8-question-mode .journey-top-dot,body.v8-result-mode .journey-top-dot{width:36px;height:36px}
  body.v8-question-mode .journey-top-label,body.v8-result-mode .journey-top-label{font-size:7.5px}
- .v8-question-mode main,body.v8-result-mode main{height:calc(100dvh - 140px)}
+ .v8-question-mode main,body.v8-result-mode main{height:calc(100dvh - 146px)}
  .v8-question-mode .quiz-side{padding:11px 13px}
  .v8-question-mode .quiz-side h2{font-size:20px;margin:5px 0}
  .v8-question-mode .question-panel{padding:12px 15px}
