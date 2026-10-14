@@ -71,16 +71,21 @@
     if(day&&day!==lastDay){lastDay=day;clearTimeout(phaseShowTimer);phaseShowTimer=setTimeout(()=>showPhase(day),420)}
   }
   function installQuestionRibbon(){
-    const host=$('#questionHost');if(!host)return;
+    const host=$('#questionHost');if(!host||host.dataset.v81RibbonObserver==='1')return;
+    host.dataset.v81RibbonObserver='1';
+    let scheduled=false;
     const refresh=()=>{
-      if(!host.children.length)return;
-      host.querySelector('.v81-question-ribbon')?.remove();
+      scheduled=false;
+      if(!host.children.length||host.querySelector('.v81-question-ribbon'))return;
       const ribbon=document.createElement('div');ribbon.className='v81-question-ribbon';ribbon.setAttribute('aria-hidden','true');ribbon.innerHTML='<span></span>';
       const helper=host.querySelector('.question-helper');
       (helper||host.firstElementChild)?.insertAdjacentElement('afterend',ribbon);
       host.classList.remove('v81-question-arrival');void host.offsetWidth;host.classList.add('v81-question-arrival');
     };
-    new MutationObserver(refresh).observe(host,{childList:true});
+    new MutationObserver(()=>{
+      if(host.querySelector('.v81-question-ribbon')||scheduled)return;
+      scheduled=true;requestAnimationFrame(refresh);
+    }).observe(host,{childList:true});
     refresh();
   }
   function kickCompass(){
