@@ -94,6 +94,7 @@
   }
   function decorateResult(){
     if(!$('#results.active'))return;
+    const heading=$('#results-title');if(heading)heading.textContent='Seus resultados';
     const dash=$('#v8ResultDashboard'),profile=$('#profileVisualDay1'),rings=$('#resultRingsDay1');if(!dash||!profile||!rings)return;
     let axis=$('#v9AxisSummary');
     if(!axis){axis=document.createElement('section');axis.id='v9AxisSummary';dash.prepend(axis)}
