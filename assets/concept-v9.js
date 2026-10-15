@@ -104,6 +104,7 @@
     let btn=$('#v9ProfileDetailBtn');
     if(actions&&!btn){btn=document.createElement('button');btn.type='button';btn.className='btn secondary';btn.id='v9ProfileDetailBtn';btn.textContent='Ver perfil completo';actions.prepend(btn)}
     const dialog=$('#v8ResultDetails');
+    if(dialog)dialog.dataset.v9Owned='1';
     if(btn&&dialog&&!btn.dataset.v9){btn.dataset.v9='1';btn.addEventListener('click',()=>{dialog.innerHTML=detailMarkup();bindDetail(dialog);dialog.showModal()})}
     $('#results').classList.add('v9-result-ready');
   }
