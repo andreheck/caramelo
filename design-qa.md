@@ -1,137 +1,163 @@
-# Design QA — Caramelo Visual V8
+# Design QA — Caramelo Visual V8.1
 
 - source visual truth paths:
   - `/mnt/data/caramelo_jornada_de_possibilidades.png`
   - `/mnt/data/a_wide_illustrated_infographic_poster_with_a_clean.png`
 - implementation screenshot paths:
-  - `/mnt/data/caramelo-browser-v8-final/landing-1280.png`
-  - `/mnt/data/caramelo-browser-v8-final/audit-day1-question-1280.png`
-  - `/mnt/data/caramelo-browser-v8-final/audit-day1-result-1280.png`
+  - `/mnt/data/v81qa/landing-1280.png`
+  - `/mnt/data/v81qa/audit-day1-question-1280.png`
+  - `/mnt/data/v81qa/audit-day1-result-1280.png`
+  - `/mnt/data/v81qa/landing-390.png`
+  - `/mnt/data/v81qa/final-390.png`
 - combined comparison evidence:
-  - `/mnt/data/qa-v8/home-comparison.jpg`
-  - `/mnt/data/qa-v8/profile-comparison.jpg`
-- viewport: 1280 × 900 CSS px for automated Chromium validation
+  - `/mnt/data/qa-v81/home-comparison.jpg`
+  - `/mnt/data/qa-v81/profile-comparison.jpg`
+- automated browser viewports:
+  - 1280 × 900 CSS px
+  - 1366 × 768 CSS px
+  - 390 × 900 CSS px
 - source pixels:
   - home concept: 941 × 1672
   - seven-profile concept board: 1536 × 1024
 - implementation pixels:
   - landing full-page capture: 1280 × 1115
-  - Day 1 result full-page capture: 1280 × 971
-- normalization: comparisons use crops/scale normalized to the same visual height. The source files are conceptual/mobile art-direction references, so acceptance is based on hierarchy, palette, imagery, density and interaction character rather than pixel-identical geometry.
-- state: landing, first Day 1 question, and calculated Day 1 result
-- browser evidence: GitHub Actions Quality Gate run `37858091706`, commit `745ed34101c4ec2e8536d16fb4f644ebb8ed3fcb`
-- primary interactions tested: complete Days 1–7 flow, 50-item Day 1, reload persistence, desktop and 390 px mobile, clipboard, optional photo, complementary/full reset, blocked storage, keyboard/focus, PDF generation and result-detail dialog
-- console/runtime errors: none reported by the passing browser job
+  - Day 1 result full-page capture: 1280 × 900-class viewport
+- normalization: source and implementation comparisons were resized to a common 900 px visual height. The source files are conceptual art-direction references rather than production desktop wireframes, so fidelity is judged on hierarchy, palette, imagery, density, interaction character and visual coherence rather than pixel-identical geometry.
+- state:
+  - landing
+  - Day 1 phase transition/question entry
+  - calculated Day 1 result
+  - complete seven-day regression
+- browser evidence: GitHub Actions Quality Gate run `38657105473`, commit `5def64f20660060761b6e1b092f13be78818ec2c`
+- primary interactions tested: full Days 1–7 journey, 50-item Day 1, phase transition UI, optional sound control, desktop 1280 × 900, compact desktop 1366 × 768, mobile 390 × 900, reload persistence, clipboard, optional photo, complementary/full reset, blocked storage, keyboard/focus and PDF.
+- console/runtime errors: none in the passing browser run.
 
 ## Full-view comparison evidence
 
 ### Landing
-The approved concept establishes a warm paper base, high-saturation Brazilian editorial illustration, a large optimistic headline, green primary CTA, colorful supporting motifs and an immediate feeling of discovery. The V8 landing now follows the same hierarchy: large optimistic headline, warmer and more colorful hero composition, illustration-led right panel, floating image cards, yellow/green/blue accents, compact stats and a strong green CTA.
+The approved concept is illustration-led, warm, optimistic and visibly Brazilian, with a strong headline, paper background, saturated green/yellow/blue/orange accents and immediate invitation to begin.
 
-The earlier V7 landing felt like a functional prototype because its visual panel was dominated by generic geometric color fields and left unused dark space. V8 replaces that impression with a full-height illustrated collage and a more inviting opening message.
+V8.1 preserves the product-readable desktop architecture from V8 while adding perceptible polish: the hero illustration now behaves as a living collage with slow image rotation and subtle desktop pointer parallax, the sound control is visible but secondary, and the hierarchy remains strongly anchored by the approved headline **“Seu futuro também tem muitas possibilidades.”**
 
-### Question screen
-The user requested that the content needed to answer remain visible without vertical scrolling. In the V8 desktop state, question context, four options and Back/Next actions fit inside the 1280 × 900 viewport. The option system also moves away from a generic white-card grid by using subtle green, blue, yellow and orange editorial tints while preserving legibility.
+The source is still richer as a single authored poster, but the implementation now translates that warmth into an interactive application rather than imitating the poster literally.
+
+### Questions and phase transitions
+A new phase overlay gives each of the seven days a recognizable entrance moment using its own journey badge, title, short contextual explanation and progress sweep. It appears after navigation settles, so it does not block the control that initiated the transition.
+
+Question entry has a compact animated ribbon and desktop arrival treatment. The full interaction remains stable under the automated 50-item loop, including rapid selection/advance behavior.
+
+### Bússola
+The compass remains a persistent orientation element but now has two movement layers:
+- continuous soft needle drift/inertia;
+- stronger card/compass reaction when the user answers.
+
+The result view keeps a compact version in the lower-right so it remains part of the visual language without competing with the result content.
 
 ### Day 1 result
-The previous result mixed a painterly profile card with a dark dashboard-like ring visualization and a large fixed compass that competed with the content. V8 reorganizes the result into a single primary viewport: illustrated profile card on the left, warm editorial ring visualization on the right, four quick-result cards below and primary actions at the bottom. Deeper axes, careers and action-plan content remain accessible through the `Ver detalhes` dialog.
+The result still uses the V8 one-viewport dashboard: painterly profile art, warm ring visualization, four summary cards and primary actions. The V8.1 entrance motion staggers these regions rather than making the entire screen appear at once.
 
-The compass is deliberately compact on result views and moved to the bottom-right so it remains part of the journey language without obscuring the result.
+This keeps the quantitative graphic visually connected to the illustration system and avoids returning to the earlier dark analytics-dashboard look.
 
 ## Focused region comparison evidence
 
 ### Hero region
-Comparison: `/mnt/data/qa-v8/home-comparison.jpg`.
+Comparison: `/mnt/data/qa-v81/home-comparison.jpg`.
 
-The V8 hero matches the source intent on the major fidelity surfaces: warm off-white canvas, saturated yellow/green/blue illustration, optimistic oversized title, green CTA and small supporting badges. Exact character pose and scene are intentionally adapted because the approved image is a conceptual composition rather than a production-ready desktop hero.
+The implementation matches the main art-direction signals from the source: warm paper field, oversized optimistic headline, deep green CTA, saturated illustrated imagery, blue/yellow/green accents, compact stats and a secondary illustrated storytelling block. V8.1 adds motion without changing that hierarchy.
 
 ### Profile/result region
-Comparison: `/mnt/data/qa-v8/profile-comparison.jpg`.
+Comparison: `/mnt/data/qa-v81/profile-comparison.jpg`.
 
-The profile art remains the dominant emotional anchor, with title, identity tags and related-area chips kept outside the image so they remain indexed to the calculated result. The graph now uses the same warm paper/green/blue/yellow family instead of a dark BI-dashboard surface.
+The calculated result keeps all semantic copy outside the image so titles, motivators, environmental preferences, warnings and suggested areas remain indexed to the real scoring result. The painterly scene remains the emotional anchor and the ring graphic uses the same warm visual system.
+
+### Phase transition region
+Implementation evidence: `/mnt/data/v81qa/audit-day1-question-1280.png`.
+
+The transition overlay is intentionally modal-looking but non-interactive. It creates a distinct chapter break while the underlying question remains visible as context. The overlay duration is short and respects reduced-motion preferences.
 
 ## Required fidelity surfaces
 
 ### Fonts and typography
-The approved concept uses a hand-drawn/editorial display voice. The product keeps Inter/Anton-derived product typography for long-form clarity, but V8 increases the emotional headline scale and keeps strong condensed/black hierarchy for profile and result headings. This is an intentional product adaptation. No actionable P0/P1/P2 typography mismatch remains.
+Display hierarchy remains strong and readable. The source uses a more hand-drawn editorial voice; the app intentionally keeps its existing product typography for long-form usability. V8.1 does not introduce new hierarchy drift. No actionable P0/P1/P2 typography issue remains.
 
 ### Spacing and layout rhythm
-The main desktop question and result experiences now fit the primary viewport without requiring vertical scrolling to reach actions. Result information is grouped into a 2-column dashboard and detail dialog rather than a long linear report. Major cards use consistent radii, shadows and paper surfaces. No actionable P0/P1/P2 spacing issue remains.
+Primary question actions fit at 1280 × 900 and at compact desktop 1366 × 768. The result primary actions also remain within the compact viewport. Mobile keeps its vertical flow instead of forcing desktop compression. No actionable P0/P1/P2 spacing issue remains.
 
 ### Colors and visual tokens
-V8 consistently uses off-white paper, deep green, cobalt/royal blue, warm yellow and caramel. The result rings were moved from a dark blue dashboard treatment to a warm editorial panel so the quantitative graphic now belongs to the same system as the profile illustration and journey badges. No actionable P0/P1/P2 color mismatch remains.
+Off-white paper, deep green, cobalt blue, warm yellow and caramel stay consistent across the landing, phase overlay, compass, question state and result. No actionable P0/P1/P2 token mismatch remains.
 
 ### Image quality and asset fidelity
-The seven profile scenes remain separate painterly WebP assets, with SVGs retained only as technical fallbacks and functional UI assets. The landing reuses those approved-direction painterly assets rather than replacing them with CSS illustration. The scenes are visually coherent with the conceptual references. No actionable P0/P1/P2 asset mismatch remains.
+The seven profile scenes remain separate painterly WebPs with SVG fallbacks. V8.1 reuses these assets for the living hero rather than introducing code-drawn decorative substitutes. Functional badges and compass remain SVG UI assets. No actionable P0/P1/P2 asset issue remains.
 
 ### Copy and content
-Profile titles, summaries, motivators, environment, tension, dominant axis, related areas and action-plan content remain data-driven from the real calculated result. They are not baked into images. The V8 landing copy is shorter and more optimistic, while methodology/scoring copy remains unchanged.
+All vocational result copy remains data-driven. Phase-copy additions are contextual only and do not alter interpretation, scoring or result language. Sound controls are labeled explicitly with on/off state.
 
-### Accessibility and responsive behavior
-The existing keyboard/focus/ARIA and contrast checks remain green. Reduced-motion handling is preserved. Rapid-click instability found by the mobile Chromium test was fixed by disabling transform-based hover/entry motion on narrow/touch layouts. The full 390 px journey passes.
+### Accessibility and motion
+- sound can be turned off and preference is stored locally;
+- automated/headless environments do not initialize Web Audio;
+- reduced-motion mode disables the new transition/float animations;
+- keyboard/focus and semantic checks remain green;
+- mobile/touch stability remains green;
+- phase overlay does not accept pointer events and therefore cannot trap the user.
 
 ## Findings
 
-No actionable P0, P1 or P2 visual mismatch remains for the V8 homologation state.
+No actionable P0, P1 or P2 findings remain for the V8.1 homologation build.
 
-- [P3] Painterly profile/hero assets are intentionally lightweight and can look slightly soft on large desktop displays.
+- [P3] The hero/profile raster assets are still relatively small when enlarged on large desktop monitors.
   - Location: `assets/profiles/*.webp`.
-  - Evidence: the conceptual references are higher-resolution and retain more brush/texture detail when enlarged.
-  - Impact: minor; composition, color and subject remain clear at the card sizes used by the product.
-  - Follow-up: replace each WebP with a higher-resolution export using the same filenames/IDs so no product logic changes.
+  - Impact: mild softness on large screens; no loss of comprehension.
+  - Follow-up: replace with higher-resolution exports under the same filenames.
 
-- [P3] The seven painterly scenes still share a relatively similar warm/sunny environmental language.
+- [P3] The sound toggle is deliberately explicit for MVP testing and reads more like a utility control than a final consumer-facing audio affordance.
+  - Location: top navigation.
+  - Impact: minor visual utility feel.
+  - Follow-up: after user testing, consider replacing the text button with a compact audio icon + accessible label while retaining the same preference behavior.
+
+- [P3] The seven painterly scenes still share a broadly similar warm/sunny environmental language.
   - Location: `assets/profiles/*.webp`.
-  - Evidence: the approved board differentiates framing, pose and props more aggressively.
-  - Impact: minor; profiles remain distinct through illustration subject, title, emblem, tags and calculated result copy.
-  - Follow-up: diversify camera angle/setting in an art-only pass.
+  - Impact: profiles are still distinguishable, but the art family can become richer.
+  - Follow-up: diversify framing, environments and pose in a later art-only revision.
 
 ## Comparison history
 
-1. V7 before this iteration:
-   - landing felt functional rather than emotionally engaging;
-   - fixed compass was visually heavy and could cover result content;
-   - question transitions were minimal;
-   - desktop questions/results could require more vertical travel;
-   - ring visualization read as a dark analytics/BI card rather than part of the Caramelo illustration system.
-2. V8 implementation:
-   - illustrated/colorful home collage and revised optimistic headline;
-   - spring/inertia compass with idle drift and per-answer nudge;
-   - forward/back/stay question transitions and selection microfeedback;
-   - desktop question and Day 1 result primary actions kept inside one viewport;
-   - compact result dashboard plus detail dialog;
-   - warm editorial ring visualization.
-3. Browser QA found two implementation regressions during iteration:
-   - first desktop viewport fit missed by ~26 px; height budget was tightened;
-   - mobile options were unstable under transform animations; narrow-layout motion/hover transforms were disabled.
-4. Post-fix evidence:
-   - Quality Gate run `37858091706` passes audit, browser and preview-package;
-   - desktop viewport assertions for questions and result pass;
-   - 390 px complete journey passes with no uncaught exceptions.
-5. Final visual polish:
-   - home visual fills its complete panel;
-   - result legend contrast improved;
-   - result compass reduced and moved to bottom-right;
-   - option-card color family made more consistent with the approved conceptual palette.
+1. V8 baseline passed visual QA but still had restrained motion and no audio/phase punctuation.
+2. V8.1 added:
+   - optional subtle Web Audio feedback;
+   - seven-day phase transition overlay;
+   - question arrival ribbon;
+   - stronger compass reaction;
+   - living hero image rotation/parallax;
+   - staggered result entrance;
+   - compact-desktop 1366 × 768 viewport tuning.
+3. First V8.1 browser iteration revealed a feedback loop in the question-ribbon MutationObserver. It was fixed by inserting the ribbon only when absent and scheduling refresh via `requestAnimationFrame`.
+4. Subsequent iteration revealed a test timing mismatch because the phase overlay is intentionally deferred until navigation settles. The browser test now waits for the phase state.
+5. Compact desktop validation found the primary question actions 3.6 px below the 768 px viewport. The V8.1 compact height budget was tightened by 6 px.
+6. Final evidence:
+   - Quality Gate run `38657105473`: audit ✅ browser ✅ preview-package ✅
+   - complete Days 1–7 flow passes at 1280 × 900 and 390 × 900;
+   - compact 1366 × 768 question and result actions fit the viewport;
+   - no uncaught browser exceptions.
 
 ## Implementation checklist
 
-- [x] More animated/inertial compass with continuous idle motion and per-answer movement.
-- [x] Better question-to-question motion on desktop.
-- [x] Reduced-motion and stable mobile/touch behavior.
-- [x] Desktop primary question content and actions fit one viewport.
-- [x] Desktop Day 1 result summary and actions fit one viewport.
-- [x] Detailed result remains available without crowding the primary viewport.
-- [x] Result graph restyled to warm Caramelo visual tokens.
-- [x] Landing made more colorful, illustrative and optimistic.
-- [x] Scoring and methodology left unchanged.
-- [x] Full Days 1–7 regression passes at 1280 px and 390 px.
-- [x] PDF, clipboard, reset and blocked-storage tests still pass.
+- [x] Optional sound feedback with persistent on/off preference.
+- [x] Phase transition for all seven days.
+- [x] Phase transition does not intercept navigation.
+- [x] Compass reacts visibly to answers and continues subtle idle movement.
+- [x] Hero gains slow visual variation and desktop parallax.
+- [x] Question entry gains visible but lightweight transition treatment.
+- [x] Result regions enter with controlled stagger.
+- [x] Compact desktop 1366 × 768 viewport is explicitly tested.
+- [x] Existing desktop/mobile complete journey still passes.
+- [x] Scoring, profiles, weights and methodology remain unchanged.
+- [x] Reduced-motion behavior remains supported.
 
 ## Follow-up polish
 
-- P3: generate higher-resolution versions of the seven painterly scenes.
-- P3: diversify the environments/poses of the profile illustration family.
-- P3: after physical-device testing, consider additional mobile-only crop rules for unusually short/narrow screens.
+- P3: higher-resolution painterly profile/hero exports.
+- P3: more varied profile environments and camera angles.
+- P3: consider a compact icon-only audio control after observing real-user comprehension.
+- P3: complete physical-device and human screen-reader validation before public pilot.
 
 final result: passed
