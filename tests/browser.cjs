@@ -28,6 +28,21 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
       assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
       assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
+      await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===3);
+      assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),3);
+      const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
+      assert.match(communicatorSrc,/comunicador-influente\.svg$/);
+      if(width===390){
+        const mobileHeader=await page.evaluate(()=>{
+          const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
+          const nav=document.querySelector('.topbar .nav')?.getBoundingClientRect();
+          const rail=document.querySelector('#v9ProfileShowcase .v9-profile-rail');
+          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0,railScrollable:Boolean(rail&&rail.scrollWidth>rail.clientWidth+2)};
+        });
+        assert.ok(mobileHeader.brandBottom<=mobileHeader.navTop+1,`Mobile brand/nav overlap: ${JSON.stringify(mobileHeader)}`);
+        assert.equal(mobileHeader.railScrollable,true,'Mobile profile rail should be horizontally scrollable');
+        records.push({width,check:'mobile topbar uses two non-overlapping rows and profile rail becomes a compact carousel',status:'passed'});
+      }
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
         await page.locator('.skip-link').focus();
@@ -61,6 +76,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
       await page.waitForFunction(()=>document.querySelector('#v9QuestionArt img')?.getAttribute('src')?.includes('assets/profiles/'));
       assert.equal(await page.locator('#v81PhaseOverlay').getAttribute('data-day'),'1');
+      await page.waitForFunction(()=>document.querySelector('#v9QuestionArt strong')?.textContent?.includes('combina mais com você'));
+      const artLabel=(await page.locator('#v9QuestionArt strong').textContent()).trim();
+      const profileTitles=await page.evaluate(()=>window.CARAMELO_DATA.profiles.map(p=>p.title));
+      assert.ok(!profileTitles.includes(artLabel),'Assessment illustration should not expose a profile label while answering');
       if(width===1280){
         await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
         const qfit=await page.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
