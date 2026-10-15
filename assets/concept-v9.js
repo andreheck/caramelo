@@ -33,7 +33,7 @@
     const section=document.createElement('section');section.id='v9ProfileShowcase';section.className='v9-profile-showcase';
     section.innerHTML=`<div class="v9-profile-showcase-head"><div><h2>Os 7 perfis do Caramelo</h2><p>Cada perfil representa uma forma de se relacionar com o mundo, aprender e construir o seu caminho.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
       const [bg,accent]=CARD_TOKENS[i%CARD_TOKENS.length];
-      return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="assets/profiles/${p.id}.webp" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
+      const artId=p.id==='comunicador-influente'?'transformador-social':p.id;return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="assets/profiles/${artId}.webp" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
     }).join('')}</div>`;
     features.insertAdjacentElement('afterend',section);
   }
