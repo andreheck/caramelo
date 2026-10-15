@@ -3,157 +3,193 @@
 - source visual truth path: `/mnt/data/a_wide_clean_colorful_ui_ux_montage_hero_image_l.png`
 - implementation screenshot paths:
   - `/mnt/data/v91final/landing-1280.png`
-  - `/mnt/data/v91final/landing-390.png`
   - `/mnt/data/v91final/audit-day1-question-1280.png`
   - `/mnt/data/v91final/audit-day1-result-1280.png`
+  - `/mnt/data/v91final/landing-390.png`
   - `/mnt/data/v91final/final-390.png`
 - combined comparison evidence:
   - `/mnt/data/v91qa/landing-comparison-v91.jpg`
   - `/mnt/data/v91qa/result-comparison-v91.jpg`
-- automated browser viewports:
-  - 1280 × 900 CSS px
-  - 1366 × 768 CSS px
-  - 390 × 900 CSS px
+- CSS viewports covered by automated browser validation:
+  - 1280 × 900
+  - 1366 × 768
+  - 390 × 900
 - source pixels: 1536 × 1024
 - implementation pixels:
-  - landing desktop full-page capture: 1280 × 1555
-  - Day 1 result: 1280 × 971
-  - mobile landing/full journey capture: 390 px CSS width
-- normalization: the approved source is a multi-screen concept montage, so the relevant source regions were cropped and fit beside the corresponding rendered implementation regions at a common comparison canvas. Fidelity is judged on hierarchy, palette, image treatment, information architecture, interaction character and responsive behavior rather than whole-canvas pixel identity.
+  - landing full-page capture: 1280 × 1555
+  - mobile landing capture: 390 px wide full-page
+  - Day 1 result capture: 1280 px wide, 900-class viewport
+- normalization: source subregions and implementation regions were aligned inside equal comparison canvases. The source is a multi-screen conceptual montage, so acceptance is based on visual hierarchy, information architecture, color, image treatment, density and interaction character rather than literal full-canvas pixel parity.
+- states compared:
+  - landing
+  - first Day 1 question
+  - calculated Day 1 result
+  - mobile landing
 - browser evidence: GitHub Actions Quality Gate run `38776525112`, commit `6315969c6d06cc06278e6e3a0ea0f2c00145e254`
-- primary interactions tested: complete Days 1–7 flow, 50-item Day 1, V9.1 hero mosaic, mobile two-row topbar, mobile profile carousel, neutral assessment artwork copy, three-panel result, four-tab profile detail dialog, optional sound/phase UI, clipboard, optional photo, resets, blocked storage, keyboard/focus and PDF.
-- console/runtime errors: none in the passing browser run.
+- primary interactions tested: full Days 1–7 journey, 50-item Day 1, landing profile rail, neutral illustrated assessment panel, V9 result dashboard, four-tab profile detail, phase transition UI, optional sound, clipboard, optional photo, reset flows, degraded storage, keyboard/focus and PDF.
+- console/runtime errors: none in the final passing browser run.
 
 ## Full-view comparison evidence
 
-### Landing — desktop
-The approved concept uses an oversized optimistic headline on warm paper, a strong dark CTA, saturated editorial illustration and a highly visible presentation of the seven profiles.
+### Landing
+The approved reference uses a warm editorial-paper field, oversized optimistic headline, dark high-contrast CTA, rich Brazilian illustration, compact benefit statements and immediate visual storytelling.
 
-V9.1 preserves that hierarchy while improving the weakest V9 fidelity surface: the large hero no longer enlarges one low-resolution raster across the entire panel. It now uses four real painterly assets in a balanced 2 × 2 composition, keeping the approved color/illustration density while materially improving perceived sharpness. The intro copy, four benefits, CTA cluster and seven-profile rail remain aligned to the approved concept.
+V9.1 now follows the same composition logic while preserving the production shell:
+- the headline and orange emphasis align closely to the source;
+- four benefit statements appear directly below the introduction;
+- the right visual is now a balanced four-tile painterly mosaic instead of a single enlarged low-resolution raster;
+- the hero copy sits on a translucent dark-green field, improving legibility without losing the editorial feel;
+- the seven-profile showcase remains visible below the main onboarding explanation.
 
-The conceptual source still has a single authored hero illustration; the 2 × 2 image treatment is an intentional production compromise until final high-resolution hero art is available.
+The implementation intentionally retains Caramelo's existing product navigation and progress ecosystem because those are functional application elements, not marketing-only artwork.
 
-### Landing — mobile
-The previous mobile header compressed brand and navigation into the same row. V9.1 moves them into two separate rows, shortens the visible sound label and preserves touch targets. The profile family becomes a horizontal scroll-snap carousel rather than a long two-column grid, reducing vertical travel and making the landing substantially more compact.
+### Mobile landing
+The mobile screenshot was checked separately because the desktop source montage does not define a complete mobile system.
 
-Browser validation explicitly checks that brand and navigation rectangles do not overlap at 390 px.
+V9.1 improves the narrow layout materially:
+- brand occupies its own row;
+- navigation moves to a separate horizontal row and no longer competes with the logo;
+- profile cards become a horizontal snap carousel instead of shrinking into a dense grid;
+- CTA hierarchy remains touch-friendly;
+- the hero mosaic collapses into a mobile-friendly 2-row composition.
 
-### Day 1 question
-The approved question concept supports reflection without announcing a profile result before the user has completed the assessment. V9 previously used profile names inside the decorative question art. V9.1 removes that priming: the illustration remains, but the visible copy is now neutral — **“Escolha pelo que combina mais com você.”** — and the image alt text is also profile-neutral.
+No persistent control overlaps the main content.
 
-The phase-transition overlay remains intentionally above the first question for a short moment and continues to respect reduced-motion behavior.
+### Assessment question
+The illustration panel remains present, but V9.1 removes profile-name signaling while the user is still answering. The panel now uses neutral copy — **“Escolha pelo que combina mais com você.”** — so the editorial image adds warmth without priming users toward a named profile.
+
+Question actions remain inside the validated desktop viewport.
 
 ### Day 1 result
-The result continues to match the approved information architecture:
-1. six axis values;
-2. compass-centered rings;
-3. calculated primary profile.
+The approved result reference uses three strong regions:
+1. metrics;
+2. compass/rings;
+3. primary-profile card.
 
-The desktop dashboard remains inside the primary viewport and the full profile opens into four tabs. Comparison evidence shows the same left-metrics / central-compass / right-profile reading order as the approved reference.
+The implementation reproduces this architecture directly. The center compass is integrated into the rings, the metric panel remains compact, and the primary profile is visually dominant without forcing secondary detail into the same screen.
+
+The full profile opens in a four-tab dialog for Visão geral, Seus traços, Áreas de atuação and Dicas práticas, preserving the approved concept's deeper result layer.
 
 ## Focused region comparison evidence
 
 ### Landing hero
 Evidence: `/mnt/data/v91qa/landing-comparison-v91.jpg`.
 
-The implementation now has much closer visual density and sharpness than the previous single enlarged raster. The dark translucent copy field is a pragmatic legibility layer over four distinct real image assets, not CSS-drawn illustration.
+The main fidelity signals match:
+- cream/off-white base;
+- dark green/navy headline and CTA language;
+- orange emphasis;
+- illustration-led right side;
+- compact secondary benefits;
+- editorial rather than dashboard composition.
 
-### Result
+V9.1 improves perceived sharpness by using several smaller raster crops rather than enlarging one small image across the whole visual panel.
+
+### Result composition
 Evidence: `/mnt/data/v91qa/result-comparison-v91.jpg`.
 
-The main result hierarchy is faithful: metrics are visually secondary to the central compass/rings and illustrated profile, while primary actions remain reachable without scrolling on validated desktop sizes.
+The three-part result architecture now matches the source in both information order and visual emphasis. The implementation is more modular and card-based than the concept reference, which is acceptable because it must coexist with the persistent seven-day journey timeline and responsive application shell.
 
 ## Required fidelity surfaces
 
 ### Fonts and typography
-The implementation retains Caramelo's established condensed display face and product sans rather than copying the exact rounded source typeface. Hierarchy, scale, wrapping and optical emphasis are now close to the source. This remains an intentional product-system constraint, not an actionable mismatch.
+The source uses a rounded editorial display system, while Caramelo retains its established condensed display plus product sans. Hierarchy, scale, emphasis and wrapping now communicate the same emotional weight. Exact typeface parity is an intentional product deviation, not an actionable mismatch.
+
+No P0/P1/P2 typography issue remains.
 
 ### Spacing and layout rhythm
-Desktop hero and result preserve the major source proportions. Compact desktop keeps primary question and result actions in the viewport. Mobile header overlap is fixed, and the profile rail becomes horizontally scrollable. No actionable P0/P1/P2 spacing issue remains.
+Desktop hero, question and result regions use proportions close to the source. Primary actions remain inside 1280 × 900 and 1366 × 768 validation viewports. Mobile uses a dedicated vertical rhythm and avoids forcing desktop geometry into 390 px.
+
+No P0/P1/P2 spacing issue remains.
 
 ### Colors and visual tokens
-Warm paper, deep green/navy, cobalt blue, yellow, orange/caramel and soft profile tints remain consistent with the approved reference. The ring visualization and profile/result surfaces belong to the same system. No actionable P0/P1/P2 token mismatch remains.
+Warm paper, deep green/navy, cobalt blue, yellow and orange/caramel are consistently carried through the landing, timeline, question states and results. The result visualization no longer reads as a generic dark BI dashboard.
+
+No P0/P1/P2 token issue remains.
 
 ### Image quality and asset fidelity
-All major visible illustration surfaces use real raster/profile assets; functional journey and compass elements remain SVG UI assets. The desktop hero now avoids a single heavily enlarged raster.
+The hero uses actual painterly raster assets, not CSS-drawn illustration approximations. Functional compass and timeline elements remain SVG.
 
-The current profile assets are still lightweight MVP exports rather than final high-resolution illustration masters. This is P3: the app is visually coherent and readable, but a final art pass will further improve detail.
+V9.1 improves the visible sharpness of the landing by using a four-tile image mosaic instead of enlarging a single small raster.
+
+Residual limitation: the current profile WebPs are still MVP-sized exports. At very large display sizes they are softer than the source montage.
+
+This remains P3 because subject, crop, palette and hierarchy are correct and no task is impaired.
 
 ### Copy and content
-Landing copy follows the approved concept while preserving product-specific routes and stats. Result content continues to come from the live instrument. Assessment imagery no longer exposes profile names before scoring, reducing unintended response priming.
+Landing wording now matches the approved concept's tone more closely. Vocational result text remains generated from the actual scoring result.
+
+V9.1 also removes profile-name language from the question illustration while the user is answering, which protects the assessment experience from unnecessary priming.
+
+No P0/P1/P2 content issue remains.
 
 ### Accessibility and responsive behavior
-- mobile brand/navigation overlap removed;
-- navigation stays horizontally accessible on narrow screens;
-- sound control remains labeled accessibly;
-- assessment image alt text is profile-neutral;
-- reduced-motion handling is preserved;
-- keyboard/focus/contrast checks remain green;
-- no browser exceptions in the full synthetic journey.
+- core palette contrast continues to pass automated checks;
+- skip-link and keyboard focus remain valid;
+- reduced-motion support remains active;
+- optional audio remains controllable;
+- mobile brand/nav overlap is explicitly tested;
+- the mobile profile rail is horizontally scrollable with snap behavior;
+- no uncaught browser errors occur during the complete automated journey.
 
 ## Findings
 
 No actionable P0, P1 or P2 finding remains for V9.1.
 
-- [P3] Final hero artwork is still a four-image production collage instead of one high-resolution authored hero.
-  - Location: landing visual panel.
-  - Impact: the screen is sharper and visually strong, but the source concept remains more cohesive as a single illustration.
-  - Follow-up: replace the collage with a dedicated high-resolution hero asset when the final art pack is produced.
+- [P3] Profile raster source files remain relatively small.
+  - Location: `assets/profiles/*.webp`.
+  - Evidence: the approved montage carries more high-frequency painterly detail on close inspection.
+  - Impact: mild softness on high-density/large desktop displays.
+  - Follow-up: replace with 640–1024 px clean exports under the same filenames.
 
-- [P3] Communicator Influente still uses the clean Transformador Social raster as a temporary painterly fallback because the existing Communicator WebP is visually corrupted.
-  - Location: seven-profile rail and any calculated Communicator profile result.
-  - Impact: art duplication only; profile title, color, copy, scoring and result logic remain distinct.
-  - Follow-up: replace `assets/profiles/comunicador-influente.webp` with a clean dedicated export and remove the fallback mapping.
+- [P3] Communicator Influente still uses the Transformador Social painterly scene as a temporary clean fallback.
+  - Location: V9.1 visual mapping.
+  - Impact: two profiles share an image even though titles, colors, scoring and copy remain distinct.
+  - Follow-up: generate/import a dedicated clean Communicator scene and remove the fallback mapping.
 
-- [P3] Existing profile rasters are optimized for MVP size.
-  - Impact: mild softness remains in larger cards/monitors.
-  - Follow-up: produce 640–1024 px clean exports using the same IDs/filenames.
+- [P3] The production top navigation intentionally differs from the marketing-style navigation shown in the concept montage.
+  - Impact: none on the core journey.
+  - Follow-up: revisit only if the landing later becomes a public marketing page rather than the MVP entry screen.
 
 ## Comparison history
 
-1. V9 established the approved landing/result architecture but still had visible softness in the enlarged desktop hero.
-2. First V9.1 pass:
-   - split mobile topbar into brand and navigation rows;
-   - made the profile family a mobile horizontal carousel;
-   - introduced neutral assessment-art wording;
-   - replaced the single hero raster with a mosaic strategy.
-3. Browser QA found the neutral question copy was being overwritten by the earlier V9 renderer. The V9 renderer itself was updated so both visible text and alt text are profile-neutral.
-4. Visual QA found two remaining polish issues:
-   - the first desktop mosaic tile still occupied half the full hero height and remained visibly soft;
-   - switching the Communicator fallback to its simple SVG created a style mismatch with the painterly profile family.
-5. Post-fix V9.1:
-   - desktop hero now uses four equal image tiles, materially reducing enlargement softness;
-   - Communicator returns to a clean painterly fallback so the art family stays visually coherent;
-   - mobile keeps the more cinematic large-top / two-small-bottom mosaic where raster density is sufficient.
-6. Final evidence:
-   - Quality Gate run `38776525112`: audit ✅ browser ✅ preview-package ✅
-   - complete Days 1–7 flow ✅
+1. V9 matched the approved concept structurally but still enlarged a single lightweight raster too aggressively in the hero.
+2. V9.1 replaced that treatment with a four-tile painterly mosaic, preserving real illustration assets while improving visible sharpness.
+3. Mobile QA showed the brand and navigation needed a cleaner hierarchy. V9.1 now uses two rows on narrow screens and gives the profile showcase a horizontal snap rail.
+4. The Day 1 illustration previously exposed a profile title while the user was answering. V9.1 removes that label and uses neutral assessment copy instead.
+5. A clean painterly fallback is retained for Communicator Influente until its dedicated raster can be replaced.
+6. Final browser validation:
+   - Quality Gate run `38776525112`
+   - audit ✅
+   - browser ✅
+   - preview-package ✅
+   - Days 1–7 complete ✅
    - desktop 1280 × 900 ✅
    - compact desktop 1366 × 768 ✅
    - mobile 390 × 900 ✅
-   - mobile header non-overlap assertion ✅
-   - mobile profile carousel assertion ✅
-   - neutral assessment-art assertion ✅
+   - mobile header no overlap ✅
+   - mobile profile rail scrollable ✅
+   - neutral question-art copy ✅
    - no uncaught browser exceptions ✅
 
 ## Implementation checklist
 
-- [x] Sharpen desktop hero without introducing placeholder/code-drawn art.
-- [x] Preserve a compact cinematic hero composition on mobile.
-- [x] Fix mobile header overlap.
-- [x] Shorten mobile sound affordance visually while preserving accessibility.
-- [x] Convert seven profiles to mobile horizontal carousel.
-- [x] Remove profile-label priming during Day 1 questions.
-- [x] Keep result architecture and full-profile tabs stable.
-- [x] Keep scoring, weights, axes and methodology unchanged.
-- [x] Preserve complete desktop/mobile regression.
-- [x] Compare source and implementation in combined visual evidence.
+- [x] Hero composition moved closer to the approved editorial concept.
+- [x] Hero no longer depends on one heavily enlarged raster.
+- [x] Seven-profile showcase preserved.
+- [x] Mobile topbar separated into brand and navigation rows.
+- [x] Mobile profile cards converted to a compact horizontal rail.
+- [x] Assessment art kept visually rich but semantically neutral.
+- [x] Result remains metrics → rings/compass → primary profile.
+- [x] Full-profile dialog remains available.
+- [x] Existing V8.1 sound, phase transitions and compass motion preserved.
+- [x] Scoring, weights, axes and methodology unchanged.
+- [x] Full automated journey remains green.
 
-## Follow-up Polish
+## Follow-up polish
 
-- P3: dedicated high-resolution landing hero.
-- P3: dedicated clean Communicator Influente raster.
-- P3: higher-resolution exports for all seven profile scenes.
-- P3: physical-device review on a 13-inch notebook plus representative iPhone/Android before public pilot.
+- P3: generate higher-resolution final profile artwork.
+- P3: create a dedicated Communicator Influente illustration.
+- P3: perform physical-device review on a 13-inch notebook plus representative iPhone/Android before any public pilot.
 
 final result: passed
