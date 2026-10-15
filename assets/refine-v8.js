@@ -60,11 +60,13 @@
     results.classList.add('v8-result-ready');
     let details=$('#v8ResultDetails');
     if(!details){details=document.createElement('dialog');details.id='v8ResultDetails';main.appendChild(details)}
-    details.innerHTML=resultDetailsHTML();
-    details.querySelector('.v8-dialog-close')?.addEventListener('click',()=>details.close());
+    if(details.dataset.v9Owned!=='1'){
+      details.innerHTML=resultDetailsHTML();
+      details.querySelector('.v8-dialog-close')?.addEventListener('click',()=>details.close());
+    }
     let button=$('#v8ResultDetailBtn');
     const actions=$('#results .actions');
-    if(actions&&!button){button=document.createElement('button');button.type='button';button.className='btn secondary';button.id='v8ResultDetailBtn';button.textContent='Ver detalhes';actions.prepend(button);button.addEventListener('click',()=>{details.innerHTML=resultDetailsHTML();details.querySelector('.v8-dialog-close')?.addEventListener('click',()=>details.close());details.showModal()})}
+    if(actions&&!button){button=document.createElement('button');button.type='button';button.className='btn secondary';button.id='v8ResultDetailBtn';button.textContent='Ver detalhes';actions.prepend(button);button.addEventListener('click',()=>{if(details.dataset.v9Owned!=='1'){details.innerHTML=resultDetailsHTML();details.querySelector('.v8-dialog-close')?.addEventListener('click',()=>details.close())}details.showModal()})}
   }
   enhanceLanding();
   syncMode();
