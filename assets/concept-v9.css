@@ -68,8 +68,8 @@
 #v8ResultDashboard .result-rings-copy{display:none!important}
 #v8ResultDashboard .result-rings-watch{width:min(310px,92%)!important}
 #v8ResultDashboard .result-rings-center{width:132px;height:132px;padding:0!important;background:#fffaf0!important;box-shadow:0 12px 30px rgba(45,58,50,.12)!important;overflow:hidden}
-.v9-ring-compass{position:relative;width:100%;height:100%}
-.v9-ring-compass img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.v9-ring-compass{position:absolute;inset:0}
+.v9-ring-compass img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:contain;display:block}.v9-ring-compass img:nth-child(2){z-index:2}.v9-ring-compass img:nth-child(3){z-index:3}
 .v9-ring-compass .v9-needle{transition:transform .7s cubic-bezier(.18,.78,.2,1);transform:rotate(26deg)}
 #v8ResultDashboard .profile-visual{grid-template-columns:1fr!important;grid-template-rows:45% minmax(0,1fr);height:100%;background:#fffdf8!important;border-color:#eadfc6!important}
 #v8ResultDashboard .profile-visual-art{min-height:0;height:100%}
