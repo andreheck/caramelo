@@ -1,164 +1,152 @@
-# Design QA — Caramelo Visual V8.1
+# Design QA — Caramelo Visual V9
 
-- source visual truth paths:
-  - `/mnt/data/caramelo_jornada_de_possibilidades.png`
-  - `/mnt/data/a_wide_illustrated_infographic_poster_with_a_clean.png`
+- source visual truth path: `/mnt/data/a_wide_clean_colorful_ui_ux_montage_hero_image_l.png`
 - implementation screenshot paths:
-  - `/mnt/data/v81qa/landing-1280.png`
-  - `/mnt/data/v81qa/audit-day1-question-1280.png`
-  - `/mnt/data/v81qa/audit-day1-result-1280.png`
-  - `/mnt/data/v81qa/landing-390.png`
-  - `/mnt/data/v81qa/final-390.png`
+  - `/mnt/data/caramelo-browser-v9-d77/landing-1280.png`
+  - `/mnt/data/caramelo-browser-v9-d77/audit-day1-question-1280.png`
+  - `/mnt/data/caramelo-browser-v9-d77/audit-day1-result-1280.png`
 - combined comparison evidence:
-  - `/mnt/data/qa-v81/home-comparison.jpg`
-  - `/mnt/data/qa-v81/profile-comparison.jpg`
-- automated browser viewports:
-  - 1280 × 900 CSS px
-  - 1366 × 768 CSS px
-  - 390 × 900 CSS px
-- source pixels:
-  - home concept: 941 × 1672
-  - seven-profile concept board: 1536 × 1024
+  - `/mnt/data/v9qa/landing-comparison.jpg`
+  - `/mnt/data/v9qa/result-comparison-d77.jpg`
+- automated browser viewport: 1280 × 900 CSS px for desktop plus existing 1366 × 768 compact-desktop and 390 × 900 mobile regression states
+- source pixels: 1536 × 1024
 - implementation pixels:
-  - landing full-page capture: 1280 × 1115
-  - Day 1 result full-page capture: 1280 × 900-class viewport
-- normalization: source and implementation comparisons were resized to a common 900 px visual height. The source files are conceptual art-direction references rather than production desktop wireframes, so fidelity is judged on hierarchy, palette, imagery, density, interaction character and visual coherence rather than pixel-identical geometry.
+  - landing full-page capture: 1280 × 1555
+  - Day 1 result capture: 1280 × 971
+- normalization: source subregions and implementation screens were fit into equal 1100 × 720 comparison regions. The source is a multi-screen conceptual montage, so fidelity is judged on screen hierarchy, proportions, palette, imagery, information density and interaction character rather than exact full-canvas pixel parity.
 - state:
   - landing
-  - Day 1 phase transition/question entry
+  - Day 1 phase transition / first-question experience
   - calculated Day 1 result
-  - complete seven-day regression
-- browser evidence: GitHub Actions Quality Gate run `38657617252`, commit `e186d8193bb6043c80d2a084129acb7fcb09cf9f`
-- primary interactions tested: full Days 1–7 journey, 50-item Day 1, phase transition UI, optional sound control, desktop 1280 × 900, compact desktop 1366 × 768, mobile 390 × 900, reload persistence, clipboard, optional photo, complementary/full reset, blocked storage, keyboard/focus and PDF.
+- browser evidence: GitHub Actions Quality Gate run `38768646574`, commit `d77edfc4599a62218aa841c4b0afa9fe73f9cbfc`
+- primary interactions tested: complete Days 1–7 flow, 50-item Day 1, reload persistence, landing profile rail, illustrated question panel, V9 result dashboard, four-tab profile-detail dialog, optional sound/phase UI, clipboard, optional photo, complementary/full reset, blocked storage, keyboard/focus and PDF.
 - console/runtime errors: none in the passing browser run.
 
 ## Full-view comparison evidence
 
 ### Landing
-The approved concept is illustration-led, warm, optimistic and visibly Brazilian, with a strong headline, paper background, saturated green/yellow/blue/orange accents and immediate invitation to begin.
+The approved reference establishes a warm paper canvas, oversized optimistic headline, strong dark CTA, saturated Brazilian editorial illustration and a visual introduction to the seven profiles.
 
-V8.1 preserves the product-readable desktop architecture from V8 while adding perceptible polish: the hero illustration now behaves as a living collage with slow image rotation and subtle desktop pointer parallax, the sound control is visible but secondary, and the hierarchy remains strongly anchored by the approved headline **“Seu futuro também tem muitas possibilidades.”**
+V9 now matches that architecture closely:
+- headline hierarchy and orange emphasis follow the approved concept;
+- supporting copy is shortened to the approved intent;
+- four benefit statements appear directly under the introduction;
+- the hero is illustration-led rather than a generic decorative panel;
+- the three explanatory steps sit below the primary hero;
+- all seven profiles are visible as an editorial rail with distinct color families.
 
-The source is still richer as a single authored poster, but the implementation now translates that warmth into an interactive application rather than imitating the poster literally.
+The implementation deliberately preserves the existing Caramelo top navigation and journey/stat blocks because they are functional product elements already validated in prior rounds.
 
-### Questions and phase transitions
-A new phase overlay gives each of the seven days a recognizable entrance moment using its own journey badge, title, short contextual explanation and progress sweep. It appears after navigation settles, so it does not block the control that initiated the transition.
+### Question experience
+The concept uses an illustrated character/environment panel beside a compact question area. V9 adds a dedicated illustrated side panel to Day 1, rotates the scene according to the question index and keeps the four response options/action buttons in the primary desktop viewport.
 
-Question entry has a compact animated ribbon and desktop arrival treatment. The full interaction remains stable under the automated 50-item loop, including rapid selection/advance behavior.
-
-### Bússola
-The compass remains a persistent orientation element but now has two movement layers:
-- continuous soft needle drift/inertia;
-- stronger card/compass reaction when the user answers.
-
-The result view keeps a compact version in the lower-right so it remains part of the visual language without competing with the result content.
+The existing V8.1 chapter-transition overlay remains as an additional product interaction layer rather than replacing the underlying question state.
 
 ### Day 1 result
-The result still uses the V8 one-viewport dashboard: painterly profile art, warm ring visualization, four summary cards and primary actions. The V8.1 entrance motion staggers these regions rather than making the entire screen appear at once.
+The approved reference uses three clear visual regions:
+1. axis values;
+2. compass/ring visualization;
+3. primary-profile summary.
 
-This keeps the quantitative graphic visually connected to the illustration system and avoids returning to the earlier dark analytics-dashboard look.
+V9 now reproduces that information architecture directly. The result uses six axis bars on the left, a compass-centered ring visualization in the middle and an illustrated primary-profile card on the right. The heading is now **“Seus resultados”** to match the concept.
+
+The full profile is no longer forced into the main result viewport. **Ver perfil completo** opens a four-tab detail experience: Visão geral, Seus traços, Áreas de atuação and Dicas práticas. This mirrors the second result/detail screen in the approved montage while keeping the summary screen compact.
 
 ## Focused region comparison evidence
 
-### Hero region
-Comparison: `/mnt/data/qa-v81/home-comparison.jpg`.
+### Hero
+Evidence: `/mnt/data/v9qa/landing-comparison.jpg`.
 
-The implementation matches the main art-direction signals from the source: warm paper field, oversized optimistic headline, deep green CTA, saturated illustrated imagery, blue/yellow/green accents, compact stats and a secondary illustrated storytelling block. V8.1 adds motion without changing that hierarchy.
+The hierarchy, palette and composition now read as the same product family as the reference: dark green/navy headings and CTA, orange emphasis, warm off-white paper, large editorial illustration and profile/storytelling content below.
 
-### Profile/result region
-Comparison: `/mnt/data/qa-v81/profile-comparison.jpg`.
+### Result
+Evidence: `/mnt/data/v9qa/result-comparison-d77.jpg`.
 
-The calculated result keeps all semantic copy outside the image so titles, motivators, environmental preferences, warnings and suggested areas remain indexed to the real scoring result. The painterly scene remains the emotional anchor and the ring graphic uses the same warm visual system.
-
-### Phase transition region
-Implementation evidence: `/mnt/data/v81qa/audit-day1-question-1280.png`.
-
-The transition overlay is intentionally modal-looking but non-interactive. It creates a distinct chapter break while the underlying question remains visible as context. The overlay duration is short and respects reduced-motion preferences.
+The key structural match is now strong: six metric rows at left, concentric multicolor rings with compass center, primary profile at right and a direct profile-detail CTA. The implementation is slightly more card-based and compact than the source, which is acceptable for the existing 1280 × 900 application shell and persistent seven-day journey timeline.
 
 ## Required fidelity surfaces
 
 ### Fonts and typography
-Display hierarchy remains strong and readable. The source uses a more hand-drawn editorial voice; the app intentionally keeps its existing product typography for long-form usability. V8.1 does not introduce new hierarchy drift. No actionable P0/P1/P2 typography issue remains.
+The source uses a rounded editorial/sans display system. Caramelo retains its established condensed display heading plus product sans for long-form readability. V9 improves size hierarchy and wrapping but does not replace the established typography system, an intentional product constraint. No actionable P0/P1/P2 mismatch remains.
 
 ### Spacing and layout rhythm
-Primary question actions fit at 1280 × 900 and at compact desktop 1366 × 768. The result primary actions also remain within the compact viewport. Mobile keeps its vertical flow instead of forcing desktop compression. No actionable P0/P1/P2 spacing issue remains.
+The source uses three major result columns and a two-column hero. V9 now follows those same major proportions. The question and result primary actions remain visible within validated desktop viewports. Mobile intentionally returns to a vertical flow rather than compressing the desktop montage. No actionable P0/P1/P2 spacing issue remains.
 
 ### Colors and visual tokens
-Off-white paper, deep green, cobalt blue, warm yellow and caramel stay consistent across the landing, phase overlay, compass, question state and result. No actionable P0/P1/P2 token mismatch remains.
+Warm paper, deep green/navy, cobalt blue, warm yellow and orange/caramel are consistently present across the source and implementation. The result graph is no longer a dark analytics card and now belongs to the same visual system as the illustrations. No actionable P0/P1/P2 token mismatch remains.
 
 ### Image quality and asset fidelity
-The seven profile scenes remain separate painterly WebPs with SVG fallbacks. V8.1 reuses these assets for the living hero rather than introducing code-drawn decorative substitutes. Functional badges and compass remain SVG UI assets. No actionable P0/P1/P2 asset issue remains.
+The implementation uses separate painterly raster assets for profile/hero scenes plus SVG only for functional journey/compass UI. The art direction is consistent with the reference and no CSS-drawn illustration substitutes were introduced.
+
+Residual issue: the current raster profile files are intentionally lightweight MVP assets and become visibly soft when used as a large desktop hero. This is classified P3 because subject, palette, crop and hierarchy remain correct and no interaction is impaired. Higher-resolution replacements can use the same filenames without changing product logic.
 
 ### Copy and content
-All vocational result copy remains data-driven. Phase-copy additions are contextual only and do not alter interpretation, scoring or result language. Sound controls are labeled explicitly with on/off state.
-
-### Accessibility and motion
-- sound can be turned off and preference is stored locally;
-- automated/headless environments do not initialize Web Audio;
-- reduced-motion mode disables the new transition/float animations;
-- keyboard/focus and semantic checks remain green;
-- mobile/touch stability remains green;
-- phase overlay does not accept pointer events and therefore cannot trap the user.
+The landing now follows the approved high-level copy intent. Result-specific profile copy, axis values, motivators and suggested areas remain calculated from the live instrument rather than being baked into visual assets. This is a required intentional deviation from the static concept board.
 
 ## Findings
 
-No actionable P0, P1 or P2 findings remain for the V8.1 homologation build.
+No actionable P0, P1 or P2 finding remains for the V9 homologation build.
 
-- [P3] The hero/profile raster assets are still relatively small when enlarged on large desktop monitors.
-  - Location: `assets/profiles/*.webp`.
-  - Impact: mild softness on large screens; no loss of comprehension.
-  - Follow-up: replace with higher-resolution exports under the same filenames.
+- [P3] Hero/profile raster softness on large desktop.
+  - Location: `assets/profiles/*.webp`, most visible in the landing hero.
+  - Evidence: source reference retains more painterly detail than the enlarged MVP raster.
+  - Impact: visual polish only.
+  - Fix: replace the seven WebPs with 640–1024 px high-quality exports under the existing filenames.
 
-- [P3] The sound toggle is deliberately explicit for MVP testing and reads more like a utility control than a final consumer-facing audio affordance.
-  - Location: top navigation.
-  - Impact: minor visual utility feel.
-  - Follow-up: after user testing, consider replacing the text button with a compact audio icon + accessible label while retaining the same preference behavior.
+- [P3] Communicator currently reuses the Transformador Social raster as a temporary clean fallback because the previous Communicator WebP rendered with visible corruption.
+  - Location: `assets/profile-visuals.js` and V9 profile rail.
+  - Impact: two profiles temporarily share one scene, but titles, colors, profile logic and copy remain distinct.
+  - Fix: replace `assets/profiles/comunicador-influente.webp` with a clean dedicated export and remove the fallback mapping.
 
-- [P3] The seven painterly scenes still share a broadly similar warm/sunny environmental language.
-  - Location: `assets/profiles/*.webp`.
-  - Impact: profiles are still distinguishable, but the art family can become richer.
-  - Follow-up: diversify framing, environments and pose in a later art-only revision.
+- [P3] The production top navigation keeps the existing functional product destinations instead of the exact marketing labels shown in the concept montage.
+  - Impact: no task-flow issue; this is a product-information-architecture choice.
+  - Follow-up: reconsider only when the landing becomes a public marketing page rather than an MVP test entry.
 
 ## Comparison history
 
-1. V8 baseline passed visual QA but still had restrained motion and no audio/phase punctuation.
-2. V8.1 added:
-   - optional subtle Web Audio feedback;
-   - seven-day phase transition overlay;
-   - question arrival ribbon;
-   - stronger compass reaction;
-   - living hero image rotation/parallax;
-   - staggered result entrance;
-   - compact-desktop 1366 × 768 viewport tuning.
-3. First V8.1 browser iteration revealed a feedback loop in the question-ribbon MutationObserver. It was fixed by inserting the ribbon only when absent and scheduling refresh via `requestAnimationFrame`.
-4. Subsequent iteration revealed a test timing mismatch because the phase overlay is intentionally deferred until navigation settles. The browser test now waits for the phase state.
-5. Compact desktop validation found the primary question actions 3.6 px below the 768 px viewport. The V8.1 compact height budget was tightened by 6 px.
-6. Final audio refinement: Web Audio is unlocked synchronously from real answer/phase-navigation gestures so the delayed phase tone is permitted by browser autoplay policy, while generated/headless test environments still skip audio initialization.
-7. Final evidence:
-   - Quality Gate run `38657617252`: audit ✅ browser ✅ preview-package ✅
-   - complete Days 1–7 flow passes at 1280 × 900 and 390 × 900;
-   - compact 1366 × 768 question and result actions fit the viewport;
-   - no uncaught browser exceptions.
+1. V8.1 source-to-implementation review identified that the application was visually coherent but still read as a refined MVP rather than the approved multi-screen concept.
+2. V9 first pass added:
+   - approved landing headline/copy structure;
+   - four benefit statements;
+   - seven-profile showcase;
+   - illustrated Day 1 question side panel;
+   - three-column result architecture;
+   - compass centered inside the result rings;
+   - four-tab full-profile detail dialog.
+3. First browser iteration found the seven-profile showcase was attached to a non-existent selector. Fixed by targeting the actual landing `.section-grid.three`.
+4. Second browser iteration found the V8 result observer was replacing the V9 dialog while tab interaction occurred. Fixed by marking the dialog as V9-owned and teaching V8 not to overwrite it.
+5. Visual inspection found the compass container existed but its 100% height did not resolve correctly inside the aspect-ratio center. Fixed by making the compass layer absolutely fill the result center.
+6. Visual inspection also exposed corruption in the Communicator raster. V9 now uses a clean temporary raster fallback rather than displaying corrupted pixels.
+7. The result heading was aligned to the approved source language: **Seus resultados**.
+8. Final evidence:
+   - Quality Gate run `38768646574`: audit ✅ browser ✅ preview-package ✅
+   - complete Days 1–7 flow remains green;
+   - landing V9 profile rail: 7 cards ✅
+   - V9 question art present ✅
+   - result axis summary: 6 metrics ✅
+   - result compass center present ✅
+   - full-profile dialog: 4 tabs and interaction ✅
+   - no uncaught browser exceptions ✅
 
 ## Implementation checklist
 
-- [x] Optional sound feedback with persistent on/off preference.
-- [x] Phase transition for all seven days.
-- [x] Phase transition does not intercept navigation.
-- [x] Compass reacts visibly to answers and continues subtle idle movement.
-- [x] Hero gains slow visual variation and desktop parallax.
-- [x] Question entry gains visible but lightweight transition treatment.
-- [x] Result regions enter with controlled stagger.
-- [x] Compact desktop 1366 × 768 viewport is explicitly tested.
-- [x] Existing desktop/mobile complete journey still passes.
-- [x] Scoring, profiles, weights and methodology remain unchanged.
-- [x] Reduced-motion behavior remains supported.
+- [x] Landing hierarchy aligned to approved concept.
+- [x] Four approved benefit statements visible.
+- [x] Seven-profile editorial rail visible.
+- [x] Day 1 question gains meaningful illustration panel.
+- [x] Primary question actions still fit desktop viewport.
+- [x] Result reorganized into metrics / compass-rings / primary profile.
+- [x] Result title aligned to approved wording.
+- [x] Full profile opens as four-tab detail experience.
+- [x] Result remains driven by real calculated data.
+- [x] Scoring, weights, axes and methodology unchanged.
+- [x] Desktop/mobile complete journey regression remains green.
+- [x] Design QA comparison performed against combined source/implementation evidence.
 
-## Follow-up polish
+## Follow-up Polish
 
-- P3: higher-resolution painterly profile/hero exports.
-- P3: more varied profile environments and camera angles.
-- P3: consider a compact icon-only audio control after observing real-user comprehension.
-- P3: complete physical-device and human screen-reader validation before public pilot.
+- P3: replace the seven lightweight WebPs with higher-resolution clean exports.
+- P3: restore a dedicated Communicator scene instead of the temporary Transformador fallback.
+- P3: run physical-device review on a 13-inch notebook plus representative iPhone/Android before public pilot.
 
 final result: passed
