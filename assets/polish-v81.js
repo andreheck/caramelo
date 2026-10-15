@@ -115,8 +115,10 @@
   document.addEventListener('click',e=>{
     const isAnswer=Boolean(e.target.closest?.('[data-option-index],[data-rank-index],[data-emotion-value],[data-wheel-value],[data-reasoning-value],[data-reading-value],[data-readiness-value]'));
     const isNext=Boolean(e.target.closest?.('#nextQuestionBtn,#emotionNext,#wheelNext,#reasoningNext,#readingNext,#readinessNext'));
-    if(!isAnswer&&!isNext)return;
-    setTimeout(()=>{ensureAudio();if(isAnswer){sound('select');kickCompass()}if(isNext)sound('next')},0);
+    const isPhaseNav=Boolean(e.target.closest?.('#startQuizBtn,[data-journey-day]'));
+    if(!isAnswer&&!isNext&&!isPhaseNav)return;
+    ensureAudio();
+    setTimeout(()=>{if(isAnswer){sound('select');kickCompass()}if(isNext)sound('next')},0);
   });
   document.addEventListener('keyup',e=>{if(e.key==='Enter'||e.key===' '){setTimeout(ensureAudio,0)}},true);
   const main=$('#main');if(main)new MutationObserver(()=>requestAnimationFrame(sync)).observe(main,{subtree:true,attributes:true,attributeFilter:['class']});
