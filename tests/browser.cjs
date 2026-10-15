@@ -28,10 +28,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
       assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
       assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
-      await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===3);
-      assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),3);
+      await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===4);
+      assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),4);
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
-      assert.match(communicatorSrc,/comunicador-influente\.svg$/);
+      assert.match(communicatorSrc,/transformador-social\.webp$/);
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
           const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
