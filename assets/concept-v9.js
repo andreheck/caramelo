@@ -49,9 +49,9 @@
     if(!art){art=document.createElement('div');art.id='v9QuestionArt';art.className='v9-question-art';art.innerHTML='<img alt=""><div class="v9-question-art-copy"><small></small><strong></strong></div>';side.appendChild(art)}
     const index=currentQuestionIndex(),id=QUESTION_ART[index%QUESTION_ART.length],profile=D?.profiles?.find(p=>p.id===id);
     const img=$('img',art),src=`assets/profiles/${id}.webp`;
-    if(img.getAttribute('src')!==src){img.style.opacity='.18';setTimeout(()=>{img.src=src;img.alt=`Cena ilustrada relacionada a ${profile?.title||'exploração vocacional'}`;img.style.opacity='1'},80)}
+    if(img.getAttribute('src')!==src){img.style.opacity='.18';setTimeout(()=>{img.src=src;img.alt='Cena ilustrada de exploração vocacional';img.style.opacity='1'},80)}
     $('small',art).textContent=`Pista ${Math.min(index+1,50)} de 50`;
-    $('strong',art).textContent=profile?.title||'Descubra novas pistas';
+    $('strong',art).textContent='Escolha pelo que combina mais com você.';
   }
   function axisSummary(){
     const bars=$('#axisBars');if(!bars)return'';
