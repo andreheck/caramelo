@@ -24,7 +24,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
+      await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
+      assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
+      assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
         await page.locator('.skip-link').focus();
@@ -56,6 +59,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
       assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
       await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
+      await page.waitForFunction(()=>document.querySelector('#v9QuestionArt img')?.getAttribute('src')?.includes('assets/profiles/'));
       assert.equal(await page.locator('#v81PhaseOverlay').getAttribute('data-day'),'1');
       if(width===1280){
         await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
@@ -76,11 +80,19 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       }
       await page.locator('#results.active').waitFor();
       if(width===1280){
-        await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v8ResultDetailBtn'));
+        await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v9AxisSummary')&&document.querySelector('#v9ProfileDetailBtn'));
+        assert.equal(await page.locator('#v9AxisSummary .bar-row').count(),6);
+        assert.ok(await page.locator('#resultRingsDay1 .v9-ring-compass').count());
         await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
         const rfit=await page.evaluate(()=>({bottom:document.querySelector('#results .actions')?.getBoundingClientRect().bottom||9999,height:innerHeight,dashboard:!!document.querySelector('#v8ResultDashboard'),details:!!document.querySelector('#v8ResultDetails')}));
         assert.ok(rfit.bottom<=rfit.height+2,`Primary result actions should fit in viewport: ${JSON.stringify(rfit)}`);
         assert.ok(rfit.dashboard&&rfit.details);
+        await page.locator('#v9ProfileDetailBtn').click();
+        await page.locator('#v8ResultDetails[open]').waitFor();
+        assert.equal(await page.locator('#v8ResultDetails [data-v9-tab]').count(),4);
+        await page.locator('#v8ResultDetails [data-v9-tab="traits"]').click();
+        assert.equal(await page.locator('#v8ResultDetails [data-v9-panel="traits"]').isVisible(),true);
+        await page.locator('#v8ResultDetails .v8-dialog-close').click();
         records.push({width,check:'day 1 primary result dashboard and actions fit viewport; full detail available in dialog',status:'passed'});
       }
       const expected=await page.evaluate(()=>window.CARAMELO_VOCATIONAL.result().primary.title);
