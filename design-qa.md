@@ -28,7 +28,7 @@
   - Day 1 phase transition/question entry
   - calculated Day 1 result
   - complete seven-day regression
-- browser evidence: GitHub Actions Quality Gate run `38657105473`, commit `5def64f20660060761b6e1b092f13be78818ec2c`
+- browser evidence: GitHub Actions Quality Gate run `38657617252`, commit `e186d8193bb6043c80d2a084129acb7fcb09cf9f`
 - primary interactions tested: full Days 1–7 journey, 50-item Day 1, phase transition UI, optional sound control, desktop 1280 × 900, compact desktop 1366 × 768, mobile 390 × 900, reload persistence, clipboard, optional photo, complementary/full reset, blocked storage, keyboard/focus and PDF.
 - console/runtime errors: none in the passing browser run.
 
@@ -133,8 +133,9 @@ No actionable P0, P1 or P2 findings remain for the V8.1 homologation build.
 3. First V8.1 browser iteration revealed a feedback loop in the question-ribbon MutationObserver. It was fixed by inserting the ribbon only when absent and scheduling refresh via `requestAnimationFrame`.
 4. Subsequent iteration revealed a test timing mismatch because the phase overlay is intentionally deferred until navigation settles. The browser test now waits for the phase state.
 5. Compact desktop validation found the primary question actions 3.6 px below the 768 px viewport. The V8.1 compact height budget was tightened by 6 px.
-6. Final evidence:
-   - Quality Gate run `38657105473`: audit ✅ browser ✅ preview-package ✅
+6. Final audio refinement: Web Audio is unlocked synchronously from real answer/phase-navigation gestures so the delayed phase tone is permitted by browser autoplay policy, while generated/headless test environments still skip audio initialization.
+7. Final evidence:
+   - Quality Gate run `38657617252`: audit ✅ browser ✅ preview-package ✅
    - complete Days 1–7 flow passes at 1280 × 900 and 390 × 900;
    - compact 1366 × 768 question and result actions fit the viewport;
    - no uncaught browser exceptions.
