@@ -29,7 +29,7 @@
     }
   }
   function buildProfileShowcase(){
-    const landing=$('#landing'),features=$('#landing .feature-grid');if(!landing||!features||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
+    const landing=$('#landing'),features=$('#landing .section-grid.three');if(!landing||!features||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
     const section=document.createElement('section');section.id='v9ProfileShowcase';section.className='v9-profile-showcase';
     section.innerHTML=`<div class="v9-profile-showcase-head"><div><h2>Os 7 perfis do Caramelo</h2><p>Cada perfil representa uma forma de se relacionar com o mundo, aprender e construir o seu caminho.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
       const [bg,accent]=CARD_TOKENS[i%CARD_TOKENS.length];
