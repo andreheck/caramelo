@@ -1,113 +1,91 @@
 # Caramelo — Orientação Vocacional
 
-O **Caramelo** é uma experiência digital de orientação vocacional com identidade brasileira. O projeto combina cenários ilustrados, escolhas forçadas e rankings para ajudar pessoas a explorar interesses, motivadores, ambientes de trabalho e hipóteses de carreira.
+Experiência digital brasileira para explorar interesses, ambientes, valores e hipóteses de carreira, com jornada de sete dias.
 
-> Status atual: protótipo V4 em evolução. O instrumento é orientativo e ainda não corresponde a teste psicológico aprovado pelo SATEPSI nem a classificação normativa da população.
+> Protótipo orientativo. Não é diagnóstico psicológico, não é teste aprovado pelo SATEPSI e não possui normas populacionais. Testes de software e simulações matemáticas não constituem validação psicométrica.
 
-## O que já existe
+## Estado consolidado — 14/09/2026
 
-- jornada navegável em 5 capítulos;
-- **50 itens implementados**;
-- Capítulo 1 completo — “Quem sou em movimento”;
-- Capítulo 2 completo — “Como resolvo problemas”;
-- Capítulo 3 completo — “O que me atrai no mundo”;
-- Capítulo 4 completo — “Onde eu funciono melhor”;
-- Capítulo 5 completo — “Meu futuro possível”;
-- modelos A (cenário), C (escolha forçada) e D (ranking);
-- 10 eixos de orientação;
-- 7 perfis derivados;
-- biblioteca própria de ícones SVG, sem emojis;
-- persistência local do progresso;
-- normalização estrutural dos eixos;
-- resultado com perfil principal/secundário, eixos, áreas para investigar e plano de ação;
-- documentação técnica, metodológica e auditoria de pontuação.
+O banco vocacional e a jornada foram integrados na `main`. O fechamento técnico está em `feat/fechamento-tecnico-v4`, PR #15, sem substituir a versão principal enquanto o PR estiver aberto.
 
-## Estrutura do repositório
+- **50 itens executáveis**, cinco capítulos com dez itens: 30 cenários A, 15 escolhas forçadas C e cinco rankings D.
+- Dez eixos e sete perfis derivados; perfil secundário e hipóteses exploratórias.
+- Jornada de sete dias, persistência local, XP e síntese final.
+- SVGs, tema neo-cordel, resultados em anéis e camada mobile.
+- Sete artes finais ainda pendentes; componentes usam fallback gráfico.
+- Auditoria reproduzível, regressões matemáticas e teste funcional em Chromium.
 
-```text
-caramelo/
-├─ index.html
-├─ assets/
-│  ├─ styles.css
-│  ├─ icons.svg
-│  ├─ data.js
-│  ├─ chapter1-v4.js
-│  ├─ chapter2-v4.js
-│  ├─ chapter3-v4.js
-│  ├─ chapter4-v4.js
-│  ├─ chapter5-v4.js
-│  ├─ scoring-v4.js
-│  └─ app.js
-├─ data/
-│  └─ matriz-itens.csv
-├─ docs/
-│  ├─ documentacao-tecnica-v3.md
-│  ├─ metodologia.md
-│  ├─ matriz-itens.md
-│  ├─ auditoria-pontuacao-v4.md
-│  └─ roadmap.md
-├─ CHANGELOG.md
-├─ LICENSE
-└─ README.md
-```
+O [backlog único](docs/roadmap.md) distingue implementado, testado e pendente. A issue #16 acompanha a homologação e publicação; #17 reúne conteúdo e piloto; #18 acompanha as artes finais.
 
-## Rodando localmente
+## Executar localmente
 
-Como o projeto é front-end puro, basta servir a pasta com qualquer servidor HTTP local. Exemplo:
+Requer Python 3 para o servidor local:
 
 ```bash
 python -m http.server 8000
 ```
 
-Depois acesse `http://localhost:8000`.
+Abra `http://localhost:8000`. O aplicativo é estático; não exige compilação. Evite abrir por `file://`, devido ao carregamento dos SVGs e outros recursos. O progresso pertence a este navegador/origem; não há sincronização de conta entre dispositivos.
 
-## Lógica atual
+## Auditoria e testes
 
-A pontuação ocorre em 10 eixos: Investigativo, Criativo, Social, Empreendedor, Organizador, Prático-realizador, Autonomia, Estabilidade, Propósito e Reconhecimento.
+Requer Node.js 22:
 
-Cada resposta adiciona pontos aos eixos. Rankings usam pesos reduzidos `[1.5, 1.2, 0.9, 0.6, 0.3, 0]` para funcionar como refinamento, e não como componente dominante. Os eixos são normalizados pelo máximo estrutural disponível antes do cálculo dos perfis.
+```bash
+node tests/smoke.cjs
+node --test tests/quality.cjs
+```
 
-O momento de carreira — ensino médio, escolha de curso/faculdade ou transição — **não altera a pontuação**. Ele é usado apenas para adaptar a interpretação e os próximos passos.
+A auditoria grava `reports/auditoria-50-itens.json` e `.md`: semente, fingerprint dos dados, máximos, influência dos rankings, distribuição simulada e sensibilidade. O workflow preserva os relatórios como artefatos por 30 dias.
 
-As barras do resultado mostram a proporção do máximo estrutural disponível em cada eixo. Elas não representam percentis populacionais nem normas psicométricas.
+Para navegação funcional, com Python 3 disponível:
 
-## Matriz de itens
+```bash
+npm install --no-save --package-lock=false playwright@1.55.0
+npx playwright install chromium
+node tests/browser.cjs
+```
 
-O banco V4 está fechado em **50 itens**, distribuídos em:
+O teste percorre os Dias 1–7 com respostas sintéticas em Chromium, nas larguras de 1280 e 390 px. Verifica bloqueio de resposta ausente no Dia 1, retomada após recarregar, paridade entre interface e núcleo, XP sem duplicação, 720 XP no final, três hipóteses e plano 7/30/90. O botão imprimir é testado por chamada interceptada: isso **não** valida o PDF nem sua paginação.
 
-- 30 cenários ilustrados — Modelo A (60%);
-- 15 escolhas forçadas — Modelo C (30%);
-- 5 rankings — Modelo D (10%);
-- 10 itens em cada um dos 5 capítulos.
+A primeira falha interrompe a sequência. Cenários seguintes não executados não estão aprovados. Largura estreita não substitui aparelho físico, teste de toque, leitor de tela, avaliação visual ou piloto com pessoas. Foto opcional, cópia efetiva e reinícios têm critérios adicionais na issue #16.
 
-Todos os 50 itens estão executáveis. Isso fecha a etapa de construção do banco, mas **não significa validação psicométrica**. Os itens ainda precisam passar por revisão de conteúdo, desejabilidade, acessibilidade, piloto e análise empírica.
+## Pacote de prévia interna
 
-- Visão técnica: [`docs/matriz-itens.md`](docs/matriz-itens.md)
-- Fonte tabular: [`data/matriz-itens.csv`](data/matriz-itens.csv)
-- Auditoria de pontuação: [`docs/auditoria-pontuacao-v4.md`](docs/auditoria-pontuacao-v4.md)
+```bash
+node scripts/build-preview.cjs
+```
 
-## Frente paralela do MVP
+Saída: `dist/caramelo-preview/`, com código de execução, documentação, `COMO-TESTAR.txt` e `BUILD.json`. O manifesto identifica o commit e hashes dos arquivos. Execução local fora do CI aparece como `local-unversioned` quando `GITHUB_SHA` não é informado.
 
-Há uma frente complementar em desenvolvimento para transformar o instrumento em uma **jornada de 7 dias**, com módulos reflexivos, raciocínio, prontidão profissional, XP e síntese final. Essa camada deve consumir o banco V4 como núcleo do Dia 1, sem substituir a lógica dos 50 itens.
+No workflow **CARAMELO Quality Gate**, o pacote `caramelo-preview-<commit>` é publicado como artefato **somente se os jobs de auditoria e navegador terminarem com sucesso**. Consulte a execução correspondente ao commit do PR, na área Actions; o pacote fica disponível por 30 dias. Uma execução de PR pode usar SHA de integração de teste, identificado no manifesto.
 
-A integração deve preservar a separação entre:
+Esse pacote não é um endereço web hospedado nem uma release pública. A publicação de URL continua separada na issue #16. Use somente dados fictícios na demonstração interna.
 
-- **instrumento vocacional** — 50 itens e 10 eixos;
-- **experiências reflexivas** — contexto, momento e Roda da Vida;
-- **módulos complementares** — raciocínio, leitura de contexto e prontidão;
-- **camada narrativa/gamificada** — 7 dias, XP e progressão.
+## Matemática e separação de camadas
 
-## Próximos passos
+Fluxo: respostas → pontos brutos → divisão pelo máximo estrutural do eixo → média ponderada dos perfis → interpretação.
 
-1. rodar a auditoria estrutural final com os 50 itens;
-2. revisar os pares forced-choice quanto à equivalência de desejabilidade;
-3. revisar carga cognitiva e influência agregada dos 5 rankings;
-4. reconciliar a aplicação dos 50 itens com a jornada de 7 dias do MVP;
-5. testar cognitivamente as perguntas com usuários;
-6. implementar e manter testes automatizados de navegação e cálculo;
-7. preparar backend, consentimento e governança LGPD antes de armazenar dados pessoais;
-8. evoluir o relatório e a taxonomia de cursos/carreiras.
+- Rankings: `[1.5, 1.2, 0.9, 0.6, 0.3, 0]`.
+- Modelo: `structural-normalized-v5`; banco: `4.4.0-prototype`.
+- Momento de carreira adapta o texto, não acrescenta pontos.
+- Percentuais são proporções dos máximos estruturais, não percentis populacionais.
+- Empate numérico tem ordem técnica estável, sem inferir maior afinidade.
+- Núcleo compartilhado: `assets/vocational-core.js`; o Dia 1 e a síntese consomem a mesma lógica no PR #15.
+- Reflexões emocionais, roda da vida, desafios e gamificação são camadas distintas do instrumento vocacional.
 
-## Histórico
+## Documentação
 
-A V4 fecha o banco planejado de 50 itens, completa os cinco capítulos e mantém a pontuação normalizada por máximo estrutural. Veja [`CHANGELOG.md`](CHANGELOG.md) e a documentação em [`docs/`](docs/).
+- [Auditoria dos 50 itens — 14/09/2026](docs/auditoria-50-itens-2026-09-14.md)
+- [Backlog e critérios](docs/roadmap.md)
+- [Matriz de itens](docs/matriz-itens.md)
+- [Metodologia](docs/metodologia.md)
+- [Jornada de sete dias](docs/jornada-7-dias.md)
+- [Briefing das artes](docs/perfis-visuais-v1.md)
+- [Histórico](CHANGELOG.md)
+
+A auditoria de 20 itens e a documentação V3 são históricas. Não representam numericamente o banco completo atual.
+
+## Antes da coleta com participantes
+
+Revisar conteúdo, informação ao participante, privacidade, consentimento, responsabilidades e governança. Backend, autenticação e resultados versionados são entregas posteriores quando necessários. Não inserir dados reais de participantes em issues, testes ou artefatos.

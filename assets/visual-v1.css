@@ -391,3 +391,23 @@ button:focus-visible,.choice-card:focus-visible,.option-card:focus-visible,.rank
   .actions .btn{width:100%;text-align:center}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* MVP visual review — 2026-09-21 */
+@media(min-width:981px){
+  .visual-panel{justify-content:stretch}
+  .visual-scene{flex:1;min-height:430px}
+}
+.journey-actions{align-items:center}
+.journey-reset-note{flex-basis:100%;margin:0;max-width:760px}
+.danger-action{color:#7b3528!important;border-color:rgba(123,53,40,.24)!important;background:#fffaf6!important}
+.danger-action:hover{border-color:rgba(123,53,40,.42)!important;background:#fff4ee!important}
+#main:focus{outline:none}
+@media(max-width:620px){
+  .journey-actions{display:grid;grid-template-columns:1fr}
+  .journey-actions .btn{width:100%}
+  .journey-reset-note{font-size:11px;line-height:1.45}
+}
+
+/* Programmatic heading focus: announce the new view without drawing an interactive-looking box. */
+.view h1[tabindex="-1"]:focus-visible,
+.view h2[tabindex="-1"]:focus-visible{outline:none}
