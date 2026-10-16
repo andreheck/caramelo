@@ -73,6 +73,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       }
       await page.locator('#landing [data-go="onboarding"]').click();
       assert.equal(await page.locator('#onboarding.active').count(),1);
+      await page.waitForFunction(()=>document.querySelector('#onboarding.active')?.classList.contains('v92-view-enter'));
       assert.equal(await page.locator('#onboarding.v92-view-enter').count(),1,'View transition class should be applied');
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
