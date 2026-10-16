@@ -22,7 +22,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     try {
       mark('initial load');
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY);
+      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
       await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
@@ -30,6 +30,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
       await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===4);
       assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),4);
+      assert.equal(await page.locator('#landing .v92-home-compass').count(),1,'Animated landing compass should exist');
+      assert.equal(await page.locator('#landing .v92-compass-base').getAttribute('src'),'assets/journey/compass_base.svg');
+      assert.equal(await page.locator('#landing .v92-compass-ring').getAttribute('src'),'assets/journey/compass_ring.svg');
+      assert.equal(await page.locator('#landing .v92-compass-needle').getAttribute('src'),'assets/journey/compass_needle.svg');
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/transformador-social\.webp$/);
       if(width===390){
@@ -68,6 +72,9 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         records.push({width,check:'keyboard skip link, focus target, semantics and key color contrast',status:'passed',contrast:a11y.contrast});
       }
       await page.locator('#landing [data-go="onboarding"]').click();
+      assert.equal(await page.locator('#onboarding.active').count(),1);
+      await page.waitForFunction(()=>document.querySelector('#onboarding.active')?.classList.contains('v92-view-enter'));
+      assert.equal(await page.locator('#onboarding.v92-view-enter').count(),1,'View transition class should be applied');
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
@@ -221,7 +228,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
   const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
   await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81);
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92);
   await compactPage.locator('#landing [data-go="onboarding"]').click();
   await compactPage.locator('#startQuizBtn').click();
   const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
