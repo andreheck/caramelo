@@ -1,0 +1,70 @@
+/* CARAMELO V9.2 — motion, transitions and interaction polish */
+:root{--v92-ease:cubic-bezier(.2,.78,.2,1);--v92-fast:180ms;--v92-medium:420ms}
+
+/* Animated compass on the landing hero */
+.v92-home-compass{position:absolute;right:24px;bottom:78px;z-index:6;width:clamp(132px,16vw,188px);aspect-ratio:1;pointer-events:none;transform:translate3d(calc(var(--v92-cx,0)*1px),calc(var(--v92-cy,0)*1px),0);transition:transform .55s var(--v92-ease),opacity .3s ease;filter:drop-shadow(0 18px 24px rgba(39,53,40,.18))}
+.v92-compass-body{position:relative;width:100%;height:100%;animation:v92CompassFloat 5.8s ease-in-out infinite;will-change:transform}
+.v92-compass-body>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+.v92-compass-base{z-index:1}
+.v92-compass-ring{z-index:2;animation:v92CompassRing 18s linear infinite;will-change:transform}
+.v92-compass-needle{z-index:3;transform-origin:50% 50%;animation:v92CompassNeedle 4.8s var(--v92-ease) infinite;will-change:transform}
+.v92-orbit{position:absolute;inset:-9%;z-index:0;border:1px solid rgba(255,250,240,.72);border-radius:50%;transform:rotate(var(--orbit-rotate,0deg)) scaleY(.72);opacity:.78}
+.v92-orbit::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;left:7%;top:49%;background:#f4bd24;box-shadow:0 0 0 5px rgba(244,189,36,.12),0 5px 14px rgba(29,48,40,.16);animation:v92OrbitDot 6.2s ease-in-out infinite}
+.v92-orbit.b{inset:-15%;--orbit-rotate:62deg;border-color:rgba(176,202,181,.8);opacity:.58}
+.v92-orbit.b::before{left:auto;right:10%;top:34%;width:7px;height:7px;background:#8aa27a;animation-delay:-2.4s}
+.v92-compass-glow{position:absolute;inset:18%;z-index:0;border-radius:50%;background:radial-gradient(circle,rgba(255,246,205,.64),rgba(244,189,36,.08) 52%,transparent 72%);filter:blur(7px);animation:v92CompassGlow 3.8s ease-in-out infinite}
+
+@keyframes v92CompassFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1.2deg)}}
+@keyframes v92CompassRing{to{transform:rotate(360deg)}}
+@keyframes v92CompassNeedle{0%,100%{transform:rotate(calc(var(--v92-angle,-12deg) - 8deg))}38%{transform:rotate(calc(var(--v92-angle,-12deg) + 13deg))}68%{transform:rotate(calc(var(--v92-angle,-12deg) - 3deg))}}
+@keyframes v92OrbitDot{0%,100%{transform:translate3d(0,0,0) scale(.9);opacity:.68}50%{transform:translate3d(8px,-3px,0) scale(1.15);opacity:1}}
+@keyframes v92CompassGlow{0%,100%{opacity:.5;transform:scale(.96)}50%{opacity:.88;transform:scale(1.08)}}
+
+/* Screen arrival: subtle continuity without delaying navigation */
+.view.v92-view-enter{animation:v92ViewEnter var(--v92-medium) var(--v92-ease) both}
+@keyframes v92ViewEnter{from{opacity:.12;transform:translateY(10px) scale(.997)}to{opacity:1;transform:none}}
+.v92-reveal{animation:v92Reveal .48s var(--v92-ease) both;animation-delay:var(--v92-delay,0ms)}
+@keyframes v92Reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* Interaction feedback */
+.btn,.nav button,.choice-card,.option-card,.rank-card,.reflection-option,[data-journey-day]{transition:transform var(--v92-fast) ease,box-shadow var(--v92-fast) ease,border-color var(--v92-fast) ease,background-color var(--v92-fast) ease,filter var(--v92-fast) ease}
+.btn.v92-press,.nav button.v92-press,.choice-card.v92-press,.option-card.v92-press,.rank-card.v92-press,.reflection-option.v92-press,[data-journey-day].v92-press{animation:v92Press .24s ease}
+@keyframes v92Press{45%{transform:scale(.975)}100%{transform:none}}
+.option-card.selected,.rank-card.selected,.choice-card.selected,.reflection-option[aria-pressed="true"]{box-shadow:0 10px 28px rgba(31,76,64,.1),0 0 0 3px rgba(244,189,36,.09)}
+.v92-progress-pulse{animation:v92ProgressPulse .38s ease}
+@keyframes v92ProgressPulse{50%{filter:brightness(1.12);box-shadow:0 0 0 5px rgba(244,189,36,.13)}}
+
+/* Result and modal entrances */
+#v8ResultDashboard.v92-result-enter>*{animation:v92ResultCard .5s var(--v92-ease) both}
+#v8ResultDashboard.v92-result-enter>*:nth-child(2){animation-delay:70ms}
+#v8ResultDashboard.v92-result-enter>*:nth-child(3){animation-delay:130ms}
+@keyframes v92ResultCard{from{opacity:.05;transform:translateY(16px) scale(.985)}to{opacity:1;transform:none}}
+dialog[open]{animation:v92DialogIn .28s var(--v92-ease)}
+dialog[open]::backdrop{animation:v92BackdropIn .24s ease}
+@keyframes v92DialogIn{from{opacity:.2;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes v92BackdropIn{from{opacity:0}to{opacity:1}}
+
+/* Scroll-in polish on landing content */
+.v92-scroll-item{opacity:0;transform:translateY(14px)}
+.v92-scroll-item.v92-visible{opacity:1;transform:none;transition:opacity .5s var(--v92-ease),transform .5s var(--v92-ease);transition-delay:var(--v92-scroll-delay,0ms)}
+
+body.v92-paused .v92-compass-body,body.v92-paused .v92-compass-ring,body.v92-paused .v92-compass-needle,body.v92-paused .v92-orbit::before,body.v92-paused .v92-compass-glow{animation-play-state:paused!important}
+
+@media(max-width:900px){
+ .v92-home-compass{right:16px;bottom:76px;width:132px;opacity:.96}
+ .view.v92-view-enter{animation-duration:.32s}
+}
+@media(max-width:620px){
+ .v92-home-compass{right:10px;bottom:72px;width:112px;filter:drop-shadow(0 12px 18px rgba(39,53,40,.16))}
+ .v92-orbit{display:none}
+}
+@media(hover:hover) and (pointer:fine){
+ .btn:hover{transform:translateY(-1px)}
+ .choice-card:hover,.option-card:hover,.rank-card:hover,.reflection-option:hover,[data-journey-day]:hover{transform:translateY(-2px);filter:saturate(1.03)}
+}
+@media(prefers-reduced-motion:reduce){
+ .v92-home-compass{transform:none!important;transition:none!important}
+ .v92-compass-body,.v92-compass-ring,.v92-compass-needle,.v92-orbit::before,.v92-compass-glow,.view.v92-view-enter,.v92-reveal,.v92-progress-pulse,#v8ResultDashboard.v92-result-enter>*,dialog[open],dialog[open]::backdrop{animation:none!important}
+ .v92-scroll-item,.v92-scroll-item.v92-visible{opacity:1!important;transform:none!important;transition:none!important}
+ .btn,.nav button,.choice-card,.option-card,.rank-card,.reflection-option,[data-journey-day]{transition:none!important}
+}
