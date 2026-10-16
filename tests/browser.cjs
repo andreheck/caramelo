@@ -24,7 +24,25 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
+      await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
+      assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
+      assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
+      await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===4);
+      assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),4);
+      const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
+      assert.match(communicatorSrc,/transformador-social\.webp$/);
+      if(width===390){
+        const mobileHeader=await page.evaluate(()=>{
+          const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
+          const nav=document.querySelector('.topbar .nav')?.getBoundingClientRect();
+          const rail=document.querySelector('#v9ProfileShowcase .v9-profile-rail');
+          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0,railScrollable:Boolean(rail&&rail.scrollWidth>rail.clientWidth+2)};
+        });
+        assert.ok(mobileHeader.brandBottom<=mobileHeader.navTop+1,`Mobile brand/nav overlap: ${JSON.stringify(mobileHeader)}`);
+        assert.equal(mobileHeader.railScrollable,true,'Mobile profile rail should be horizontally scrollable');
+        records.push({width,check:'mobile topbar uses two non-overlapping rows and profile rail becomes a compact carousel',status:'passed'});
+      }
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
         await page.locator('.skip-link').focus();
@@ -53,7 +71,21 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
-      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
+      assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
+      assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
+      await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
+      await page.waitForFunction(()=>document.querySelector('#v9QuestionArt img')?.getAttribute('src')?.includes('assets/profiles/'));
+      assert.equal(await page.locator('#v81PhaseOverlay').getAttribute('data-day'),'1');
+      await page.waitForFunction(()=>document.querySelector('#v9QuestionArt strong')?.textContent?.includes('combina mais com você'));
+      const artLabel=(await page.locator('#v9QuestionArt strong').textContent()).trim();
+      const profileTitles=await page.evaluate(()=>window.CARAMELO_DATA.profiles.map(p=>p.title));
+      assert.ok(!profileTitles.includes(artLabel),'Assessment illustration should not expose a profile label while answering');
+      if(width===1280){
+        await page.screenshot({path:'reports/browser/audit-day1-question-1280.png',fullPage:true});
+        const qfit=await page.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+        assert.ok(qfit.bottom<=qfit.height+2,`Primary question actions should fit in viewport: ${JSON.stringify(qfit)}`);
+        records.push({width,check:'day 1 primary question fits viewport without vertical scroll to actions',status:'passed'});
+      }
       const questions=await page.evaluate(()=>window.CARAMELO_DATA.questions.map(q=>({type:q.type,count:(q.items||q.options).length})));
       await page.locator('#nextQuestionBtn').click();
       assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),0);
@@ -66,7 +98,22 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
-      if(width===1280) await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
+      if(width===1280){
+        await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v9AxisSummary')&&document.querySelector('#v9ProfileDetailBtn'));
+        assert.equal(await page.locator('#v9AxisSummary .bar-row').count(),6);
+        assert.ok(await page.locator('#resultRingsDay1 .v9-ring-compass').count());
+        await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
+        const rfit=await page.evaluate(()=>({bottom:document.querySelector('#results .actions')?.getBoundingClientRect().bottom||9999,height:innerHeight,dashboard:!!document.querySelector('#v8ResultDashboard'),details:!!document.querySelector('#v8ResultDetails')}));
+        assert.ok(rfit.bottom<=rfit.height+2,`Primary result actions should fit in viewport: ${JSON.stringify(rfit)}`);
+        assert.ok(rfit.dashboard&&rfit.details);
+        await page.locator('#v9ProfileDetailBtn').click();
+        await page.locator('#v8ResultDetails[open]').waitFor();
+        assert.equal(await page.locator('#v8ResultDetails [data-v9-tab]').count(),4);
+        await page.locator('#v8ResultDetails [data-v9-tab="traits"]').click();
+        assert.equal(await page.locator('#v8ResultDetails [data-v9-panel="traits"]').isVisible(),true);
+        await page.locator('#v8ResultDetails .v8-dialog-close').click();
+        records.push({width,check:'day 1 primary result dashboard and actions fit viewport; full detail available in dialog',status:'passed'});
+      }
       const expected=await page.evaluate(()=>window.CARAMELO_VOCATIONAL.result().primary.title);
       assert.equal(await page.locator('#profileName').textContent(),expected);
       await page.locator('#results [data-go="journey"]').click();
@@ -170,6 +217,24 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     }catch(error){records.push({width,stage,status:'failed',error:error.message});throw error;}
     finally{await context.close();}
   }
+  const compactContext=await browser.newContext({viewport:{width:1366,height:768},reducedMotion:'reduce'});
+  const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
+  const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
+  await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81);
+  await compactPage.locator('#landing [data-go="onboarding"]').click();
+  await compactPage.locator('#startQuizBtn').click();
+  const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+  assert.ok(compactQuestion.bottom<=compactQuestion.height+2,`1366x768 question actions must fit viewport: ${JSON.stringify(compactQuestion)}`);
+  await compactPage.evaluate(()=>window.CARAMELO_APP.go('landing'));
+  await compactPage.locator('#demoResultBtn').click();
+  await compactPage.waitForFunction(()=>document.querySelector('#results.active')&&document.querySelector('#v8ResultDashboard'));
+  const compactResult=await compactPage.evaluate(()=>({bottom:document.querySelector('#results .actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
+  assert.ok(compactResult.bottom<=compactResult.height+2,`1366x768 result actions must fit viewport: ${JSON.stringify(compactResult)}`);
+  assert.deepEqual(compactErrors,[],'Compact desktop viewport must not create uncaught errors');
+  records.push({width:1366,height:768,check:'V8.1 compact desktop question and result actions fit viewport; phase and sound UI present',status:'passed'});
+  await compactContext.close();
+
   const storageContext=await browser.newContext({viewport:{width:1280,height:900},reducedMotion:'reduce'});
   const storagePage=await storageContext.newPage(); storagePage.setDefaultTimeout(10000);
   const storageErrors=[]; storagePage.on('pageerror',e=>storageErrors.push(e.message));
@@ -189,7 +254,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   await storageContext.close();
 })().catch(error=>{console.error('BROWSER_FAILURE',stage,error);process.exitCode=1;}).finally(async()=>{
   fs.mkdirSync('reports/browser',{recursive:true});
-  const result={sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-7; synthetic protocols; desktop and narrow-viewport Chromium; clipboard, optional photo, resets, blocked storage, keyboard/focus, semantic and contrast checks, real Chromium PDF generation; not physical-device or human screen-reader certification'};
+  const result={sourceSHA:process.env.GITHUB_SHA||'local',records,scope:'Days 1-7; synthetic protocols; desktop 1280x900, compact desktop 1366x768 and narrow 390x900 Chromium; optional sound/phase UI, clipboard, optional photo, resets, blocked storage, keyboard/focus, semantic and contrast checks, real Chromium PDF generation; not physical-device or human screen-reader certification'};
   fs.writeFileSync('reports/browser/results.json',JSON.stringify(result,null,2));
   console.log('BROWSER_RESULT '+JSON.stringify(result));
   if(browser)await browser.close();server.kill();
