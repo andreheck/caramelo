@@ -22,7 +22,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     try {
       mark('initial load');
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95);
+      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
       await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
@@ -37,7 +37,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#v93Resume').count(),1,'V9.3 resume control should exist');
       assert.equal(await page.locator('#v93Resume').getAttribute('hidden'),'','Fresh journey should keep resume control hidden');
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
-      assert.match(communicatorSrc,/transformador-social\.webp$/);
+      assert.match(communicatorSrc,/comunicador-influente\.svg$/);
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
           const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
@@ -123,14 +123,27 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
           if(i===9){
             assert.match(await page.locator('#v95ChapterBreak').innerText(),/Parte 1 de 5 concluída/i);
             assert.match(await page.locator('#v95ChapterNext').innerText(),/Como resolvo problemas/i);
+            assert.equal(await page.locator('#v95ChapterBreak').getAttribute('data-from-chapter'),'0');
+            await page.waitForFunction(()=>document.querySelector('#v95ChapterBreak .v96-chapter-label'));
+            assert.match(await page.locator('#v95ChapterBreak .v96-chapter-label').innerText(),/Como resolvo problemas/i);
           }
           await page.locator('#v95ChapterContinue').click();
         }
         if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7&&window.CARAMELO_V93&&window.CARAMELO_V95);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);await page.evaluate(()=>window.CARAMELO_APP.go('landing'));await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);assert.match((await page.locator('#v93Resume').innerText()),/Pergunta 11 de 50/);await page.locator('#v93ResumeButton').click();await page.waitForFunction(()=>document.querySelector('#quiz.active'));assert.equal(await page.evaluate(()=>window.CARAMELO_APP.state.questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
+      await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v9AxisSummary')&&document.querySelector('#v9ProfileDetailBtn')&&document.querySelector('#v96ResultNav'));
+      assert.equal(await page.locator('#v96ResultNav button').count(),4);
+      if(width===390){
+        const resultOrder=await page.evaluate(()=>({
+          profile:document.querySelector('#profileVisualDay1')?.getBoundingClientRect().top||0,
+          rings:document.querySelector('#resultRingsDay1')?.getBoundingClientRect().top||0,
+          axes:document.querySelector('#v9AxisSummary')?.getBoundingClientRect().top||0
+        }));
+        assert.ok(resultOrder.profile<resultOrder.rings&&resultOrder.rings<resultOrder.axes,`Mobile result order should be profile -> compass -> axes: ${JSON.stringify(resultOrder)}`);
+        records.push({width,check:'mobile result prioritizes profile, then compass, then axes with quick navigation',status:'passed'});
+      }
       if(width===1280){
-        await page.waitForFunction(()=>document.querySelector('#v8ResultDashboard')&&document.querySelector('#v9AxisSummary')&&document.querySelector('#v9ProfileDetailBtn'));
         assert.equal(await page.locator('#v9AxisSummary .bar-row').count(),6);
         assert.ok(await page.locator('#resultRingsDay1 .v9-ring-compass').count());
         await page.screenshot({path:'reports/browser/audit-day1-result-1280.png',fullPage:true});
@@ -254,7 +267,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
   const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
   await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95);
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96);
   await compactPage.locator('#landing [data-go="onboarding"]').click();
   await compactPage.locator('#startQuizBtn').click();
   const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
