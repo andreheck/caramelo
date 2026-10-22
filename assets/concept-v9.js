@@ -33,7 +33,7 @@
     const section=document.createElement('section');section.id='v9ProfileShowcase';section.className='v9-profile-showcase';
     section.innerHTML=`<div class="v9-profile-showcase-head"><div><h2>Os 7 perfis do Caramelo</h2><p>Cada perfil representa uma forma de se relacionar com o mundo, aprender e construir o seu caminho.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
       const [bg,accent]=CARD_TOKENS[i%CARD_TOKENS.length];
-      const artId=p.id==='comunicador-influente'?'transformador-social':p.id;return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="assets/profiles/${artId}.webp" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
+      const artSrc=p.id==='comunicador-influente'?'assets/profiles/comunicador-influente.svg':`assets/profiles/${p.id}.webp`;return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="${artSrc}" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
     }).join('')}</div>`;
     features.insertAdjacentElement('afterend',section);
   }
@@ -48,7 +48,7 @@
     let art=$('#v9QuestionArt',side);
     if(!art){art=document.createElement('div');art.id='v9QuestionArt';art.className='v9-question-art';art.innerHTML='<img alt=""><div class="v9-question-art-copy"><small></small><strong></strong></div>';side.appendChild(art)}
     const index=currentQuestionIndex(),id=QUESTION_ART[index%QUESTION_ART.length],profile=D?.profiles?.find(p=>p.id===id);
-    const img=$('img',art),src=`assets/profiles/${id}.webp`;
+    const img=$('img',art),src=id==='comunicador-influente'?'assets/profiles/comunicador-influente.svg':`assets/profiles/${id}.webp`;
     if(img.getAttribute('src')!==src){img.style.opacity='.18';setTimeout(()=>{img.src=src;img.alt='Cena ilustrada de exploração vocacional';img.style.opacity='1'},80)}
     $('small',art).textContent=`Pista ${Math.min(index+1,50)} de 50`;
     $('strong',art).textContent='Escolha pelo que combina mais com você.';

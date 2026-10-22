@@ -47,6 +47,16 @@ O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferi
 - [x] V9.3: Quality Gate completo e integração à main.
 - [ ] Refinar arte exclusiva do Comunicador Influente e resolução final das sete artes.
 
+## Pilot visual — V9.6
+
+- [x] Aplicar arte exclusiva do Comunicador Influente em landing, perguntas e resultados.
+- [x] Remover reaproveitamento visual do Transformador Social para o Comunicador.
+- [x] Reordenar o resultado mobile para Perfil → Bússola → Eixos → Ações.
+- [x] Adicionar navegação rápida entre blocos do resultado no mobile.
+- [x] Dar identidade visual distinta às quatro pausas entre capítulos.
+- [ ] Aprovar Quality Gate completo da V9.6 e integrar à main.
+- [ ] Rodada humana em celular físico para revisar densidade, leitura e ritmo.
+
 ## Experiência do respondente — V9.5
 
 - [x] Agrupar a ordem de apresentação dos 50 itens em cinco capítulos de dez, sem alterar IDs, pesos ou scoring.

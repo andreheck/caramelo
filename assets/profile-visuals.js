@@ -21,7 +21,7 @@
   function markup(profile,{compact=false}={}){
     if(!profile)return'';
     const meta=META[profile.id]||{icon:'compass',kicker:'seu jeito de caminhar',tags:[]};
-    const src=`assets/profiles/${profile.id==='comunicador-influente'?'transformador-social':profile.id}.webp`;
+    const src=profile.id==='comunicador-influente'?'assets/profiles/comunicador-influente.svg':`assets/profiles/${profile.id}.webp`;
     const fallback=`assets/profiles/${profile.id}.svg`;
     const careers=(profile.careers||[]).slice(0,compact?4:6);
     return `<section class="profile-visual ${compact?'profile-visual-compact':''}" data-profile="${esc(profile.id)}" aria-label="Representação visual do perfil ${esc(profile.title)}">
