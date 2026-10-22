@@ -24,9 +24,9 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
-      await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
+      assert.equal(await page.locator('#landing #v9ProfileShowcase').count(),0,'Landing should not expose profile showcase');
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
-      assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
+      assert.equal(await page.locator('#landing #v9ProfileShowcase').count(),0);
       assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
       await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===4);
       assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),4);
@@ -36,18 +36,23 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#landing .v92-compass-needle').getAttribute('src'),'assets/journey/compass_needle.svg');
       assert.equal(await page.locator('#v93Resume').count(),1,'V9.3 resume control should exist');
       assert.equal(await page.locator('#v93Resume').getAttribute('hidden'),'','Fresh journey should keep resume control hidden');
+      await page.evaluate(()=>window.CARAMELO_APP.go('methodology'));
+      await page.locator('#methodology.active').waitFor();
+      await page.locator('#v9ProfileShowcase summary').click();
+      assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/comunicador-influente\.svg$/);
+      await page.evaluate(()=>window.CARAMELO_APP.go('landing'));
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
           const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
           const nav=document.querySelector('.topbar .nav')?.getBoundingClientRect();
-          const rail=document.querySelector('#v9ProfileShowcase .v9-profile-rail');
+          const rail=document.querySelector('#methodology #v9ProfileShowcase .v9-profile-rail');
           return {brandBottom:brand?.bottom||0,navTop:nav?.top||0,railScrollable:Boolean(rail&&rail.scrollWidth>rail.clientWidth+2)};
         });
         assert.ok(mobileHeader.brandBottom<=mobileHeader.navTop+1,`Mobile brand/nav overlap: ${JSON.stringify(mobileHeader)}`);
         assert.equal(mobileHeader.railScrollable,true,'Mobile profile rail should be horizontally scrollable');
-        records.push({width,check:'mobile topbar uses two non-overlapping rows and profile rail becomes a compact carousel',status:'passed'});
+        records.push({width,check:'mobile topbar uses two non-overlapping rows; profile rail is kept out of the landing',status:'passed'});
       }
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
@@ -74,6 +79,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         records.push({width,check:'keyboard skip link, focus target, semantics and key color contrast',status:'passed',contrast:a11y.contrast});
       }
       await page.locator('#landing [data-go="onboarding"]').click();
+      await page.waitForFunction(()=>document.querySelector('#journeyTopProgress.visible'));
+      assert.equal(await page.locator('#journeyTopSteps img').count(),7,'Journey route should use seven SVG day badges');
+      assert.equal(await page.locator('#journeyTopSteps .journey-top-step.current img').getAttribute('src'),'assets/journey/day1_badge.svg');
+      assert.match(await page.locator('#journeyTopTitle').innerText(),/Dia 1 · Mapa vocacional/);
       assert.equal(await page.locator('#onboarding.active').count(),1);
       await page.waitForFunction(()=>document.querySelector('#onboarding.active')?.classList.contains('v92-view-enter'));
       assert.equal(await page.locator('#onboarding.v92-view-enter').count(),1,'View transition class should be applied');
