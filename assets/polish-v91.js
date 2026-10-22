@@ -24,18 +24,14 @@
     if(strong)strong.textContent='Escolha pelo que combina mais com você.';
   }
   function restoreCommunicator(){
-    $$('#v9ProfileShowcase .v9-profile-mini').forEach(card=>{
+    $('#v9ProfileShowcase .v9-profile-mini').forEach(card=>{
       if(card.querySelector('strong')?.textContent?.trim()!=='Comunicador Influente')return;
-      const img=$('img',card);if(img&& !img.src.endsWith('/assets/profiles/comunicador-influente.svg')){img.src='assets/profiles/transformador-social.webp';img.classList.remove('v91-communicator-svg')}
+      const img=$('img',card);if(img){img.src='assets/profiles/comunicador-influente.svg';img.classList.add('v91-communicator-svg')}
     });
-    const resultTitle=$('#profileVisualDay1 .profile-visual-copy h3')?.textContent?.trim();
-    if(resultTitle==='Comunicador Influente'){
-      const img=$('#profileVisualDay1 .profile-visual-image');if(img){img.src='assets/profiles/transformador-social.webp';img.classList.remove('v91-communicator-svg')}
-    }
-    const finalTitle=$('#profileVisualDay7 .profile-visual-copy h3')?.textContent?.trim();
-    if(finalTitle==='Comunicador Influente'){
-      const img=$('#profileVisualDay7 .profile-visual-image');if(img){img.src='assets/profiles/transformador-social.webp';img.classList.remove('v91-communicator-svg')}
-    }
+    ['#profileVisualDay1','#profileVisualDay7'].forEach(selector=>{
+      const host=$(selector);if(host?.querySelector('.profile-visual-copy h3')?.textContent?.trim()!=='Comunicador Influente')return;
+      const img=$('.profile-visual-image',host);if(img){img.src='assets/profiles/comunicador-influente.svg';img.classList.add('v91-communicator-svg')}
+    });
   }
   function sync(){
     heroMosaic();neutralQuestionArt();restoreCommunicator();
