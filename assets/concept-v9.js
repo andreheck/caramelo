@@ -45,6 +45,7 @@
       access.className='v97-methodology-link';
       access.dataset.go='methodology';
       access.innerHTML='<span>Quer entender como o Caramelo organiza suas pistas?</span><strong>Entenda como funciona →</strong>';
+      access.addEventListener('click',()=>window.CARAMELO_APP?.go('methodology'));
       landingFeatures.insertAdjacentElement('afterend',access);
     }
   }
