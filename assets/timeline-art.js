@@ -77,17 +77,21 @@
 
   function ensureTopTracker() {
     let tracker = $('#journeyTopProgress');
-    if (tracker) return tracker;
+    const markup = `<div class="journey-top-current">
+      <div class="journey-top-current-art" aria-hidden="true"><span class="journey-top-current-halo"></span><img id="journeyTopCurrentBadge" src="assets/journey/day1_badge.svg" alt=""></div>
+      <div class="journey-top-copy"><small id="journeyTopKicker">Etapa atual</small><strong id="journeyTopTitle">Mapa vocacional</strong><span id="journeyTopMeta">Em andamento</span></div>
+    </div><div class="journey-top-steps" id="journeyTopSteps" aria-label="Rota da jornada"></div>`;
+    if (tracker) {
+      if (!$('#journeyTopCurrentBadge', tracker) || !$('#journeyTopMeta', tracker)) tracker.innerHTML = markup;
+      return tracker;
+    }
     const header = $('.topbar');
     if (!header) return null;
     tracker = document.createElement('section');
     tracker.id = 'journeyTopProgress';
     tracker.className = 'journey-top-progress';
     tracker.setAttribute('aria-label', 'Linha do tempo da jornada Caramelo');
-    tracker.innerHTML = `<div class="journey-top-current">
-      <div class="journey-top-current-art" aria-hidden="true"><span class="journey-top-current-halo"></span><img id="journeyTopCurrentBadge" src="assets/journey/day1_badge.svg" alt=""></div>
-      <div class="journey-top-copy"><small id="journeyTopKicker">Etapa atual</small><strong id="journeyTopTitle">Mapa vocacional</strong><span id="journeyTopMeta">Em andamento</span></div>
-    </div><div class="journey-top-steps" id="journeyTopSteps" aria-label="Rota da jornada"></div>`;
+    tracker.innerHTML = markup;
     header.insertAdjacentElement('afterend', tracker);
     return tracker;
   }
