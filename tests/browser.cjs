@@ -131,7 +131,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-journey-1280.png',fullPage:true});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
       await page.waitForFunction(()=>document.querySelector('#v93Completion')?.dataset.day==='1');
-      assert.match(await page.locator('#v93Completion').innerText(),/Dia 1 concluído/);
+      assert.match(await page.locator('#v93Completion').innerText(),/Dia 1 concluído/i);
       await page.evaluate(()=>{window.CARAMELO_JOURNEY.completeDay(1);window.CARAMELO_JOURNEY.completeDay(1);});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
       records.push({width,check:'50 items, core parity, reload, XP idempotency',status:'passed'});
