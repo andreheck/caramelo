@@ -125,6 +125,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         if(i===0){
           await page.locator('#v95PauseBtn').click();
           await page.locator('#landing.active').waitFor();
+          await page.waitForFunction(()=>!document.querySelector('#journeyTopProgress')?.classList.contains('visible'));
           await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);
           await page.locator('#v93ResumeButton').click();
           await page.locator('#quiz.active').waitFor();
