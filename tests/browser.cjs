@@ -80,7 +80,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
-      await page.waitForFunction(()=>document.body.dataset.v93Day==='1');
+      await page.waitForFunction(()=>document.querySelector('.view.active')?.dataset.v93Day==='1');
       assert.equal(await page.locator('.view.active').getAttribute('data-v93-day'),'1');
       assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
       assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
