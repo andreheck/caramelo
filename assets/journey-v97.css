@@ -88,3 +88,8 @@
 @media(min-width:901px){
   body.v8-question-mode main{height:calc(100dvh - 160px)!important}
 }
+
+
+@media(min-width:901px) and (min-height:850px){
+  body.v8-question-mode main{height:calc(100dvh - 194px)!important}
+}
