@@ -5,7 +5,7 @@
     "Roda da vida",
     "Raciocínio",
     "Leitura",
-    "Prontidão",
+    "Preparação",
     "Mapa do corre"
   ];
   const VIEW_DAY = {
@@ -26,43 +26,70 @@
     "final-map": 7
   };
   const HIDDEN_VIEWS = new Set(["landing", "methodology"]);
-
   const $ = (selector, root = document) => root.querySelector(selector);
 
   function journeyState() {
     return window.CARAMELO_JOURNEY?.state || {};
   }
-
   function firstIncompleteDay() {
     const done = journeyState().completedDays || [];
     for (let day = 1; day <= 7; day += 1) if (!done.includes(day)) return day;
     return 7;
   }
-
   function activeViewId() {
     return $(".view.active")?.id || "landing";
   }
-
   function currentDay(view = activeViewId()) {
     if (view === "journey") return firstIncompleteDay();
     return VIEW_DAY[view] || null;
   }
-
   function ensureTracker() {
     if ($("#journeyTopProgress")) return $("#journeyTopProgress");
     const header = $(".topbar");
     if (!header) return null;
     header.insertAdjacentHTML("afterend", `
-      <div class="journey-top-progress" id="journeyTopProgress" aria-live="polite">
-        <div class="journey-top-copy">
-          <small id="journeyTopKicker">Sua jornada</small>
-          <strong id="journeyTopTitle">Dia 1 de 7</strong>
+      <aside class="journey-top-progress" id="journeyTopProgress" aria-live="polite">
+        <div class="journey-top-context">
+          <div class="journey-top-copy">
+            <small id="journeyTopKicker">Etapa atual</small>
+            <strong id="journeyTopTitle">Dia 1 · Mapa vocacional</strong>
+          </div>
+          <span class="journey-top-count" id="journeyTopCount" aria-label="Etapa 1 de 7">1/7</span>
         </div>
-        <div class="journey-top-steps" id="journeyTopSteps" aria-label="Progresso da jornada"></div>
-      </div>`);
+        <div class="journey-top-route-wrap">
+          <div class="journey-top-steps" id="journeyTopSteps" aria-label="Mapa visual da jornada"></div>
+        </div>
+      </aside>`);
     return $("#journeyTopProgress");
   }
-
+  function stepMarkup(label, n, day, completed) {
+    const current = n === day;
+    const done = completed.includes(n) || n < day;
+    const cls = current ? "current" : done ? "done" : "future";
+    const status = current ? "etapa atual" : done ? "concluída" : "próxima etapa";
+    return `<div class="journey-top-step ${cls}" data-journey-route-day="${n}" aria-label="Dia ${n}: ${label}, ${status}">
+      <span class="journey-top-connector" aria-hidden="true"></span>
+      <span class="journey-top-node">
+        <img src="assets/journey/day${n}_badge.svg" alt="" aria-hidden="true">
+        <span class="journey-top-check" aria-hidden="true">✓</span>
+      </span>
+      <span class="journey-top-label"><small>Dia ${n}</small><strong>${label}</strong></span>
+    </div>`;
+  }
+  function revealCurrentStep(tracker, day) {
+    if (tracker.dataset.focusedDay === String(day)) return;
+    tracker.dataset.focusedDay = String(day);
+    requestAnimationFrame(() => {
+      const step = tracker.querySelector(`[data-journey-route-day="${day}"]`);
+      const route = $("#journeyTopSteps");
+      if (!step || !route || route.scrollWidth <= route.clientWidth + 4) return;
+      step.scrollIntoView({
+        behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "nearest",
+        inline: "center"
+      });
+    });
+  }
   function render() {
     const tracker = ensureTracker();
     if (!tracker) return;
@@ -78,18 +105,16 @@
     }
     const completed = journeyState().completedDays || [];
     tracker.classList.add("visible");
-    $("#journeyTopKicker").textContent = view === "journey" ? "Próxima etapa" : "Você está aqui";
-    $("#journeyTopTitle").textContent = `Dia ${day} de 7 · ${LABELS[day - 1]}`;
-    $("#journeyTopSteps").innerHTML = LABELS.map((label, index) => {
-      const n = index + 1;
-      const current = n === day;
-      const done = completed.includes(n) || n < day;
-      const cls = current ? "current" : done ? "done" : "future";
-      return `<div class="journey-top-step ${cls}" aria-label="Dia ${n}: ${label}${current ? ", etapa atual" : done ? ", concluído" : ""}">
-        <span class="journey-top-dot">${current ? n : done ? "✓" : n}</span>
-        <span class="journey-top-label">${label}</span>
-      </div>`;
-    }).join("");
+    tracker.dataset.currentDay = String(day);
+    tracker.classList.toggle("journey-complete", completed.length === 7);
+    $("#journeyTopKicker").textContent = view === "journey" ? "Próximo passo" : "Etapa atual";
+    $("#journeyTopTitle").textContent = `Dia ${day} · ${LABELS[day - 1]}`;
+    $("#journeyTopCount").textContent = `${day}/7`;
+    $("#journeyTopCount").setAttribute("aria-label", `Etapa ${day} de 7`);
+    $("#journeyTopSteps").innerHTML = LABELS.map((label, index) =>
+      stepMarkup(label, index + 1, day, completed)
+    ).join("");
+    revealCurrentStep(tracker, day);
   }
 
   let queued = false;
@@ -102,11 +127,14 @@
     });
   }
 
-  const observer = new MutationObserver(queueRender);
-  observer.observe(document.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ["class"] });
+  new MutationObserver(queueRender).observe(document.documentElement, {
+    subtree: true,
+    childList: true,
+    attributes: true,
+    attributeFilter: ["class"]
+  });
   document.addEventListener("click", () => setTimeout(queueRender, 0), true);
   window.addEventListener("storage", queueRender);
   render();
-
   window.CARAMELO_JOURNEY_UI = { render, currentDay };
 })();
