@@ -22,7 +22,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     try {
       mark('initial load');
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92);
+      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
       await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
@@ -34,6 +34,8 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#landing .v92-compass-base').getAttribute('src'),'assets/journey/compass_base.svg');
       assert.equal(await page.locator('#landing .v92-compass-ring').getAttribute('src'),'assets/journey/compass_ring.svg');
       assert.equal(await page.locator('#landing .v92-compass-needle').getAttribute('src'),'assets/journey/compass_needle.svg');
+      assert.equal(await page.locator('#v93Resume').count(),1,'V9.3 resume control should exist');
+      assert.equal(await page.locator('#v93Resume').getAttribute('hidden'),'','Fresh journey should keep resume control hidden');
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/transformador-social\.webp$/);
       if(width===390){
@@ -78,6 +80,8 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       if(width===1280) await page.screenshot({path:'reports/browser/audit-onboarding-1280.png',fullPage:true});
       if(width===1280){await page.locator('[data-moment="curso-faculdade"]').focus();await page.keyboard.press('Space');assert.equal(await page.locator('[data-moment="curso-faculdade"]').getAttribute('aria-pressed'),'true');records.push({width,check:'onboarding choice is keyboard-operable',status:'passed'});}
       await page.locator('#startQuizBtn').click();
+      await page.waitForFunction(()=>document.body.dataset.v93Day==='1');
+      assert.equal(await page.locator('.view.active').getAttribute('data-v93-day'),'1');
       assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
       assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
       await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
@@ -102,7 +106,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
         if(q.type==='ranking') for(let j=0;j<q.count;j++) await page.locator(`[data-rank-index="${j}"]`).click();
         else await page.locator('[data-option-index="0"]').click();
         await page.locator('#nextQuestionBtn').click();
-        if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);}
+        if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7&&window.CARAMELO_V93);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);await page.evaluate(()=>window.CARAMELO_APP.go('landing'));await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);assert.match((await page.locator('#v93Resume').innerText()),/Pergunta 11 de 50/);await page.locator('#v93ResumeButton').click();await page.waitForFunction(()=>document.querySelector('#quiz.active'));assert.equal(await page.evaluate(()=>window.CARAMELO_APP.state.questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
       if(width===1280){
@@ -126,6 +130,8 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.locator('#results [data-go="journey"]').click();
       if(width===1280) await page.screenshot({path:'reports/browser/audit-journey-1280.png',fullPage:true});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
+      await page.waitForFunction(()=>document.querySelector('#v93Completion')?.dataset.day==='1');
+      assert.match(await page.locator('#v93Completion').innerText(),/Dia 1 concluído/);
       await page.evaluate(()=>{window.CARAMELO_JOURNEY.completeDay(1);window.CARAMELO_JOURNEY.completeDay(1);});
       assert.equal(await page.evaluate(()=>window.CARAMELO_JOURNEY.state.xp),100);
       records.push({width,check:'50 items, core parity, reload, XP idempotency',status:'passed'});
@@ -228,7 +234,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
   const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
   await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92);
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93);
   await compactPage.locator('#landing [data-go="onboarding"]').click();
   await compactPage.locator('#startQuizBtn').click();
   const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
