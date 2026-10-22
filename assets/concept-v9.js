@@ -29,13 +29,15 @@
     }
   }
   function buildProfileShowcase(){
-    const landing=$('#landing'),features=$('#landing .section-grid.three');if(!landing||!features||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
-    const section=document.createElement('section');section.id='v9ProfileShowcase';section.className='v9-profile-showcase';
-    section.innerHTML=`<div class="v9-profile-showcase-head"><div><h2>Os 7 perfis do Caramelo</h2><p>Cada perfil representa uma forma de se relacionar com o mundo, aprender e construir o seu caminho.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
+    const methodology=$('#methodology .prose');if(!methodology||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
+    const details=document.createElement('details');
+    details.id='v9ProfileShowcase';
+    details.className='v9-profile-showcase v9-profile-methodology';
+    details.innerHTML=`<summary><span><small>leitura complementar</small><strong>Conheça os perfis interpretativos do Caramelo</strong></span><span class="v9-profile-summary-action">Explorar</span></summary><div class="v9-profile-showcase-body"><div class="v9-profile-showcase-head"><div><h2>Perfis interpretativos</h2><p>Os perfis organizam padrões de resposta em hipóteses de leitura. Eles não são rótulos fixos e aparecem apenas depois do mapa vocacional.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
       const [bg,accent]=CARD_TOKENS[i%CARD_TOKENS.length];
       const artSrc=p.id==='comunicador-influente'?'assets/profiles/comunicador-influente.svg':`assets/profiles/${p.id}.webp`;return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="${artSrc}" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
-    }).join('')}</div>`;
-    features.insertAdjacentElement('afterend',section);
+    }).join('')}</div></div>`;
+    methodology.appendChild(details);
   }
   function currentQuestionIndex(){
     const direct=window.CARAMELO_APP?.state?.questionIndex;
