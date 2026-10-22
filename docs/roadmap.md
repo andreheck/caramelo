@@ -44,8 +44,19 @@ O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferi
 - [x] V9.3: retomada inteligente de progresso adicionada.
 - [x] V9.3: identidade de movimento por dia adicionada.
 - [x] V9.3: feedback visual de seleção e conclusão de etapa adicionado.
-- [ ] V9.3: Quality Gate completo e integração à main.
+- [x] V9.3: Quality Gate completo e integração à main.
 - [ ] Refinar arte exclusiva do Comunicador Influente e resolução final das sete artes.
+
+## Experiência do respondente — V9.5
+
+- [x] Agrupar a ordem de apresentação dos 50 itens em cinco capítulos de dez, sem alterar IDs, pesos ou scoring.
+- [x] Migrar o índice salvo para preservar a pergunta atual de quem já iniciou o mapa.
+- [x] Inserir pausas de transição entre os cinco capítulos.
+- [x] Mostrar progresso dentro do capítulo e estado de salvamento local.
+- [x] Permitir pausar o Dia 1 e retomar pela landing.
+- [x] Mostrar contador de conclusão nos cinco rankings.
+- [ ] Aprovar Quality Gate completo da V9.5 e integrar à main.
+- [ ] Validar ritmo/fadiga em entrevistas cognitivas com participantes reais.
 
 ## Homologação e distribuição — #16
 
