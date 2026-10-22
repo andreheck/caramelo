@@ -297,3 +297,25 @@
   .journey-top-current-art img,.journey-top-current-halo{animation:none!important}
   .journey-top-dot{transition:none!important}
 }
+
+.v97-methodology-link{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-top:14px;
+  padding:13px 16px;
+  border:1px solid rgba(23,61,53,.09);
+  border-radius:17px;
+  background:rgba(255,253,248,.72);
+  color:#617068;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+.v97-methodology-link span{font-size:10px}
+.v97-methodology-link strong{color:#315e50;font-size:10px;white-space:nowrap}
+@media(max-width:620px){
+  .v97-methodology-link{align-items:flex-start;flex-direction:column;gap:4px}
+}
