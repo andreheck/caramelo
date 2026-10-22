@@ -3,6 +3,7 @@
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   let queued=false,lastMobileDay=0;
 
+  function setText(el,text){if(el&&el.textContent!==text)el.textContent=text}
   function journeyState(){return window.CARAMELO_JOURNEY?.state||{completedDays:[]}}
   function completed(){const d=journeyState().completedDays;return Array.isArray(d)?d:[]}
 
@@ -16,8 +17,8 @@
 
     const title=$('#journeyTopTitle',tracker),kicker=$('#journeyTopKicker',tracker);
     const currentLabel=$('.journey-top-label',cards[current-1])?.textContent?.trim()||'Sua etapa';
-    if(kicker)kicker.textContent='Sua rota';
-    if(title)title.textContent=currentLabel;
+    setText(kicker,'Sua rota');
+    setText(title,currentLabel);
 
     let meta=$('.v97-route-meta',tracker);
     if(!meta){
@@ -25,7 +26,7 @@
       meta.className='v97-route-meta';
       $('.journey-top-copy',tracker)?.appendChild(meta);
     }
-    meta.textContent='Dia '+current+' · '+completed().length+' concluído'+(completed().length===1?'':'s');
+    setText(meta,'Dia '+current+' · '+completed().length+' concluído'+(completed().length===1?'':'s'));
 
     steps.style.setProperty('--v97-route-progress',String(Math.max(0,(current-1)/6)));
     cards.forEach((card,index)=>{
@@ -40,14 +41,14 @@
         dayLabel.className='journey-top-day';
         card.prepend(dayLabel);
       }
-      dayLabel.textContent='Dia '+day;
+      setText(dayLabel,'Dia '+day);
       let state=$('.journey-top-state',card);
       if(!state){
         state=document.createElement('span');
         state.className='journey-top-state';
         card.appendChild(state);
       }
-      state.textContent=isCurrent?'agora':done?'feito':'depois';
+      setText(state,isCurrent?'agora':done?'feito':'depois');
     });
 
     if(innerWidth<=900&&current!==lastMobileDay){
