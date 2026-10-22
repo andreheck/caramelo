@@ -243,6 +243,7 @@
 .journey-top-progress[data-current-day="6"] .journey-top-steps{--v97-route-fill:83.4%}
 .journey-top-progress[data-current-day="7"] .journey-top-steps{--v97-route-fill:100%}
 
+@media(min-width:901px){#quiz.active .question-panel{padding-top:24px;padding-bottom:24px}}
 @media(max-width:900px){
   .journey-top-progress{
     grid-template-columns:1fr;
