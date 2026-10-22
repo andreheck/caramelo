@@ -43,24 +43,37 @@
     if (view === "journey") return firstIncompleteDay();
     return VIEW_DAY[view] || null;
   }
+  function trackerMarkup() {
+    return `<div class="journey-top-context">
+      <div class="journey-top-copy">
+        <small id="journeyTopKicker">Etapa atual</small>
+        <strong id="journeyTopTitle">Dia 1 · Mapa vocacional</strong>
+      </div>
+      <span class="journey-top-count" id="journeyTopCount" aria-label="Etapa 1 de 7">1/7</span>
+    </div>
+    <div class="journey-top-route-wrap">
+      <div class="journey-top-steps" id="journeyTopSteps" aria-label="Mapa visual da jornada"></div>
+    </div>`;
+  }
   function ensureTracker() {
-    if ($("#journeyTopProgress")) return $("#journeyTopProgress");
+    let tracker = $("#journeyTopProgress");
+    if (tracker) {
+      if (!tracker.querySelector(".journey-top-context")) {
+        tracker.innerHTML = trackerMarkup();
+        tracker.className = "journey-top-progress";
+        tracker.setAttribute("aria-live","polite");
+      }
+      return tracker;
+    }
     const header = $(".topbar");
     if (!header) return null;
-    header.insertAdjacentHTML("afterend", `
-      <aside class="journey-top-progress" id="journeyTopProgress" aria-live="polite">
-        <div class="journey-top-context">
-          <div class="journey-top-copy">
-            <small id="journeyTopKicker">Etapa atual</small>
-            <strong id="journeyTopTitle">Dia 1 · Mapa vocacional</strong>
-          </div>
-          <span class="journey-top-count" id="journeyTopCount" aria-label="Etapa 1 de 7">1/7</span>
-        </div>
-        <div class="journey-top-route-wrap">
-          <div class="journey-top-steps" id="journeyTopSteps" aria-label="Mapa visual da jornada"></div>
-        </div>
-      </aside>`);
-    return $("#journeyTopProgress");
+    tracker = document.createElement("aside");
+    tracker.className = "journey-top-progress";
+    tracker.id = "journeyTopProgress";
+    tracker.setAttribute("aria-live","polite");
+    tracker.innerHTML = trackerMarkup();
+    header.insertAdjacentElement("afterend", tracker);
+    return tracker;
   }
   function stepMarkup(label, n, day, completed) {
     const current = n === day;
