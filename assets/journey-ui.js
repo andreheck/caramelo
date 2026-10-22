@@ -64,6 +64,7 @@
   }
 
   function render() {
+    if (window.CARAMELO_V97) return;
     const tracker = ensureTracker();
     if (!tracker) return;
     const view = activeViewId();
