@@ -1,0 +1,370 @@
+/* CARAMELO V9.7 — route-first journey navigation */
+:root{
+  --v97-route:#7fa58f;
+  --v97-route-done:#2f8069;
+  --v97-route-current:#efbf32;
+  --v97-route-paper:#fffdf8;
+  --v97-route-ink:#173d35;
+  --v97-route-muted:#7d8278;
+}
+
+/* The tracker becomes a navigation map, not a tiny progress bar */
+.journey-top-progress{
+  grid-template-columns:minmax(150px,190px) minmax(0,1fr)!important;
+  gap:18px!important;
+  align-items:center!important;
+  padding:12px 16px 13px!important;
+  border-radius:28px!important;
+  background:rgba(255,253,248,.96)!important;
+  border:1px solid rgba(86,71,42,.11)!important;
+  box-shadow:0 16px 42px rgba(53,51,38,.10)!important;
+  overflow:visible!important;
+}
+.journey-top-copy{
+  align-self:stretch;
+  align-content:center;
+  gap:2px!important;
+  padding:8px 8px 8px 2px;
+  border-right:1px solid rgba(67,87,76,.09);
+}
+.journey-top-copy small{
+  color:#8b744f!important;
+  font-size:9px!important;
+  letter-spacing:.12em!important;
+}
+.journey-top-copy strong{
+  color:var(--v97-route-ink)!important;
+  font-size:16px!important;
+  line-height:1.12;
+  letter-spacing:-.02em;
+}
+.v97-route-meta{
+  display:block;
+  margin-top:3px;
+  color:#727970;
+  font-size:9px;
+  font-weight:760;
+  line-height:1.2;
+}
+
+.journey-top-steps{
+  position:relative;
+  isolation:isolate;
+  display:grid!important;
+  grid-template-columns:repeat(7,minmax(74px,1fr))!important;
+  gap:5px!important;
+  align-items:start!important;
+  padding:0 3px!important;
+}
+.journey-top-steps::before,
+.journey-top-steps::after{
+  content:"";
+  position:absolute;
+  left:calc(7.14% - 1px);
+  top:42px;
+  height:4px;
+  border-radius:999px;
+  pointer-events:none;
+}
+.journey-top-steps::before{
+  right:calc(7.14% - 1px);
+  z-index:0;
+  background:linear-gradient(90deg,#d8d7ca,#cfd9d1 50%,#ded8c8);
+}
+.journey-top-steps::after{
+  z-index:1;
+  width:calc((85.72%) * var(--v97-route-progress,0));
+  max-width:85.72%;
+  background:linear-gradient(90deg,#6f9a80,#2f8069 72%,#efbf32);
+  box-shadow:0 0 0 2px rgba(47,128,105,.05);
+  transition:width .55s cubic-bezier(.2,.75,.2,1);
+}
+
+.journey-top-step{
+  position:relative;
+  z-index:2;
+  min-width:0;
+  min-height:91px;
+  display:grid!important;
+  grid-template-rows:13px 58px auto 12px;
+  justify-items:center;
+  align-items:center;
+  gap:1px!important;
+  padding:0 2px 4px;
+  border:1px solid transparent;
+  border-radius:19px;
+  transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease!important;
+}
+.journey-top-day{
+  color:#8b8b80;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.journey-top-dot{
+  position:relative!important;
+  z-index:2!important;
+  width:58px!important;
+  height:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:0!important;
+  border-radius:20px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transform:none!important;
+  overflow:visible;
+}
+.journey-top-dot img{
+  width:48px!important;
+  height:48px!important;
+  object-fit:contain!important;
+  filter:drop-shadow(0 7px 10px rgba(48,53,45,.13))!important;
+  opacity:.96;
+  transition:transform .25s cubic-bezier(.2,.78,.2,1),filter .25s ease,opacity .25s ease!important;
+}
+.journey-top-label{
+  display:block!important;
+  max-width:12ch!important;
+  color:#6d756f!important;
+  font-size:9px!important;
+  line-height:1.08!important;
+  font-weight:820!important;
+  text-align:center;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+.journey-top-state{
+  min-height:12px;
+  color:#969991;
+  font-size:7px;
+  font-weight:950;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.journey-top-step.done .journey-top-dot img{
+  width:51px!important;
+  height:51px!important;
+  filter:drop-shadow(0 7px 11px rgba(47,128,105,.15)) saturate(.92)!important;
+}
+.journey-top-step.done .journey-top-dot::after{
+  content:"✓"!important;
+  position:absolute!important;
+  right:1px!important;
+  bottom:2px!important;
+  width:18px!important;
+  height:18px!important;
+  display:grid!important;
+  place-items:center!important;
+  border:2px solid #fffdf8;
+  border-radius:50%!important;
+  background:var(--v97-route-done)!important;
+  color:white!important;
+  font-size:9px!important;
+  font-weight:1000!important;
+  box-shadow:0 5px 12px rgba(47,128,105,.22)!important;
+}
+.journey-top-step.done .journey-top-state{color:#4f806d}
+.journey-top-step.future .journey-top-dot img{
+  width:44px!important;
+  height:44px!important;
+  opacity:.52!important;
+  filter:grayscale(.2) saturate(.55) drop-shadow(0 5px 8px rgba(48,53,45,.08))!important;
+}
+.journey-top-step.future .journey-top-label{color:#92968f!important}
+
+.journey-top-step.current{
+  min-height:99px;
+  margin-top:-4px;
+  background:linear-gradient(180deg,#fffaf0,#fff6d9);
+  border-color:#efd98c;
+  box-shadow:0 10px 24px rgba(93,77,34,.10);
+}
+.journey-top-step.current .journey-top-day{color:#8b6310}
+.journey-top-step.current .journey-top-dot{
+  width:66px!important;
+  height:64px!important;
+}
+.journey-top-step.current .journey-top-dot::before{
+  content:"";
+  position:absolute;
+  inset:3px;
+  border:1px solid rgba(239,191,50,.65);
+  border-radius:50%;
+  box-shadow:0 0 0 6px rgba(239,191,50,.10);
+  animation:v97RoutePulse 3.3s ease-in-out infinite;
+}
+.journey-top-step.current .journey-top-dot img{
+  width:62px!important;
+  height:62px!important;
+  transform:translateY(-1px);
+  filter:drop-shadow(0 9px 13px rgba(94,77,28,.18)) saturate(1.04)!important;
+}
+.journey-top-step.current .journey-top-label{
+  color:#24473d!important;
+  font-size:10px!important;
+  font-weight:950!important;
+}
+.journey-top-step.current .journey-top-state{color:#a36d09}
+
+@keyframes v97RoutePulse{
+  0%,100%{transform:scale(.94);opacity:.55}
+  50%{transform:scale(1.08);opacity:1}
+}
+
+/* Side compass remains useful on desktop, but not as a competing second tracker */
+@media(max-width:1050px){
+  #carameloSideProgress{display:none!important}
+}
+
+/* Methodology owns profile taxonomy; landing no longer teaches the seven-profile model */
+#methodology .v97-methodology-profiles{
+  margin:24px 0 8px;
+  background:linear-gradient(180deg,#fffdf8,#f8f4e8);
+}
+#methodology .v97-methodology-profiles .v9-profile-showcase-head h2{font-size:25px}
+#methodology .v97-methodology-profiles .v9-profile-showcase-head p{max-width:650px}
+#landing #v9ProfileShowcase{display:none!important}
+
+@media(max-width:900px){
+  .journey-top-progress{
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+    padding:10px 11px 11px!important;
+    border-radius:22px!important;
+  }
+  .journey-top-copy{
+    grid-template-columns:auto minmax(0,1fr) auto;
+    align-items:center;
+    gap:8px!important;
+    padding:1px 2px 7px;
+    border-right:0;
+    border-bottom:1px solid rgba(67,87,76,.08);
+  }
+  .journey-top-copy small{grid-column:1;font-size:8px!important}
+  .journey-top-copy strong{grid-column:2;font-size:13px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .v97-route-meta{grid-column:3;margin:0;white-space:nowrap;font-size:8px}
+  .journey-top-steps{
+    display:flex!important;
+    gap:7px!important;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+    padding:4px 10px 5px!important;
+  }
+  .journey-top-steps::-webkit-scrollbar{display:none}
+  .journey-top-steps::before,.journey-top-steps::after{display:none}
+  .journey-top-step{
+    flex:0 0 78px;
+    min-height:84px;
+    grid-template-rows:11px 50px auto;
+    gap:1px!important;
+    scroll-snap-align:center;
+    padding:2px 4px 5px;
+  }
+  .journey-top-step.current{
+    flex-basis:102px;
+    min-height:90px;
+    margin-top:0;
+  }
+  .journey-top-state{display:none}
+  .journey-top-dot{width:50px!important;height:50px!important}
+  .journey-top-dot img{width:43px!important;height:43px!important}
+  .journey-top-step.current .journey-top-dot{width:58px!important;height:54px!important}
+  .journey-top-step.current .journey-top-dot img{width:54px!important;height:54px!important}
+  .journey-top-label{display:block!important;font-size:8px!important;max-width:10ch!important}
+  .journey-top-step.current .journey-top-label{font-size:9px!important}
+}
+@media(max-width:440px){
+  .journey-top-progress{margin-bottom:12px!important}
+  .journey-top-copy{grid-template-columns:auto minmax(0,1fr)}
+  .v97-route-meta{display:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .journey-top-steps::after,.journey-top-step,.journey-top-dot img{transition:none!important}
+  .journey-top-step.current .journey-top-dot::before{animation:none!important}
+}
+
+
+/* Desktop compact route: strong visual hierarchy without pushing the task below the fold */
+@media(min-width:901px){
+  .journey-top-progress{
+    gap:12px!important;
+    margin-bottom:5px!important;
+    padding:4px 12px!important;
+    border-radius:22px!important;
+  }
+  .journey-top-copy{
+    padding:3px 8px 3px 0!important;
+  }
+  .journey-top-copy small{font-size:8px!important}
+  .journey-top-copy strong{font-size:14px!important}
+  .v97-route-meta{font-size:8px!important;margin-top:1px!important}
+  .journey-top-steps{
+    gap:4px!important;
+    padding:0 2px!important;
+  }
+  .journey-top-steps::before,
+  .journey-top-steps::after{
+    top:30px!important;
+    height:3px!important;
+  }
+  .journey-top-step{
+    min-height:62px!important;
+    grid-template-rows:9px 40px auto!important;
+    gap:0!important;
+    padding:0 1px 2px!important;
+    border-radius:15px!important;
+  }
+  .journey-top-day{font-size:7px!important}
+  .journey-top-dot{
+    width:44px!important;
+    height:40px!important;
+    border-radius:15px!important;
+  }
+  .journey-top-dot img{
+    width:42px!important;
+    height:42px!important;
+  }
+  .journey-top-label{
+    font-size:8px!important;
+    line-height:1!important;
+    max-width:11ch!important;
+  }
+  .journey-top-state{display:none!important}
+  .journey-top-step.done .journey-top-dot img{
+    width:44px!important;
+    height:44px!important;
+  }
+  .journey-top-step.done .journey-top-dot::after{
+    width:15px!important;
+    height:15px!important;
+    right:-1px!important;
+    bottom:-1px!important;
+    font-size:8px!important;
+  }
+  .journey-top-step.current{
+    min-height:64px!important;
+    margin-top:0!important;
+    border-radius:16px!important;
+  }
+  .journey-top-step.current .journey-top-dot{
+    width:50px!important;
+    height:42px!important;
+  }
+  .journey-top-step.current .journey-top-dot::before{
+    inset:0 4px!important;
+    box-shadow:0 0 0 4px rgba(239,191,50,.09)!important;
+  }
+  .journey-top-step.current .journey-top-dot img{
+    width:48px!important;
+    height:48px!important;
+  }
+  .journey-top-step.current .journey-top-label{
+    font-size:8.5px!important;
+  }
+}
