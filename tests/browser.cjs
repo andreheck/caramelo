@@ -42,17 +42,22 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
       const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/comunicador-influente\.svg$/);
+      if(width===390){
+        const railScrollable=await page.evaluate(()=>{
+          const rail=document.querySelector('#methodology #v9ProfileShowcase .v9-profile-rail');
+          return Boolean(rail&&rail.scrollWidth>rail.clientWidth+2);
+        });
+        assert.equal(railScrollable,true,'Methodology profile rail should be horizontally scrollable on mobile');
+      }
       await page.evaluate(()=>window.CARAMELO_APP.go('landing'));
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
           const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
           const nav=document.querySelector('.topbar .nav')?.getBoundingClientRect();
-          const rail=document.querySelector('#methodology #v9ProfileShowcase .v9-profile-rail');
-          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0,railScrollable:Boolean(rail&&rail.scrollWidth>rail.clientWidth+2)};
+          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0};
         });
         assert.ok(mobileHeader.brandBottom<=mobileHeader.navTop+1,`Mobile brand/nav overlap: ${JSON.stringify(mobileHeader)}`);
-        assert.equal(mobileHeader.railScrollable,true,'Mobile profile rail should be horizontally scrollable');
-        records.push({width,check:'mobile topbar uses two non-overlapping rows; profile rail is kept out of the landing',status:'passed'});
+        records.push({width,check:'mobile topbar uses two non-overlapping rows; profiles stay inside methodology',status:'passed'});
       }
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
