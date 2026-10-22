@@ -13,6 +13,19 @@
   let queued=false,lastMobileDay=0;
 
   function setText(el,text){if(el&&el.textContent!==text)el.textContent=text}
+  function ensureTracker(){
+    let tracker=$('#journeyTopProgress');
+    if(tracker)return tracker;
+    const header=$('.topbar');
+    if(!header)return null;
+    tracker=document.createElement('section');
+    tracker.id='journeyTopProgress';
+    tracker.className='journey-top-progress';
+    tracker.setAttribute('aria-label','Rota da jornada Caramelo');
+    tracker.innerHTML='<div class="journey-top-copy"><small id="journeyTopKicker">Sua rota</small><strong id="journeyTopTitle">Mapa vocacional</strong></div><div class="journey-top-steps" id="journeyTopSteps" aria-label="Etapas da jornada"></div>';
+    header.insertAdjacentElement('afterend',tracker);
+    return tracker;
+  }
   function journeyState(){return window.CARAMELO_JOURNEY?.state||{completedDays:[]}}
   function completed(){const d=journeyState().completedDays;return Array.isArray(d)?d:[]}
   function currentDay(){
@@ -41,7 +54,8 @@
   }
 
   function enhanceTracker(){
-    const tracker=$('#journeyTopProgress'),steps=$('#journeyTopSteps');
+    const tracker=ensureTracker();
+    const steps=tracker?$('#journeyTopSteps',tracker):null;
     if(!tracker||!steps)return;
     const current=currentDay();
     if(!current)return;
