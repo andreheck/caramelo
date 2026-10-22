@@ -191,11 +191,11 @@
 
 
 @media(min-width:861px){
-  .journey-top-progress.visible ~ main #quiz.active .question-title{margin-top:12px;margin-bottom:8px}
-  .journey-top-progress.visible ~ main #quiz.active .options-grid,
-  .journey-top-progress.visible ~ main #quiz.active .rank-grid{margin-top:16px}
-  .journey-top-progress.visible ~ main #quiz.active .question-actions,
-  .journey-top-progress.visible ~ main #quiz.active .rank-actions{margin-top:12px}
+  #quiz.active .question-title{margin-top:8px;margin-bottom:6px}
+  #quiz.active .options-grid,
+  #quiz.active .rank-grid{margin-top:14px}
+  #quiz.active .question-actions,
+  #quiz.active .rank-actions{margin-top:10px}
 }
 @media(max-width:860px){
   .journey-top-progress{top:6px;padding:10px 10px 9px;border-radius:18px;grid-template-columns:1fr;gap:8px}
