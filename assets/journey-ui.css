@@ -3,8 +3,8 @@
   position:sticky;
   top:8px;
   z-index:9;
-  margin:0 0 12px;
-  padding:8px 11px;
+  margin:0 0 4px;
+  padding:5px 9px;
   border:1px solid rgba(38,61,54,.12);
   border-radius:20px;
   background:rgba(255,251,241,.94);
@@ -70,7 +70,7 @@
 }
 .journey-top-connector{
   position:absolute;
-  top:23px;
+  top:21px;
   left:-50%;
   right:50%;
   height:3px;
@@ -89,8 +89,8 @@
   z-index:1;
   display:grid;
   place-items:center;
-  width:46px;
-  height:46px;
+  width:43px;
+  height:43px;
   border-radius:18px;
   border:1px solid rgba(34,61,53,.1);
   background:#fffdf7;
@@ -99,8 +99,8 @@
 }
 .journey-top-node img{
   display:block;
-  width:40px;
-  height:40px;
+  width:37px;
+  height:37px;
   object-fit:contain;
 }
 .journey-top-step.future .journey-top-node{
@@ -114,9 +114,9 @@
   border-color:#bdd2c3;
 }
 .journey-top-step.current .journey-top-node{
-  width:56px;
-  height:56px;
-  margin-top:-4px;
+  width:52px;
+  height:52px;
+  margin-top:-3px;
   border-radius:21px;
   background:linear-gradient(145deg,#fff8db,#fffdf7 66%);
   border-color:#e0bd4f;
@@ -124,8 +124,8 @@
   transform:translateY(-1px);
 }
 .journey-top-step.current .journey-top-node img{
-  width:49px;
-  height:49px;
+  width:45px;
+  height:45px;
 }
 .journey-top-check{
   position:absolute;
