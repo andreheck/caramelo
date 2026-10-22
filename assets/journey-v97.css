@@ -82,3 +82,9 @@
   #quiz.active .question-actions,
   #quiz.active .rank-actions{margin-top:10px!important}
 }
+
+
+/* V9.7 route occupies slightly more vertical space than the legacy tracker. */
+@media(min-width:901px){
+  body.v8-question-mode main{height:calc(100dvh - 160px)!important}
+}
