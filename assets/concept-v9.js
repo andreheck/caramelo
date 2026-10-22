@@ -37,6 +37,16 @@
     }).join('')}</div>`;
     const notice=$('.notice',methodology);
     if(notice)notice.insertAdjacentElement('beforebegin',section);else methodology.appendChild(section);
+    const landingFeatures=$('#landing .section-grid.three');
+    if(landingFeatures&&!$('#v97MethodologyLink')){
+      const access=document.createElement('button');
+      access.type='button';
+      access.id='v97MethodologyLink';
+      access.className='v97-methodology-link';
+      access.dataset.go='methodology';
+      access.innerHTML='<span>Quer entender como o Caramelo organiza suas pistas?</span><strong>Entenda como funciona →</strong>';
+      landingFeatures.insertAdjacentElement('afterend',access);
+    }
   }
   function currentQuestionIndex(){
     const direct=window.CARAMELO_APP?.state?.questionIndex;
