@@ -1,19 +1,54 @@
 (()=>{
   const $=(s,r=document)=>r.querySelector(s);
   const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+  const STAGES=[
+    ['Mapa vocacional','assets/journey/day1_badge.svg'],
+    ['Momento atual','assets/journey/day2_badge.svg'],
+    ['Roda da vida','assets/journey/day3_badge.svg'],
+    ['Raciocínio','assets/journey/day4_badge.svg'],
+    ['Leitura','assets/journey/day5_badge.svg'],
+    ['Preparação','assets/journey/day6_badge.svg'],
+    ['Mapa do corre','assets/journey/day7_badge.svg']
+  ];
   let queued=false,lastMobileDay=0;
 
   function setText(el,text){if(el&&el.textContent!==text)el.textContent=text}
   function journeyState(){return window.CARAMELO_JOURNEY?.state||{completedDays:[]}}
   function completed(){const d=journeyState().completedDays;return Array.isArray(d)?d:[]}
+  function currentDay(){
+    const direct=Number(document.body.dataset.v93Day||0);
+    if(direct>=1&&direct<=7)return direct;
+    const view=document.querySelector('.view.active')?.id;
+    const map={onboarding:1,quiz:1,results:1,emotion:2,'emotion-result':2,'life-wheel':3,'life-wheel-result':3,reasoning:4,'reasoning-result':4,reading:5,'reading-result':5,readiness:6,'readiness-result':6,'final-map':7,journey:Math.min(7,completed().length+1)};
+    return Number(map[view]||0);
+  }
+  function ownRouteMarkup(steps,current){
+    const doneDays=completed();
+    const existing=[...steps.querySelectorAll('.journey-top-step')];
+    const needsMarkup=existing.length!==7||existing.some(card=>!card.querySelector('.journey-top-dot img'));
+    if(needsMarkup){
+      steps.innerHTML=STAGES.map(([label,badge],index)=>{
+        const day=index+1;
+        return '<div class="journey-top-step" data-day="'+day+'"><span class="journey-top-dot"><img src="'+badge+'" alt=""></span><span class="journey-top-label">'+label+'</span></div>';
+      }).join('');
+    }
+    [...steps.querySelectorAll('.journey-top-step')].forEach((card,index)=>{
+      const day=index+1,done=doneDays.includes(day)||day<current,isCurrent=day===current;
+      card.classList.toggle('current',isCurrent);
+      card.classList.toggle('done',!isCurrent&&done);
+      card.classList.toggle('future',!isCurrent&&!done);
+    });
+  }
 
   function enhanceTracker(){
     const tracker=$('#journeyTopProgress'),steps=$('#journeyTopSteps');
     if(!tracker||!steps)return;
-    const cards=$$('.journey-top-step',steps);
-    if(cards.length!==7)return;
-    const current=cards.findIndex(card=>card.classList.contains('current'))+1;
+    const current=currentDay();
     if(!current)return;
+    ownRouteMarkup(steps,current);
+    const cards=$('.journey-top-step',steps);
+    if(cards.length!==7)return;
+    tracker.classList.add('visible');
 
     const title=$('#journeyTopTitle',tracker),kicker=$('#journeyTopKicker',tracker);
     const currentLabel=$('.journey-top-label',cards[current-1])?.textContent?.trim()||'Sua etapa';
