@@ -60,7 +60,7 @@
     const current=currentDay();
     if(!current){tracker.classList.remove('visible');return;}
     ownRouteMarkup(steps,current);
-    const cards=$('.journey-top-step',steps);
+    const cards=$$('.journey-top-step',steps);
     if(cards.length!==7)return;
     tracker.classList.add('visible');
 
