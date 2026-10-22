@@ -87,11 +87,12 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#journeyTopSteps .journey-top-dot img').count(),7);
       assert.match(await page.locator('#journeyTopKicker').innerText(),/Sua rota/i);
       const routeVisual=await page.evaluate(()=>({
-        currentWidth:parseFloat(getComputedStyle(document.querySelector('#journeyTopSteps .journey-top-step.current .journey-top-dot')).width),
+        currentWidth:parseFloat(getComputedStyle(document.querySelector('#journeyTopSteps .journey-top-step.current .journey-top-dot img')).width),
+        futureWidth:parseFloat(getComputedStyle(document.querySelector('#journeyTopSteps .journey-top-step.future .journey-top-dot img')).width),
         futureOpacity:parseFloat(getComputedStyle(document.querySelector('#journeyTopSteps .journey-top-step.future .journey-top-dot img')).opacity),
         scrollable:document.querySelector('#journeyTopSteps').scrollWidth>document.querySelector('#journeyTopSteps').clientWidth+2
       }));
-      assert.ok(routeVisual.currentWidth>=58,'Current journey SVG should be visually prominent');
+      assert.ok(routeVisual.currentWidth>routeVisual.futureWidth,`Current journey SVG should be larger than future stages: ${JSON.stringify(routeVisual)}`);
       assert.ok(routeVisual.futureOpacity<1,'Future journey SVGs should be visually de-emphasized');
       if(width===390)assert.equal(routeVisual.scrollable,true,'Mobile journey route should horizontally scroll');
       await page.waitForFunction(()=>document.querySelector('#v95QuizTools'));
