@@ -24,7 +24,7 @@
     if(strong)strong.textContent='Escolha pelo que combina mais com você.';
   }
   function restoreCommunicator(){
-    $('#v9ProfileShowcase .v9-profile-mini').forEach(card=>{
+    $$('#v9ProfileShowcase .v9-profile-mini').forEach(card=>{
       if(card.querySelector('strong')?.textContent?.trim()!=='Comunicador Influente')return;
       const img=$('img',card);if(img){img.src='assets/profiles/comunicador-influente.svg';img.classList.add('v91-communicator-svg')}
     });
