@@ -22,7 +22,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     try {
       mark('initial load');
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93);
+      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
       await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
@@ -82,6 +82,9 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.locator('#startQuizBtn').click();
       await page.waitForFunction(()=>document.querySelector('.view.active')?.dataset.v93Day==='1');
       assert.equal(await page.locator('.view.active').getAttribute('data-v93-day'),'1');
+      await page.waitForFunction(()=>document.querySelector('#v95QuizTools'));
+      assert.equal(await page.locator('#v95PauseBtn').count(),1,'Day 1 should allow pausing and resuming later');
+      assert.match(await page.locator('#v95SaveState').innerText(),/Salvo neste navegador|Salvamento indisponível/);
       assert.ok(await page.locator('#v81SoundToggle').count(),'V8.1 sound control should exist');
       assert.match(await page.locator('#v81SoundToggle').getAttribute('aria-pressed'),/true|false/);
       await page.waitForFunction(()=>document.querySelector('#v81PhaseOverlay')?.dataset.day==='1');
@@ -103,10 +106,27 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       mark('day 1: 50 items and reload');
       for(let i=0;i<questions.length;i++){
         const q=questions[i];
-        if(q.type==='ranking') for(let j=0;j<q.count;j++) await page.locator(`[data-rank-index="${j}"]`).click();
-        else await page.locator('[data-option-index="0"]').click();
+        if(q.type==='ranking'){
+          for(let j=0;j<q.count;j++) await page.locator(`[data-rank-index="${j}"]`).click();
+          assert.match(await page.locator('.v95-ranking-count').innerText(),new RegExp(q.count+' de '+q.count));
+        } else await page.locator('[data-option-index="0"]').click();
+        if(i===0){
+          await page.locator('#v95PauseBtn').click();
+          await page.locator('#landing.active').waitFor();
+          await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);
+          await page.locator('#v93ResumeButton').click();
+          await page.locator('#quiz.active').waitFor();
+          assert.equal(await page.evaluate(()=>window.CARAMELO_APP.state.questionIndex),0);
+        }
         await page.locator('#nextQuestionBtn').click();
-        if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7&&window.CARAMELO_V93);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);await page.evaluate(()=>window.CARAMELO_APP.go('landing'));await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);assert.match((await page.locator('#v93Resume').innerText()),/Pergunta 11 de 50/);await page.locator('#v93ResumeButton').click();await page.waitForFunction(()=>document.querySelector('#quiz.active'));assert.equal(await page.evaluate(()=>window.CARAMELO_APP.state.questionIndex),10);}
+        if(await page.locator('#v95ChapterBreak.is-open').count()){
+          if(i===9){
+            assert.match(await page.locator('#v95ChapterBreak').innerText(),/Parte 1 de 5 concluída/i);
+            assert.match(await page.locator('#v95ChapterNext').innerText(),/Como resolvo problemas/i);
+          }
+          await page.locator('#v95ChapterContinue').click();
+        }
+        if(i===9){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.CARAMELO_DAY7&&window.CARAMELO_V93&&window.CARAMELO_V95);assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('caramelo:v4:state')).questionIndex),10);await page.evaluate(()=>window.CARAMELO_APP.go('landing'));await page.waitForFunction(()=>!document.querySelector('#v93Resume')?.hidden);assert.match((await page.locator('#v93Resume').innerText()),/Pergunta 11 de 50/);await page.locator('#v93ResumeButton').click();await page.waitForFunction(()=>document.querySelector('#quiz.active'));assert.equal(await page.evaluate(()=>window.CARAMELO_APP.state.questionIndex),10);}
       }
       await page.locator('#results.active').waitFor();
       if(width===1280){
@@ -234,7 +254,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
   const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
   await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93);
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95);
   await compactPage.locator('#landing [data-go="onboarding"]').click();
   await compactPage.locator('#startQuizBtn').click();
   const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
