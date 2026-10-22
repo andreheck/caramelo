@@ -84,7 +84,10 @@
     tracker.id = 'journeyTopProgress';
     tracker.className = 'journey-top-progress';
     tracker.setAttribute('aria-label', 'Linha do tempo da jornada Caramelo');
-    tracker.innerHTML = `<div class="journey-top-copy"><small id="journeyTopKicker">Você está aqui</small><strong id="journeyTopTitle">Dia 1 de 7</strong></div><div class="journey-top-steps" id="journeyTopSteps"></div>`;
+    tracker.innerHTML = `<div class="journey-top-current">
+      <div class="journey-top-current-art" aria-hidden="true"><span class="journey-top-current-halo"></span><img id="journeyTopCurrentBadge" src="assets/journey/day1_badge.svg" alt=""></div>
+      <div class="journey-top-copy"><small id="journeyTopKicker">Etapa atual</small><strong id="journeyTopTitle">Mapa vocacional</strong><span id="journeyTopMeta">Em andamento</span></div>
+    </div><div class="journey-top-steps" id="journeyTopSteps" aria-label="Rota da jornada"></div>`;
     header.insertAdjacentElement('afterend', tracker);
     return tracker;
   }
@@ -98,14 +101,26 @@
     if (!day) { tracker.classList.remove('visible'); return; }
     tracker.classList.add('visible');
     const stage = STAGES[day];
-    $('#journeyTopKicker').textContent = view === 'journey' ? 'Próxima etapa' : 'Você está aqui';
-    $('#journeyTopTitle').textContent = `Dia ${day} de 7 · ${stage.short}`;
+    const pct = stagePercent(view);
+    const doneDays = completedDays();
+    $('#journeyTopKicker').textContent = view === 'journey' ? 'Próxima direção' : 'Etapa atual';
+    $('#journeyTopTitle').textContent = stage.short;
+    $('#journeyTopMeta').textContent = pct >= 100 ? 'Etapa concluída' : `Etapa ${day} · ${pct}% em andamento`;
+    const currentBadge = $('#journeyTopCurrentBadge');
+    if (currentBadge) currentBadge.src = stage.badge;
+    tracker.dataset.currentDay = String(day);
     $('#journeyTopSteps').innerHTML = Object.entries(STAGES).map(([key, item]) => {
       const n = Number(key);
-      const done = completedDays().includes(n) || n < day;
+      const done = doneDays.includes(n) || n < day;
       const current = n === day;
       const cls = current ? 'current' : done ? 'done' : 'future';
-      return `<div class="journey-top-step ${cls}" aria-label="Dia ${n}: ${item.short}${current ? ', etapa atual' : done ? ', concluído' : ''}"><span class="journey-top-dot"><img src="${item.badge}" alt=""></span><span class="journey-top-label">${item.short}</span></div>`;
+      return `<div class="journey-top-step ${cls}" data-route-day="${n}" aria-label="Etapa ${n}: ${item.short}${current ? ', atual' : done ? ', concluída' : ', futura'}">
+        <span class="journey-top-node">
+          <span class="journey-top-dot"><img src="${item.badge}" alt=""></span>
+          <span class="journey-top-state" aria-hidden="true">${done && !current ? '✓' : current ? '•' : ''}</span>
+        </span>
+        <span class="journey-top-label">${item.short}</span>
+      </div>`;
     }).join('');
   }
 
