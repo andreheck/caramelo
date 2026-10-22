@@ -137,6 +137,8 @@
   }
 
   new MutationObserver(queue).observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class']});
+  document.addEventListener('click',()=>setTimeout(queue,0),true);
+  document.addEventListener('change',()=>setTimeout(queue,0),true);
   window.addEventListener('load',queue);
   window.addEventListener('resize',queue,{passive:true});
   sync();
