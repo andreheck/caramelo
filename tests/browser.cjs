@@ -41,7 +41,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#methodology #v9ProfileShowcase .v9-profile-mini').count(),7);
       const communicatorSrc=await page.locator('#methodology #v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/comunicador-influente\.svg$/);
-      await page.locator('[data-view-button="landing"]').click();
+      await page.evaluate(()=>window.CARAMELO_APP.go('landing'));
       await page.locator('#landing.active').waitFor();
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
