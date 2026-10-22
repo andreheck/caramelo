@@ -1,0 +1,161 @@
+/* CARAMELO V9.6 — pilot visual candidate */
+:root{--v96-ease:cubic-bezier(.2,.78,.2,1)}
+
+/* Dedicated Communicator artwork: keep vector crisp and uncropped */
+.v91-communicator-svg,
+.profile-visual[data-profile="comunicador-influente"] .profile-visual-image{
+  object-fit:contain!important;
+  object-position:center!important;
+  background:linear-gradient(145deg,#fff5d8,#e7eef9 58%,#e7f2e8)!important;
+  padding:4px;
+}
+.v9-profile-mini img[src$="comunicador-influente.svg"]{
+  object-fit:contain;
+  background:linear-gradient(145deg,#fff5d8,#edf3ff 60%,#e9f6ed);
+  padding:4px;
+}
+
+/* Chapter breaks gain distinct but coherent identities */
+#v95ChapterBreak{--v96-chapter:#2457c5;--v96-chapter-soft:#edf3ff;--v96-chapter-ink:#173d35}
+#v95ChapterBreak[data-from-chapter="0"]{--v96-chapter:#2457c5;--v96-chapter-soft:#edf3ff}
+#v95ChapterBreak[data-from-chapter="1"]{--v96-chapter:#8a4fe3;--v96-chapter-soft:#f4edff}
+#v95ChapterBreak[data-from-chapter="2"]{--v96-chapter:#0a7e4c;--v96-chapter-soft:#edf8f2}
+#v95ChapterBreak[data-from-chapter="3"]{--v96-chapter:#c9792c;--v96-chapter-soft:#fff2e6}
+#v95ChapterBreak .v95-chapter-card{
+  background:
+    radial-gradient(circle at 86% 12%,color-mix(in srgb,var(--v96-chapter) 17%,transparent),transparent 33%),
+    radial-gradient(circle at 10% 90%,color-mix(in srgb,var(--v96-chapter) 10%,transparent),transparent 36%),
+    #fffaf0;
+}
+#v95ChapterBreak .v95-chapter-mark{
+  background:var(--v96-chapter);
+  box-shadow:0 13px 28px color-mix(in srgb,var(--v96-chapter) 25%,transparent);
+}
+#v95ChapterBreak .v95-chapter-mark::after{background:#fffaf0;color:var(--v96-chapter);border-color:var(--v96-chapter)}
+#v95ChapterBreak .v95-chapter-copy small{color:var(--v96-chapter)}
+#v95ChapterBreak .v95-chapter-next{background:var(--v96-chapter-soft);border-color:color-mix(in srgb,var(--v96-chapter) 16%,transparent)}
+#v95ChapterBreak .v95-chapter-dots span.done{background:color-mix(in srgb,var(--v96-chapter) 66%,#8aa17f)}
+#v95ChapterBreak .v95-chapter-dots span.next{background:var(--v96-chapter)}
+#v95ChapterBreak #v95ChapterContinue{background:var(--v96-chapter);border-color:var(--v96-chapter)}
+.v96-chapter-label{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-top:8px;
+  padding:6px 8px;
+  border-radius:999px;
+  background:var(--v96-chapter-soft);
+  color:var(--v96-chapter);
+  font-size:9px;
+  font-weight:900;
+}
+.v96-chapter-label svg{width:14px;height:14px}
+
+/* Result quick navigation */
+.v96-result-nav{
+  display:none;
+  gap:6px;
+  margin:10px 0 13px;
+  padding:6px;
+  overflow-x:auto;
+  border:1px solid #eadfc6;
+  border-radius:16px;
+  background:rgba(255,253,248,.92);
+  scrollbar-width:none;
+}
+.v96-result-nav::-webkit-scrollbar{display:none}
+.v96-result-nav button{
+  flex:0 0 auto;
+  min-height:38px;
+  border:1px solid rgba(23,61,53,.1);
+  border-radius:11px;
+  padding:7px 10px;
+  background:white;
+  color:#52635c;
+  font:inherit;
+  font-size:10px;
+  font-weight:850;
+  cursor:pointer;
+}
+.v96-result-nav button[aria-current="true"]{
+  color:#174d40;
+  border-color:#bcd6ca;
+  background:#edf7f1;
+}
+.v96-result-section-label{
+  display:none;
+  margin:0 0 8px;
+  color:#8a745a;
+  font-size:9px;
+  font-weight:950;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.v96-result-mobile-intro{
+  display:none;
+  margin:0 0 10px;
+  padding:11px 12px;
+  border-radius:15px;
+  background:#fff7df;
+  color:#5f625b;
+  font-size:10px;
+  line-height:1.45;
+  border:1px solid #eee0b6;
+}
+.v96-result-mobile-intro strong{color:#173d35}
+
+/* Clearer mobile result sequence: profile -> compass -> axes -> actions */
+@media(max-width:620px){
+  #results.active .result-main{padding:16px!important}
+  #results.active #results-title{font-size:34px;line-height:1;margin-bottom:4px}
+  #results.active .v96-result-nav{display:flex;position:sticky;top:112px;z-index:9;backdrop-filter:blur(10px)}
+  #results.active .v96-result-mobile-intro{display:block}
+  #v8ResultDashboard{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:9px!important;
+  }
+  #v8ResultDashboard #profileVisualDay1{order:1!important}
+  #v8ResultDashboard #resultRingsDay1{order:2!important}
+  #v8ResultDashboard #v9AxisSummary{order:3!important}
+  #v8ResultDashboard #profileVisualDay1,
+  #v8ResultDashboard #resultRingsDay1,
+  #v8ResultDashboard #v9AxisSummary{width:100%}
+  #v8ResultDashboard .profile-visual{margin:0!important;border-radius:20px!important}
+  #v8ResultDashboard .profile-visual-art{min-height:205px!important}
+  #v8ResultDashboard .profile-visual-copy{padding:15px!important}
+  #v8ResultDashboard .profile-visual-copy h3{font-size:28px!important}
+  #v8ResultDashboard .profile-visual-copy p{font-size:12px!important;line-height:1.45!important}
+  #v8ResultDashboard .profile-visual-tags{margin-top:9px!important}
+  #v8ResultDashboard .profile-visual-tag{font-size:9px!important;padding:6px 8px!important}
+  #v8ResultDashboard .result-rings-card{margin:0!important;border-radius:20px!important}
+  #v8ResultDashboard .result-rings-watch{width:min(270px,88vw)!important}
+  #v9AxisSummary{border-radius:20px!important;padding:13px!important}
+  #v9AxisSummary .v9-axis-head strong{font-size:20px}
+  #v9AxisSummary .v9-axis-head p{font-size:10px}
+  #v9AxisSummary .bar-row{grid-template-columns:minmax(82px,1fr) minmax(80px,1.2fr) 34px!important;font-size:10px!important}
+  #results.active .actions{
+    display:grid!important;
+    grid-template-columns:1fr 1fr;
+    gap:7px!important;
+    margin-top:12px;
+  }
+  #results.active .actions .btn{
+    width:100%;
+    min-height:46px;
+    padding:9px 10px;
+    font-size:10px;
+  }
+  #results.active #v9ProfileDetailBtn{grid-column:1/-1}
+  #results.active .v96-result-section-label{display:block}
+}
+
+@media(max-width:380px){
+  #results.active .v96-result-nav{top:108px}
+  #results.active .actions{grid-template-columns:1fr}
+  #results.active #v9ProfileDetailBtn{grid-column:auto}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .v96-result-nav{backdrop-filter:none!important}
+}
