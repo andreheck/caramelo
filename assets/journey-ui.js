@@ -64,6 +64,10 @@
   }
 
   function render() {
+    if (window.CARAMELO_TIMELINE_ART) {
+      window.CARAMELO_TIMELINE_ART.refresh?.();
+      return;
+    }
     const tracker = ensureTracker();
     if (!tracker) return;
     const view = activeViewId();
