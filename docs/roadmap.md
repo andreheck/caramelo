@@ -47,6 +47,16 @@ O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferi
 - [x] V9.3: Quality Gate completo e integração à main.
 - [ ] Refinar arte exclusiva do Comunicador Influente e resolução final das sete artes.
 
+## Journey map — V9.7
+
+- [x] Redesenhar a trilha superior como rota visual, valorizando os SVGs das sete etapas.
+- [x] Destacar claramente etapa atual, concluídas e futuras.
+- [x] Criar comportamento horizontal próprio no mobile.
+- [x] Remover a taxonomia dos sete perfis da landing.
+- [x] Realocar os perfis para a área de Metodologia.
+- [ ] Aprovar Quality Gate completo da V9.7 e integrar à main.
+- [ ] Publicar alias limpo de piloto para substituir a nomenclatura legada v7-preview.
+
 ## Pilot visual — V9.6
 
 - [x] Aplicar arte exclusiva do Comunicador Influente em landing, perguntas e resultados.
