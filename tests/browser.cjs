@@ -35,7 +35,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#landing .v92-compass-needle').getAttribute('src'),'assets/journey/compass_needle.svg');
       assert.equal(await page.locator('#v93Resume').count(),1,'V9.3 resume control should exist');
       assert.equal(await page.locator('#v93Resume').getAttribute('hidden'),'','Fresh journey should keep resume control hidden');
-      await page.locator('[data-view-button="methodology"]').click();
+      await page.locator('#v97MethodologyLink').click();
       await page.locator('#methodology.active').waitFor();
       await page.waitForFunction(()=>document.querySelectorAll('#methodology #v9ProfileShowcase .v9-profile-mini').length===7);
       assert.equal(await page.locator('#methodology #v9ProfileShowcase .v9-profile-mini').count(),7);
