@@ -1,12 +1,13 @@
 # Backlog único do Caramelo
 
-Atualizado em 21/09/2026. Esta é a fonte consolidada de retomada dos dois chats. Implementação não significa validação psicométrica. Alterações do PR #15 permanecem fora da main enquanto o PR estiver aberto.
+Atualizado em 21/10/2026. Esta é a fonte consolidada de retomada do projeto. Implementação não significa validação psicométrica. A baseline atual da main é a V9.2; a V9.3 está em desenvolvimento na branch de experiência.
 
 ## Controle das próximas entregas
 
-- **#16 — Fechamento técnico, homologação e publicação da prévia.** Resultados da última rodada ficam registrados nessa issue e no PR #15.
-- **#17 — Revisão de conteúdo e interpretação antes do piloto.**
-- **#18 — Sete artes finais e homologação visual.**
+- **#16 — Fechamento técnico, homologação e publicação da prévia.** Integração técnica e publicação já concluídas; restam apenas validações humanas em dispositivo físico/leitor de tela.
+- **#17 — Revisão de conteúdo e interpretação antes do piloto.** Continua como frente metodológica principal.
+- **#18 — Sete artes finais e homologação visual.** Estrutura implementada; ainda falta arte exclusiva do Comunicador Influente e revisão editorial final do conjunto.
+- **V9.3 — Continuidade e experiência.** Retomada inteligente, feedback de conclusão e personalidade de movimento por dia.
 
 ## Implementado antes desta retomada
 
@@ -34,6 +35,18 @@ Atualizado em 21/09/2026. Esta é a fonte consolidada de retomada dos dois chats
 
 O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferidos por execução/commit em **#16**, evitando interpretar apenas a presença de um teste como aprovação.
 
+## Evolução visual e de interação — V9.1 a V9.3
+
+- [x] V9.1 integrada à main com hero editorial, resultado em três painéis e galeria de perfis.
+- [x] V9.2 integrada à main com bússola SVG animada, transições entre telas e microinterações.
+- [x] Preview público sincronizado com a main na Vercel.
+- [x] V9.2 aprovada em CI, auditoria e percurso completo de navegador.
+- [x] V9.3: retomada inteligente de progresso adicionada.
+- [x] V9.3: identidade de movimento por dia adicionada.
+- [x] V9.3: feedback visual de seleção e conclusão de etapa adicionado.
+- [ ] V9.3: Quality Gate completo e integração à main.
+- [ ] Refinar arte exclusiva do Comunicador Influente e resolução final das sete artes.
+
 ## Homologação e distribuição — #16
 
 - [x] Revisar o percurso visual em capturas do commit homologado; evidência em `docs/homologacao-visual-tecnica-2026-09-21.md`.
@@ -41,8 +54,9 @@ O resultado da rodada ampliada 1–7 e a existência do pacote devem ser conferi
 - [x] Testar foto opcional, clipboard real, reinício complementar, reinício completo e armazenamento indisponível.
 - [x] Homologar por automação teclado/foco, nomes acessíveis, referências ARIA e contraste central da paleta.
 - [ ] Fazer validação humana em celulares físicos e com leitor de tela.
-- [ ] Aprovar revisão do PR e integração à main.
-- [ ] Publicar endereço da prévia identificada e registrar suas limitações.
+- [x] Aprovar revisão dos PRs técnicos/visuais e integrar à main.
+- [x] Publicar endereço da prévia identificada e registrar a baseline de versão.
+- [ ] Fazer rodada humana final em celular físico e leitor de tela.
 
 ## Conteúdo e interpretação — #17
 
