@@ -29,13 +29,25 @@
     }
   }
   function buildProfileShowcase(){
-    const landing=$('#landing'),features=$('#landing .section-grid.three');if(!landing||!features||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
-    const section=document.createElement('section');section.id='v9ProfileShowcase';section.className='v9-profile-showcase';
-    section.innerHTML=`<div class="v9-profile-showcase-head"><div><h2>Os 7 perfis do Caramelo</h2><p>Cada perfil representa uma forma de se relacionar com o mundo, aprender e construir o seu caminho.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
+    const methodology=$('#methodology .prose');if(!methodology||!D?.profiles?.length||$('#v9ProfileShowcase'))return;
+    const section=document.createElement('details');section.id='v9ProfileShowcase';section.className='v9-profile-showcase v97-profile-library';
+    section.innerHTML=`<summary><span><small>material de apoio</small><strong>Perfis interpretativos do Caramelo</strong></span><span class="v97-profile-summary-action">Explorar</span></summary><div class="v9-profile-showcase-head"><div><p>Os perfis organizam padrões encontrados no mapa para facilitar a leitura e a exploração de possibilidades. Eles não são rótulos fixos.</p></div></div><div class="v9-profile-rail">${D.profiles.map((p,i)=>{
       const [bg,accent]=CARD_TOKENS[i%CARD_TOKENS.length];
       const artSrc=p.id==='comunicador-influente'?'assets/profiles/comunicador-influente.svg':`assets/profiles/${p.id}.webp`;return `<article class="v9-profile-mini" style="--v9-card:${bg};--v9-accent:${accent}"><img loading="lazy" src="${artSrc}" alt="Ilustração do perfil ${p.title}"><div class="v9-profile-mini-copy"><strong>${p.title}</strong><span>${PROFILE_COPY[p.id]||p.summary}</span></div></article>`;
     }).join('')}</div>`;
-    features.insertAdjacentElement('afterend',section);
+    const notice=$('.notice',methodology);
+    if(notice)notice.insertAdjacentElement('beforebegin',section);else methodology.appendChild(section);
+    const landingFeatures=$('#landing .section-grid.three');
+    if(landingFeatures&&!$('#v97MethodologyLink')){
+      const access=document.createElement('button');
+      access.type='button';
+      access.id='v97MethodologyLink';
+      access.className='v97-methodology-link';
+      access.dataset.go='methodology';
+      access.innerHTML='<span>Quer entender como o Caramelo organiza suas pistas?</span><strong>Entenda como funciona →</strong>';
+      access.addEventListener('click',()=>window.CARAMELO_APP?.go('methodology'));
+      landingFeatures.insertAdjacentElement('afterend',access);
+    }
   }
   function currentQuestionIndex(){
     const direct=window.CARAMELO_APP?.state?.questionIndex;

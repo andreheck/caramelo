@@ -22,11 +22,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
     try {
       mark('initial load');
       await page.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96);
+      await page.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_DAY6 && window.CARAMELO_JOURNEY && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96 && window.CARAMELO_V97);
       assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+2),'Landing overflows horizontally');
-      await page.waitForFunction(()=>document.querySelectorAll('#v9ProfileShowcase .v9-profile-mini').length===7);
       await page.screenshot({path:`reports/browser/landing-${width}.png`,fullPage:true});
-      assert.equal(await page.locator('#v9ProfileShowcase .v9-profile-mini').count(),7);
+      assert.equal(await page.locator('#landing #v9ProfileShowcase').count(),0,'Profile library should not live on the landing');
       assert.equal(await page.locator('#landing .v9-hero-benefit').count(),4);
       await page.waitForFunction(()=>document.querySelectorAll('#landing .v91-hero-mosaic img').length===4);
       assert.equal(await page.locator('#landing .v91-hero-mosaic img').count(),4);
@@ -36,18 +35,22 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       assert.equal(await page.locator('#landing .v92-compass-needle').getAttribute('src'),'assets/journey/compass_needle.svg');
       assert.equal(await page.locator('#v93Resume').count(),1,'V9.3 resume control should exist');
       assert.equal(await page.locator('#v93Resume').getAttribute('hidden'),'','Fresh journey should keep resume control hidden');
-      const communicatorSrc=await page.locator('#v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
+      await page.locator('#v97MethodologyLink').click();
+      await page.locator('#methodology.active').waitFor();
+      await page.waitForFunction(()=>document.querySelectorAll('#methodology #v9ProfileShowcase .v9-profile-mini').length===7);
+      assert.equal(await page.locator('#methodology #v9ProfileShowcase .v9-profile-mini').count(),7);
+      const communicatorSrc=await page.locator('#methodology #v9ProfileShowcase .v9-profile-mini').filter({hasText:'Comunicador Influente'}).locator('img').getAttribute('src');
       assert.match(communicatorSrc,/comunicador-influente\.svg$/);
+      await page.evaluate(()=>window.CARAMELO_APP.go('landing'));
+      await page.locator('#landing.active').waitFor();
       if(width===390){
         const mobileHeader=await page.evaluate(()=>{
           const brand=document.querySelector('.topbar .brand')?.getBoundingClientRect();
           const nav=document.querySelector('.topbar .nav')?.getBoundingClientRect();
-          const rail=document.querySelector('#v9ProfileShowcase .v9-profile-rail');
-          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0,railScrollable:Boolean(rail&&rail.scrollWidth>rail.clientWidth+2)};
+          return {brandBottom:brand?.bottom||0,navTop:nav?.top||0};
         });
         assert.ok(mobileHeader.brandBottom<=mobileHeader.navTop+1,`Mobile brand/nav overlap: ${JSON.stringify(mobileHeader)}`);
-        assert.equal(mobileHeader.railScrollable,true,'Mobile profile rail should be horizontally scrollable');
-        records.push({width,check:'mobile topbar uses two non-overlapping rows and profile rail becomes a compact carousel',status:'passed'});
+        records.push({width,check:'mobile topbar uses two non-overlapping rows; profile library removed from landing',status:'passed'});
       }
       if(width===1280){
         mark('keyboard, focus, semantics and palette contrast');
@@ -82,6 +85,10 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
       await page.locator('#startQuizBtn').click();
       await page.waitForFunction(()=>document.querySelector('.view.active')?.dataset.v93Day==='1');
       assert.equal(await page.locator('.view.active').getAttribute('data-v93-day'),'1');
+      await page.waitForFunction(()=>document.querySelector('#journeyTopProgress.visible')&&document.querySelector('#journeyTopCurrentBadge'));
+      assert.equal(await page.locator('#journeyTopSteps .journey-top-step').count(),7);
+      assert.equal(await page.locator('#journeyTopSteps .journey-top-step.current').count(),1);
+      assert.match(await page.locator('#journeyTopCurrentBadge').getAttribute('src'),/day1_badge\.svg$/);
       await page.waitForFunction(()=>document.querySelector('#v95QuizTools'));
       assert.equal(await page.locator('#v95PauseBtn').count(),1,'Day 1 should allow pausing and resuming later');
       assert.match(await page.locator('#v95SaveState').innerText(),/Salvo neste navegador|Salvamento indisponível/);
@@ -267,7 +274,7 @@ async function ready(){for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0
   const compactPage=await compactContext.newPage(); compactPage.setDefaultTimeout(10000);
   const compactErrors=[]; compactPage.on('pageerror',e=>compactErrors.push(e.message));
   await compactPage.goto('http://127.0.0.1:8765',{waitUntil:'domcontentloaded'});
-  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96);
+  await compactPage.waitForFunction(()=>window.CARAMELO_DAY7 && window.CARAMELO_V81 && window.CARAMELO_V92 && window.CARAMELO_V93 && window.CARAMELO_V95 && window.CARAMELO_V96 && window.CARAMELO_V97);
   await compactPage.locator('#landing [data-go="onboarding"]').click();
   await compactPage.locator('#startQuizBtn').click();
   const compactQuestion=await compactPage.evaluate(()=>({bottom:document.querySelector('#questionHost .question-actions')?.getBoundingClientRect().bottom||9999,height:innerHeight}));
