@@ -92,6 +92,10 @@
   function renderTopTracker() {
     const tracker = ensureTopTracker();
     if (!tracker) return;
+    if (tracker.querySelector('.journey-top-context')) {
+      window.CARAMELO_JOURNEY_UI?.render?.();
+      return;
+    }
     const view = activeViewId();
     if (HIDDEN_VIEWS.has(view)) { tracker.classList.remove('visible'); return; }
     const day = currentDay(view);

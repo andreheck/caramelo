@@ -13,7 +13,7 @@
     };
   }
 
-  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css','assets/mobile-v1.css','assets/refine-v7.css','assets/refine-v8.css','assets/polish-v81.css','assets/concept-v9.css','assets/polish-v91.css','assets/motion-v92.css','assets/experience-v93.css','assets/pilot-v95.css','assets/pilot-visual-v96.css'].forEach(href=>{
+  ['assets/journey-ui.css','assets/visual-v1.css','assets/result-rings.css','assets/profile-visuals.css','assets/mobile-v1.css','assets/refine-v7.css','assets/refine-v8.css','assets/polish-v81.css','assets/concept-v9.css','assets/polish-v91.css','assets/motion-v92.css','assets/experience-v93.css','assets/pilot-v95.css','assets/pilot-visual-v96.css','assets/journey-v97.css'].forEach(href=>{
     if(document.querySelector(`link[href="${href}"]`)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
